@@ -1,0 +1,53 @@
+/**
+ *
+ * You can write your CSS code here, DO NOT touch the default JavaScript file
+ * because it will make it harder for you to update.
+ *
+ */
+
+/*# sourceMappingURL=custom.css.map */
+.navbar-bg{
+    /*background-color: #34395e;*/
+}
+
+select.form-control-sm{
+    font-size: 14px;
+    padding: .25rem 0.8rem !important;
+    /*height: inherit !important;*/
+}
+
+.file-upload {
+    /*display: none;*/
+    margin-left: -90px;
+    margin-top: 3px;
+    position: absolute;
+    z-index: 1;
+    box-shadow: none;
+
+
+}
+
+
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    background-color: white;
+    position: relative;
+    z-index: 5;
+}
+
+
+.invalid-feedback-polyfill {
+    display: block !important;
+    width: 100% !important;
+    margin-top: 0.25rem !important;
+    font-size: 80% !important;
+    color: #dc3545 !important;
+}
+
+.map-input{
+    width:200px;
+    top:10px !important;
+}
