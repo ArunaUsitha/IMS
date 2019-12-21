@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Supplier;
+use App\SystemCode;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -190,6 +191,7 @@ class SupplierController extends Controller
                 ''
             ));
         }
+
 
 
         activity()->by(Auth::id())->log('Used quick update to update the Supplier with ID '.$supplier_id);

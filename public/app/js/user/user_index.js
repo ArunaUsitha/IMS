@@ -1,53 +1,3 @@
-
-
-
-// let dTable = $('#tblUserOverview').DataTable({
-//     responsive: true,
-//     autoWidth: false, // full width fix bootstrap 4
-//     // searching:false
-//     dom: 'lrtip',
-//     ajax:  {
-//         url: 'getAllUsersNRoles',
-//         dataSrc: 'users',
-//         type: 'get',
-//         "fnServerData": function ( sSource, aoData, fnCallback ) {
-//
-//             console.log(aoData)
-//             var returnData = [];
-//             for (var i = 0; i < aoData.length; i++) {
-//                 //makes the data an array of arrays
-//                 returnData.push($.makeArray(aoData[i]));
-//             }
-//
-//             $.getJSON( sSource, returnData , function (json) {
-//                 /* Do whatever additional processing you want on the callback, then
-//                tell DataTables */
-//                 console.log(sSource,returnData);
-//                 fnCallback(json)
-//             } );
-//         }
-//     },
-//
-//     columns: [
-//         { data: "Name" },
-//         { data: "Total" },
-//         { data: "Passed" },
-//         { data: "Failed" }
-//     ]
-// });
-
-var DtableDefaultSetting = {
-    "bProcessing": false,
-    "bServerSide": false,
-    language: {
-        // processing: "<div class=\"dot-floating\"></div>",
-        loadingRecords : "<img src="+ base_url +'/images/app_data/preloaders/double_ring_s.gif'+">"
-    },
-    dom: 'lrtip',
-};
-
-
-
   let dTable =   $('#tblUserOverview').dataTable( $.extend( true, {},{
         "ajax": {
             "url": "getAllUsersNRoles",
@@ -128,7 +78,7 @@ var DtableDefaultSetting = {
 
 
 $('#dTableSearchBox').keyup(function () {
-    dTable.search($(this).val()).draw();
+    dTable.api().search($(this).val()).draw();
 });
 
 
@@ -139,10 +89,7 @@ $(document).on('click', '.btnQuickEdit', (function () {
     let MdChkUserStatus = $('#MdChkUserStatus');
     let MdSlctUserType = $('#MdSlctUserType');
     let mdUsername = $('#mdUsername');
-
     let btQuickEdit = $(this);
-
-
     let mdAdvRoute = $('#mdAdvRoute');
     mdAdvRoute.attr('href', mdAdvRoute.attr('href') + '?id=' + userID);
 
@@ -156,15 +103,13 @@ $(document).on('click', '.btnQuickEdit', (function () {
         },
 
         beforeSend: function () {
-
             spinButton.start(btQuickEdit, 'bar');
-
         },
+
         success: function (data, textStatus, xhr) {
 
             if (Object.keys(data).length > 0) {
                 //status
-
                 if (data['status'] === true) {
                     if (data.data.status === 1) {
                         MdChkUserStatus.prop('checked', true).change()
@@ -180,15 +125,13 @@ $(document).on('click', '.btnQuickEdit', (function () {
                 } else {
                     notify.unauthorized();
                 }
-
-
             }
 
             spinButton.stop(btQuickEdit, 'bar');
 
         },
         error: function (data, textStatus, xhr) {
-            notify.serverError()
+            notify.serverError();
             spinButton.stop(btQuickEdit, 'bar');
         },
 
@@ -200,45 +143,33 @@ $('#mdFrmUserQuickUpdate').submit(function (e) {
     e.preventDefault();
     let btSave = $('#mdBtUpdateUser');
 
-
     $.ajax({
-        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        headers: CSRF,
         url: "updateQuick",
         type: 'post',
         data: $(this).serialize(),
 
         beforeSend: function () {
             spinButton.start(btSave);
-
         },
         success: function (data, textStatus, xhr) {
 
             spinButton.stop(btSave);
 
-
             if (!data['status']) {
-                iziToast.error({
-                    title: 'Oops!',
-                    message: data['message'],
-                    position: 'topRight',
-                    timeout: 10000,
-                });
+                notify.error(data['message'])
             } else {
-                iziToast.success({
-                    title: 'Yayy..!',
-                    message: data['message'],
-                    position: 'topRight',
-                    timeout: 5000,
-                });
-
+                notify.success(data['message'])
             }
 
+            dTable.api().ajax.reload();
 
-            location.reload();
         },
         error: function (data, textStatus, xhr) {
+
             notify.serverError();
             spinButton.stop(btSave);
+
         },
 
     });

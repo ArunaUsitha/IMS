@@ -26,10 +26,6 @@ let options = ({
             type: 'text',
             methods: 'required'
         },
-        // last_name: {
-        //     type: 'text',
-        //     methods: 'required'
-        // },
         gender1: {
             type: 'radio',
             methods: 'required|date'

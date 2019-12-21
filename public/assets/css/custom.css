@@ -51,3 +51,9 @@ select.form-control-sm{
     width:200px;
     top:10px !important;
 }
+
+.custom-switch-no-padding{
+
+    padding-left: 0;
+
+}

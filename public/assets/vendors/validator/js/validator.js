@@ -172,6 +172,10 @@ let validator = function (options) {
             }
         },
 
+        min:function(element, value, spanID){
+
+        },
+
         date: function (element, value, spanID) {
             function isValidDate(dateString) {
                 // First check for the pattern
@@ -268,7 +272,8 @@ let validator = function (options) {
                 if (type === 'radio') {
                     element.closest('.form-group').append(node)
                 } else {
-                    element.after(node);
+                    // element.after(node);
+                    element.closest('.form-group').append(node)
                 }
             }
         }
@@ -558,7 +563,7 @@ let validator = function (options) {
 
         check.formStatus = false;
 
-        if (helper.getOptionsLength() !== helper.getResultsLength()) {
+        // if (helper.getOptionsLength() !== helper.getResultsLength()) {
             // revert styles and form status
             $.each(check.results, function (id, value) {
 
@@ -576,7 +581,7 @@ let validator = function (options) {
             });
 
 
-        }
+        // }
 
 
     };

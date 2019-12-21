@@ -4,16 +4,18 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+// var $ = require('jquery');
 require('./bootstrap');
 // require('moment');
 //
 // require('gmaps/gmaps');
 //
 require('jquery.nicescroll');
-require('three-dots');
-// require('izitoast');
-// require('daterangepicker');
+// require('datatables/media/js/jquery.dataTables.min');
+
+require('daterangepicker');
 //
 // window.Swal = require('Sweetalert2');
 // window.Swal = require('Sweetalert2/dist/sweetalert');
+
 

@@ -26,64 +26,56 @@ let spinButton = {
 
 };
 
+
+
+iziToast.settings({
+    timeout: 5000,
+    resetOnHover: true,
+    icon: 'material-icons',
+    position: 'topRight',
+});
+
 let notify = {
     serverError: function () {
         iziToast.error({
             title: 'Oops!',
             message: 'Unable to establish a conntection with the server!',
-            position: 'topRight',
-            timeout: 5000,
         });
     },
     unauthorized: function () {
         iziToast.error({
-            title: 'Whooow!',
+            title: 'Oops!',
             message: 'This Action is Unauthorized',
-            position: 'topRight',
-            timeout: 5000,
+        });
+    },
+    error:function (message) {
+        iziToast.error({
+            title: 'Oops!',
+            message: message,
+        });
+    },
+    success:function (message) {
+        iziToast.success({
+            title: 'Yayy..!',
+            message: message,
         });
     }
 };
 
 
-let CSRF = {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')};
-
-
-let auth = {
-    permissions: {},
-
-    init: function () {
-        $.ajax({
-            headers: CSRF,
-            url: window.base_url + "/user/getAuthData",
-            type: 'get',
-            async: false,
-            success: function (data, textStatus, xhr) {
-                auth.permissions = data['permissions'];
-
-
-            },
-
-        });
+let DtableDefaultSetting = {
+    "bProcessing": false,
+    "bServerSide": false,
+    language: {
+        // processing: "<div class=\"dot-floating\"></div>",
+        loadingRecords : "<img src="+ base_url +'/images/app_data/preloaders/double_ring_s.gif'+">"
     },
-    can: function (type) {
-
-        switch (type) {
-            case 'create':
-                return auth.permissions[0]['create'];
-            case 'read':
-                return auth.permissions[0]['read'];
-            case 'update':
-                return auth.permissions[0]['update'];
-            case 'delete':
-                return auth.permissions[0]['delete']
-        }
-    },
-
-
+    dom: 'lrtip',
+    "drawCallback": function( settings ) {
+        initTooltips();
+    }
 };
 
-auth.init();
 
 
 

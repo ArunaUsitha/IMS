@@ -41,7 +41,7 @@
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-box-open"></i><span>Product Management</span></a>
                 <ul class="dropdown-menu">
                     @can('read',Auth::user())<li><a class="nav-link" href="{{Route('product.overview')}}">Overview</a></li>@endcan
-                    @can('create',Auth::user())<li><a class="nav-link" href="{{Route('product.create')}}">New Product</a></li>@endcan
+                    @can('create',Auth::user())<li><a class="nav-link" href="{{Route('product.create')}}">Add New Product</a></li>@endcan
                 </ul>
             </li>
 

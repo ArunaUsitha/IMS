@@ -167,7 +167,7 @@
 
 
                             <div class="form-group">
-                                <label for="userType">Set User Type</label>
+                                <label for="MdSlctUserType">Set User Type</label>
                                 <select type="text" class="form-control form-control-sm" id="MdSlctUserType"
                                         name="userType">
                                     <option value="-1">Select title</option>

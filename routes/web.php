@@ -59,9 +59,20 @@ Route::name('supplier.')->prefix('supplier')->middleware('auth')->group(function
 
 
 //product routes
-Route::name('product.')->prefix('prodcut')->middleware('auth')->group(function (){
+Route::name('product.')->prefix('product')->middleware('auth')->group(function (){
     Route::get('overview','ProductController@overview')->name('overview');
     Route::get('create','ProductController@create')->name('create');
+    Route::post('storeProduct','ProductController@storeProduct')->name('storeProduct');
+    Route::post('storeBrand','ProductController@storeBrand')->name('storeBrand');
+    Route::post('storeCategory','ProductController@storeCategory')->name('storeCategory');
+
+    //select load
+    Route::get('getAllBrands','ProductController@getAllBrands')->name('getAllBrands');
+    Route::get('getAllPoductCategories','ProductController@getAllPoductCategories')->name('getAllPoductCategories');
+    Route::get('getAllProductsNCategories','ProductController@getAllProductsNCategories')->name('getAllProductsNCategories');
+    Route::get('getNewProductCode','ProductController@getNewProductCode')->name('getNewProductCode');
+    Route::post('setProductStatus','ProductController@setProductStatus')->name('setProductStatus');
+
 });
 
 Route::middleware('auth')->get('logout', function() {
