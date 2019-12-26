@@ -5,6 +5,7 @@
  */
 
 // var $ = require('jquery');
+$ = require('jquery');
 require('./bootstrap');
 // require('moment');
 //
@@ -14,6 +15,11 @@ require('jquery.nicescroll');
 // require('datatables/media/js/jquery.dataTables.min');
 
 require('daterangepicker');
+require('smartwizard');
+require('select2');
+
+
+
 //
 // window.Swal = require('Sweetalert2');
 // window.Swal = require('Sweetalert2/dist/sweetalert');

@@ -2,189 +2,34 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3d4a3b5c-a9e5-4459-b80c-45bd734e1345" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Brand.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Policies/ProductPolicy.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/ProductCategory.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/SystemCode.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/app/js/product/product_create.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/app/js/product/product_overview.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/js/global_var.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/AutoFill-2.3.4/css/autoFill.bootstrap.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/AutoFill-2.3.4/css/autoFill.bootstrap.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/AutoFill-2.3.4/css/autoFill.bootstrap4.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/AutoFill-2.3.4/css/autoFill.bootstrap4.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/AutoFill-2.3.4/css/autoFill.dataTables.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/AutoFill-2.3.4/css/autoFill.dataTables.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/AutoFill-2.3.4/css/autoFill.foundation.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/AutoFill-2.3.4/css/autoFill.foundation.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/AutoFill-2.3.4/css/autoFill.jqueryui.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/AutoFill-2.3.4/css/autoFill.jqueryui.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/AutoFill-2.3.4/css/autoFill.semanticui.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/AutoFill-2.3.4/css/autoFill.semanticui.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/AutoFill-2.3.4/js/autoFill.bootstrap.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/AutoFill-2.3.4/js/autoFill.bootstrap.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/AutoFill-2.3.4/js/autoFill.bootstrap4.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/AutoFill-2.3.4/js/autoFill.bootstrap4.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/AutoFill-2.3.4/js/autoFill.foundation.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/AutoFill-2.3.4/js/autoFill.foundation.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/AutoFill-2.3.4/js/autoFill.jqueryui.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/AutoFill-2.3.4/js/autoFill.jqueryui.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/AutoFill-2.3.4/js/autoFill.semanticui.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/AutoFill-2.3.4/js/autoFill.semanticui.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/AutoFill-2.3.4/js/dataTables.autoFill.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/AutoFill-2.3.4/js/dataTables.autoFill.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Buttons-1.6.1/css/buttons.bootstrap.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Buttons-1.6.1/css/buttons.bootstrap.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Buttons-1.6.1/css/buttons.bootstrap4.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Buttons-1.6.1/css/buttons.bootstrap4.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Buttons-1.6.1/css/buttons.dataTables.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Buttons-1.6.1/css/buttons.dataTables.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Buttons-1.6.1/css/buttons.foundation.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Buttons-1.6.1/css/buttons.foundation.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Buttons-1.6.1/css/buttons.jqueryui.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Buttons-1.6.1/css/buttons.jqueryui.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Buttons-1.6.1/css/buttons.semanticui.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Buttons-1.6.1/css/buttons.semanticui.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Buttons-1.6.1/css/common.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Buttons-1.6.1/css/mixins.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Buttons-1.6.1/js/buttons.bootstrap.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Buttons-1.6.1/js/buttons.bootstrap.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Buttons-1.6.1/js/buttons.bootstrap4.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Buttons-1.6.1/js/buttons.bootstrap4.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Buttons-1.6.1/js/buttons.colVis.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Buttons-1.6.1/js/buttons.colVis.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Buttons-1.6.1/js/buttons.flash.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Buttons-1.6.1/js/buttons.flash.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Buttons-1.6.1/js/buttons.foundation.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Buttons-1.6.1/js/buttons.foundation.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Buttons-1.6.1/js/buttons.html5.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Buttons-1.6.1/js/buttons.html5.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Buttons-1.6.1/js/buttons.jqueryui.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Buttons-1.6.1/js/buttons.jqueryui.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Buttons-1.6.1/js/buttons.print.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Buttons-1.6.1/js/buttons.print.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Buttons-1.6.1/js/buttons.semanticui.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Buttons-1.6.1/js/buttons.semanticui.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Buttons-1.6.1/js/dataTables.buttons.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Buttons-1.6.1/js/dataTables.buttons.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Buttons-1.6.1/swf/flashExport.swf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/ColReorder-1.5.2/css/colReorder.bootstrap.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/ColReorder-1.5.2/css/colReorder.bootstrap.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/ColReorder-1.5.2/css/colReorder.bootstrap4.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/ColReorder-1.5.2/css/colReorder.bootstrap4.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/ColReorder-1.5.2/css/colReorder.dataTables.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/ColReorder-1.5.2/css/colReorder.dataTables.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/ColReorder-1.5.2/css/colReorder.foundation.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/ColReorder-1.5.2/css/colReorder.foundation.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/ColReorder-1.5.2/css/colReorder.jqueryui.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/ColReorder-1.5.2/css/colReorder.jqueryui.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/ColReorder-1.5.2/css/colReorder.semanticui.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/ColReorder-1.5.2/css/colReorder.semanticui.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/ColReorder-1.5.2/js/colReorder.bootstrap.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/ColReorder-1.5.2/js/colReorder.bootstrap.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/ColReorder-1.5.2/js/colReorder.bootstrap4.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/ColReorder-1.5.2/js/colReorder.bootstrap4.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/ColReorder-1.5.2/js/colReorder.dataTables.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/ColReorder-1.5.2/js/colReorder.foundation.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/ColReorder-1.5.2/js/colReorder.foundation.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/ColReorder-1.5.2/js/colReorder.jqueryui.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/ColReorder-1.5.2/js/colReorder.jqueryui.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/ColReorder-1.5.2/js/colReorder.semanicui.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/ColReorder-1.5.2/js/colReorder.semanticui.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/ColReorder-1.5.2/js/colReorder.semanticui.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/ColReorder-1.5.2/js/dataTables.colReorder.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/ColReorder-1.5.2/js/dataTables.colReorder.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/DataTables-1.10.20/css/dataTables.bootstrap.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/DataTables-1.10.20/css/dataTables.bootstrap.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/DataTables-1.10.20/css/dataTables.bootstrap4.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/DataTables-1.10.20/css/dataTables.bootstrap4.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/DataTables-1.10.20/css/dataTables.foundation.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/DataTables-1.10.20/css/dataTables.foundation.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/DataTables-1.10.20/css/dataTables.jqueryui.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/DataTables-1.10.20/css/dataTables.jqueryui.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/DataTables-1.10.20/css/dataTables.semanticui.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/DataTables-1.10.20/css/dataTables.semanticui.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/DataTables-1.10.20/css/jquery.dataTables.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/DataTables-1.10.20/css/jquery.dataTables.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/DataTables-1.10.20/images/sort_asc.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/DataTables-1.10.20/images/sort_asc_disabled.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/DataTables-1.10.20/images/sort_both.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/DataTables-1.10.20/images/sort_desc.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/DataTables-1.10.20/images/sort_desc_disabled.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/DataTables-1.10.20/js/dataTables.bootstrap.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/DataTables-1.10.20/js/dataTables.bootstrap.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/DataTables-1.10.20/js/dataTables.bootstrap4.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/DataTables-1.10.20/js/dataTables.bootstrap4.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/DataTables-1.10.20/js/dataTables.foundation.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/DataTables-1.10.20/js/dataTables.foundation.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/DataTables-1.10.20/js/dataTables.jqueryui.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/DataTables-1.10.20/js/dataTables.jqueryui.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/DataTables-1.10.20/js/dataTables.semanticui.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/DataTables-1.10.20/js/dataTables.semanticui.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/DataTables-1.10.20/js/jquery.dataTables.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/DataTables-1.10.20/js/jquery.dataTables.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/JSZip-2.5.0/jszip.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/JSZip-2.5.0/jszip.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Responsive-2.2.3/css/responsive.bootstrap.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Responsive-2.2.3/css/responsive.bootstrap.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Responsive-2.2.3/css/responsive.bootstrap4.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Responsive-2.2.3/css/responsive.bootstrap4.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Responsive-2.2.3/css/responsive.dataTables.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Responsive-2.2.3/css/responsive.dataTables.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Responsive-2.2.3/css/responsive.foundation.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Responsive-2.2.3/css/responsive.foundation.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Responsive-2.2.3/css/responsive.jqueryui.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Responsive-2.2.3/css/responsive.jqueryui.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Responsive-2.2.3/css/responsive.semanticui.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Responsive-2.2.3/css/responsive.semanticui.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Responsive-2.2.3/js/dataTables.responsive.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Responsive-2.2.3/js/dataTables.responsive.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Responsive-2.2.3/js/responsive.bootstrap.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Responsive-2.2.3/js/responsive.bootstrap.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Responsive-2.2.3/js/responsive.bootstrap4.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Responsive-2.2.3/js/responsive.bootstrap4.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Responsive-2.2.3/js/responsive.foundation.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Responsive-2.2.3/js/responsive.foundation.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Responsive-2.2.3/js/responsive.jqueryui.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Responsive-2.2.3/js/responsive.jqueryui.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Responsive-2.2.3/js/responsive.semanticui.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/Responsive-2.2.3/js/responsive.semanticui.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/datatables.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/datatables.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/datatables.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/datatables.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/pdfmake-0.1.36/pdfmake.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/pdfmake-0.1.36/pdfmake.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/assets/vendors/DataTables/pdfmake-0.1.36/vfs_fonts.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/vendor/datatables/media/sort_asc.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/vendor/datatables/media/sort_asc_disabled.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/vendor/datatables/media/sort_both.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/vendor/datatables/media/sort_desc.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/vendor/datatables/media/sort_desc_disabled.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/admin/products/create.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/admin/products/overview.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.htaccess" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/PurchaseController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Policies/PurchasePolicy.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Purchase.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Warranty.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/app/css/purchase/grn_create.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/app/js/product/warranty_management.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/app/js/purchase/grn_create.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/app/js/purchase/purchase_create.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/app/js/supplier/assign_items.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/products/warranty_management.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/purchase/create.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/purchase/grn_create.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/suppliers/assign_items.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProductController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SupplierController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SupplierController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Product.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Product.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/SystemCode.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/SystemCode.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/app/css/user/user_index.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/app/css/user/user_index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/app/js/user/user_index.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/app/js/user/user_index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/app/js/user/user_reg.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/app/js/user/user_reg.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/assets/css/custom.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/custom.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/custom.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/auth.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/assets/js/scripts.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/scripts.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/js/stisla_.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/js/stisla_.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/assets/vendors/validator/js/validator.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/vendors/validator/js/validator.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/app.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/js/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/resources/js/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/sass/app.scss" beforeDir="false" afterPath="$PROJECT_DIR$/resources/sass/app.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/partials/sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/partials/sidebar.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/users/overview.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/users/overview.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/admin-master.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/admin-master.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/auth-master.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/auth-master.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -342,7 +187,7 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../stock" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Codeigniter" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="Laravel.SettingsForm" />
@@ -384,7 +229,7 @@
       <workItem from="1576223275614" duration="2290000" />
       <workItem from="1576256444544" duration="599000" />
       <workItem from="1576327352918" duration="38461000" />
-      <workItem from="1576651259697" duration="54484000" />
+      <workItem from="1576651259697" duration="134974000" />
     </task>
     <servers />
   </component>
@@ -419,15 +264,15 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="640" y="247" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1576223201031" />
-    <state x="690" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1576763303941">
+    <state x="690" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1577293326228">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="690" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1576763303941" />
+    <state x="690" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1577293326228" />
     <state x="690" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/1920.194.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1575997069115" />
-    <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1576416418837">
+    <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1576932444516">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1576416418837" />
+    <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1576932444516" />
     <state x="740" y="274" key="FileChooserDialogImpl/1920.194.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1575628378769" />
     <state width="1877" height="348" key="GridCell.Tab.0.bottom" timestamp="1576224204083">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -485,9 +330,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="348" key="GridCell.Tab.2.right/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1576224204084" />
-    <state x="794" y="443" key="NewPhpFileDialog" timestamp="1575524385833">
+    <state x="794" y="443" key="NewPhpFileDialog" timestamp="1576909105342">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
+    <state x="794" y="443" key="NewPhpFileDialog/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1576909105342" />
     <state x="794" y="443" key="NewPhpFileDialog/1920.194.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1575524385833" />
     <state x="461" y="162" key="SettingsEditor" timestamp="1576695134844">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -499,18 +345,18 @@
     </state>
     <state x="561" y="130" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1576696838029" />
     <state x="561" y="130" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/1920.194.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1575530196764" />
-    <state x="683" y="162" key="refactoring.ChangeSignatureDialog" timestamp="1576052928564">
+    <state x="683" y="162" key="refactoring.ChangeSignatureDialog" timestamp="1577170666590">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="683" y="162" key="refactoring.ChangeSignatureDialog/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1576052928564" />
-    <state x="616" y="240" key="run.anything.popup" timestamp="1576570218817">
+    <state x="683" y="162" key="refactoring.ChangeSignatureDialog/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1577170666590" />
+    <state x="616" y="240" key="run.anything.popup" timestamp="1576934989031">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1576570218817" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1576420755294">
+    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1576934989031" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1576908513033">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1576420755294" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1576908513033" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/1920.194.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1575629556257" />
   </component>
 </project>

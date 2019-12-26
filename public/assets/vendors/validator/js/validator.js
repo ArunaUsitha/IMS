@@ -76,9 +76,11 @@ let validator = function (options) {
 
             } else if (element.is("select")) {
 
-                if (element.val() < 0) {
+
+                if (element.val() < 0 || element.val() === null) {
                     style.invalid(element, 'Please Select an option', '', spanID);
                     helper.setFormStatus(element, false);
+
                 } else {
                     style.valid(element, '', spanID);
                     helper.setFormStatus(element, true);
@@ -567,10 +569,17 @@ let validator = function (options) {
             // revert styles and form status
             $.each(check.results, function (id, value) {
 
+
+
                 let attributes = helper.getAttributes(id);
+
+
 
                 let spanID = attributes.spanID;
                 let element = attributes.element;
+                if (element.is('select')){
+                    element.empty().trigger('change')
+                }
 
                 style.clear(element, spanID);
 

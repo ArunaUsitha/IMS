@@ -55,6 +55,8 @@ Route::name('supplier.')->prefix('supplier')->middleware('auth')->group(function
     Route::post('update','SupplierController@update')->name('update');
     Route::post('updateQuick','SupplierController@updateQuick')->name('updateQuick');
     Route::get('show','SupplierController@show')->name('show');
+    Route::get('assignItems','SupplierController@assignItems')->name('assignItems');
+    Route::get('searchSuppliers','SupplierController@searchSuppliers')->name('searchSuppliers');
 });
 
 
@@ -66,14 +68,27 @@ Route::name('product.')->prefix('product')->middleware('auth')->group(function (
     Route::post('storeBrand','ProductController@storeBrand')->name('storeBrand');
     Route::post('storeCategory','ProductController@storeCategory')->name('storeCategory');
 
-    //select load
+    //Ajax routes
     Route::get('getAllBrands','ProductController@getAllBrands')->name('getAllBrands');
     Route::get('getAllPoductCategories','ProductController@getAllPoductCategories')->name('getAllPoductCategories');
     Route::get('getAllProductsNCategories','ProductController@getAllProductsNCategories')->name('getAllProductsNCategories');
     Route::get('getNewProductCode','ProductController@getNewProductCode')->name('getNewProductCode');
     Route::post('setProductStatus','ProductController@setProductStatus')->name('setProductStatus');
-
+    Route::get('searchProducts','ProductController@searchProducts')->name('searchProducts');
+    Route::get('getProductByID','ProductController@getProductByID')->name('getProductByID');
+    Route::get('warrantyManagementOverview','ProductController@warrantyManagementOverview')->name('warrantyManagementOverview');
 });
+
+
+//Purchase Routes
+Route::name('purchase.')->prefix('purchase')->middleware('auth')->group(function (){
+    Route::get('create','PurchaseController@create')->name('create');
+    Route::get('overview','PurchaseController@overview')->name('overview');
+    Route::get('GRNCreate','PurchaseController@GRNCreate')->name('GRNCreate');
+    Route::get('getNewPurchaseOrderCode','PurchaseController@getNewPurchaseOrderCode')->name('getNewPurchaseOrderCode');
+});
+
+
 
 Route::middleware('auth')->get('logout', function() {
     Auth::logout();

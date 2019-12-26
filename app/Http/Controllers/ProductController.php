@@ -5,12 +5,12 @@ namespace App\Http\Controllers;
 use App\Brand;
 use App\Product;
 use App\ProductCategory;
-use App\Supplier;
 use App\SystemCode;
+use App\Warranty;
+use Auth;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
-use Auth;
 
 class ProductController extends Controller
 {
@@ -24,21 +24,33 @@ class ProductController extends Controller
         //
     }
 
-    public function overview(){
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function overview()
+    {
 
 
         return view('admin.products.overview');
 
     }
 
-    public function getAllProductsNCategories(){
-        $productsWithCategories = Product::with('productCategory','brand')->get();
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getAllProductsNCategories()
+    {
+        $productsWithCategories = Product::with('productCategory', 'brand')->get();
         return response()->json($productsWithCategories);
     }
 
 
-
-    public function setProductStatus(Request $request){
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function setProductStatus(Request $request)
+    {
 
         $productID = $request->post('id');
         $status = $request->post('status');
@@ -63,20 +75,19 @@ class ProductController extends Controller
         }
 
 
-        activity()->by(Auth::id())->log('set the status of the product to'.$status.'of the product ID '.$productID);
+        activity()->by(Auth::id())->log('set the status of the product to' . $status . 'of the product ID ' . $productID);
 
-
+        $status = ($status) == 1 ? 'Product Activated' : 'Product Deactivated';
 
         return response()->json(self::getJSONResponse(
             true,
-            'toast',
-            ($status) === 1 ? 'Product Activated' : 'Product Deactivated',
+            'toast'
+            , $status,
             ''
         ));
 
 
     }
-
 
 
     /**
@@ -86,8 +97,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-//        $sysCodes = new SystemCode();
-//        $productCode = $sysCodes->getNewProductCode();
+
         return view('admin.products.create');
     }
 
@@ -110,8 +120,8 @@ class ProductController extends Controller
             'product_name' => 'required',
             'p_category_id' => 'required',
             'brand_id' => 'required',
-            'reorder_point'  => 'regex:/^[0-9]+$/',
-           'reorder_quantity' => 'regex:/^[0-9]+$/'
+            'reorder_point' => 'regex:/^[0-9]+$/',
+            'reorder_quantity' => 'regex:/^[0-9]+$/'
         ]);
 
         $status = $request->post('productStatus');
@@ -121,17 +131,17 @@ class ProductController extends Controller
             $product->code = $request->product_code;
             $product->custom_code = $request->c_product_code;
             $product->name = $request->product_name;
-            $product->primary_category = $request->p_category_id;
+            $product->product_category_id = $request->p_category_id;
             $product->brand_id = $request->brand_id;
             $product->model_no = $request->model_no;
             $product->description = $request->descrip;
-            $product->reorder_point  = $request->reorder_point;
+            $product->reorder_point = $request->reorder_point;
             $product->reorder_quantity = $request->reorder_quantity;
             $product->status = $status;
 
             $product->save();
 
-        }catch (QueryException $e) {
+        } catch (QueryException $e) {
             $errorMessage = $e->errorInfo[2];
 
             return response()->json(self::getJSONResponse(
@@ -143,8 +153,7 @@ class ProductController extends Controller
         }
 
 
-
-        activity()->by(Auth::id())->log('Used quick update to update the Supplier with ID '.$product->id);
+        activity()->by(Auth::id())->log('Used quick update to update the Supplier with ID ' . $product->id);
 
         return response()->json(self::getJSONResponse(
             true,
@@ -294,8 +303,50 @@ class ProductController extends Controller
         //
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function searchProducts(Request $request)
+    {
+        $searchTerm = $request->get('name');
+        if ($searchTerm !== '') {
 
-    public function getNewProductCode(){
+
+            $products = Product::where('name', 'LIKE', '%'.$searchTerm.'%')
+                ->orWhere('code','=',$searchTerm)
+                ->orWhere('custom_code','=',$searchTerm)
+                ->where('status', '=', 1)
+                ->get(['id', 'name'])->toJson();
+
+            return response()->json(array('results' => $products));
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getProductByID(Request $request){
+        $searchTerm = $request->get('id');
+        if ($searchTerm !== '') {
+
+            $products = Product::where('id', '=', $searchTerm)
+                ->where('status', '=', 1)
+                ->get(['id', 'name'])->toJson();
+
+            return response()->json(array('results' => $products));
+        }
+        return response()->json(array('results' => ''));
+    }
+
+    public function warrantyManagementOverview(){
+        $warranties = Warranty::all();
+        return view('admin.products.warranty_management')->with('warranties',$warranties);
+    }
+
+    public function getNewProductCode()
+    {
         $sysCode = new SystemCode();
         return response()->json($sysCode->getNewProductCode());
     }

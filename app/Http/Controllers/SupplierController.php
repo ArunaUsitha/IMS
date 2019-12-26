@@ -254,6 +254,33 @@ class SupplierController extends Controller
 
     }
 
+    public function searchSuppliers(Request $request){
+
+        $searchTerm = $request->get('name');
+
+        if ($searchTerm !== '') {
+
+
+            $suppliers = Supplier::where('name', 'LIKE', '%'.$searchTerm.'%')
+                ->orWhere('id','=','%'.$searchTerm)
+                ->orWhere('company_name','LIKE','%'.$searchTerm.'%')
+                ->where('status', '=', 1)
+                ->where('is_approved', '=', 1)
+                ->get(['id', 'name'])->toJson();
+
+            return response()->json(array('results' => $suppliers));
+        }
+
+    }
+
+    public function assignItems(Request $request){
+        return view('admin.suppliers.assign_items');
+    }
+
+
+
+
+
     /**
      * Remove the specified resource from storage.
      *

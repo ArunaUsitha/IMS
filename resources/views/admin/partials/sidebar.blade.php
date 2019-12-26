@@ -34,6 +34,7 @@
                 <ul class="dropdown-menu">
                     @can('read',Auth::user())<li><a class="nav-link" href="{{Route('supplier.overview')}}">Overview</a></li>@endcan
                     @can('create',Auth::user())<li><a class="nav-link" href="{{Route('supplier.create')}}">New Supplier</a></li>@endcan
+{{--                    @can('create',Auth::user())<li><a class="nav-link" href="{{Route('supplier.assignItems')}}">Assign Items</a></li>@endcan--}}
                 </ul>
             </li>
 
@@ -42,11 +43,16 @@
                 <ul class="dropdown-menu">
                     @can('read',Auth::user())<li><a class="nav-link" href="{{Route('product.overview')}}">Overview</a></li>@endcan
                     @can('create',Auth::user())<li><a class="nav-link" href="{{Route('product.create')}}">Add New Product</a></li>@endcan
+                    @can('read',Auth::user())<li><a class="nav-link" href="{{Route('product.warrantyManagementOverview')}}">Manage Warranties</a></li>@endcan
                 </ul>
             </li>
 
             <li class="nav-item dropdown {{(request()->is('purchase*')) ? 'active' :''}}">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-cart-arrow-down"></i><span>Purchase Management</span></a>
+                <ul class="dropdown-menu">
+                    @can('create',Auth::user())<li><a class="nav-link" href="{{Route('purchase.create')}}">New Purchase Order</a></li>@endcan
+                    @can('create',Auth::user())<li><a class="nav-link" href="{{Route('purchase.GRNCreate')}}">Insert New GRN</a></li>@endcan
+                </ul>
             </li>
 
             <li class="nav-item dropdown {{(request()->is('reports*')) ? 'active' :''}}">
