@@ -86,7 +86,26 @@ Route::name('purchase.')->prefix('purchase')->middleware('auth')->group(function
     Route::get('overview','PurchaseController@overview')->name('overview');
     Route::get('GRNCreate','PurchaseController@GRNCreate')->name('GRNCreate');
     Route::get('getNewPurchaseOrderCode','PurchaseController@getNewPurchaseOrderCode')->name('getNewPurchaseOrderCode');
+    Route::post('savePurchaseOrder','PurchaseController@savePurchaseOrder')->name('savePurchaseOrder');
+    Route::post('saveGRN','PurchaseController@saveGRN')->name('saveGRN');
 });
+
+
+//Stock Routes
+Route::name('stock.')->prefix('stock')->middleware('auth')->group(function (){
+    Route::get('viewStock','StockController@viewStock')->name('viewStock');
+    Route::get('getAllStocks','StockController@getAllStocks')->name('getAllStocks');
+
+});
+
+
+//Stock Routes
+Route::name('sales.')->prefix('sales')->middleware('auth')->group(function (){
+    Route::get('newSale','SalesController@newSale')->name('newSale');
+    Route::get('newCustomer','SalesController@newCustomer')->name('newCustomer');
+
+});
+
 
 
 

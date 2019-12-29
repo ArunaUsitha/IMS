@@ -131,7 +131,7 @@
                                                     <div class="text-center"><h3>Purchase Order</h3></div>
                                                     <hr>
                                                     <div class="float-left">
-                                                        <h5>Supplier:</h5>
+                                                        <h5>Supplier: <span id="supplierNamePO"></span></h5>
                                                         <p id="addressPO"></p>
                                                     </div>
 
@@ -167,7 +167,7 @@
                                                 <div class="col-2 offset-9">
                                                     <div class="float-right">
                                                         <button class="btn btn-warning" id="btnPrint">Print</button>
-                                                        <button class="btn btn-success">Save</button>
+                                                        <button class="btn btn-success" id="btSavePurchaseOrder">Save</button>
                                                     </div>
                                                 </div>
                                             </div>

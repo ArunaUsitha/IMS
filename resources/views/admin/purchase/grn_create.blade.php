@@ -49,36 +49,61 @@
                     <div class="card-body">
                         <div class="row mx-auto">
                             <div class="col-10 offset-1">
-{{--                                <h4>Supplier Info</h4>--}}
-{{--                                <hr>--}}
+                                {{--                                <h4>Supplier Info</h4>--}}
+                                {{--                                <hr>--}}
                                 <fieldset class="border p-3">
-                                    <legend  class="w-auto h4 p-2">Supplier Info</legend>
+                                    <legend class="w-auto h4 p-2">Supplier Info</legend>
                                     <div class="row">
                                         <div class="col-12">
-                                            <a href="{{Route('supplier.create')}}" target="_blank" class="btn btn-success btn-sm">Register New Supplier</a>
+                                            <a href="{{Route('supplier.create')}}" target="_blank"
+                                               class="btn btn-success btn-sm">Register New Supplier</a>
                                             <hr>
                                         </div>
 
                                     </div>
-                                    <div class="row">
-
+                                    <div class="row" id="grnNRep">
                                         <div class="col-3">
                                             <div class="form-group">
                                                 <label for="supplierSearch">Search Supplier</label>
-                                                <select class="supplierSearch" id="supplierSearch">
+                                                <select class="supplierSearch form-control form-control-sm"
+                                                        id="supplierSearch">
 
                                                 </select>
                                             </div>
                                         </div>
 
-                                        <div class="col-4 offset-1">
 
-                                            <p><strong>Company Name :</strong> <span id="companyName"></span></p>
-                                            <p><strong>Email :</strong> <span id="email"></span></p>
+                                        <div class="col-3">
+                                            <div class="form-group">
+                                                <label for="grnNo">GRN No</label>
+                                                <input type="text" id="grnNo" name="grnNo" class="form-control"
+                                                       placeholder="Enter GRN No">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-3">
+                                            <div class="form-group">
+                                                <label for="repName">Sales Rep Name</label>
+                                                <input type="text" id="repName" name="repName" class="form-control"
+                                                       placeholder="Enter Sales rep Name">
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="row">
+
+
+                                        <div class="col-4">
+                                            <hr>
+
+                                            <p><strong>Company Name :</strong> <span id="supCompanyName"></span></p>
+                                            <p><strong>Email :</strong> <span id="supEmail"></span></p>
 
                                         </div>
                                         <div class="col-4">
-                                            <p><strong>Address :</strong> <span id="address"></span></p>
+                                            <hr>
+                                            <p><strong>Address :</strong> <span id="supAddress"></span></p>
                                         </div>
 
                                     </div>
@@ -88,55 +113,61 @@
                             </div>
 
                             <div class="col-10 offset-1">
-{{--                                <h4>Products Info</h4>--}}
-{{--                                <hr>--}}
+                                {{--                                <h4>Products Info</h4>--}}
+                                {{--                                <hr>--}}
                                 <fieldset class="border p-3 mt-2">
-                                    <legend  class="w-auto h4 p-2">Products Info</legend>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <button id="btnAddProduct" class="btn btn-success btn-sm" disabled>Add Product</button>
-                                        <a href="{{Route('product.create')}}" target="_blank" class="btn btn-primary btn-sm">Register New Product</a>
-                                    </div>
-
-                                </div>
-                                <div class="row">
-
-                                    <div class="col-12">
-                                        <hr>
-                                        <div class="table-responsive">
-                                            <table class="table table-striped table-slate table-sm">
-                                                <thead class="">
-                                                <tr>
-                                                    <th>product ID</th>
-                                                    <th>Product Name</th>
-                                                    <th>Unit Price</th>
-                                                    <th>Units</th>
-                                                    <th>Total</th>
-                                                    <th></th>
-                                                </tr>
-                                                </thead>
-                                                <tbody id="tblProducts">
-
-                                                </tbody>
-                                            </table>
+                                    <legend class="w-auto h4 p-2">Products Info</legend>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <button id="btnAddProduct" class="btn btn-success btn-sm" disabled>Add
+                                                Product
+                                            </button>
+                                            <a href="{{Route('product.create')}}" target="_blank"
+                                               class="btn btn-primary btn-sm">Register New Product</a>
                                         </div>
 
-
-
-
-
                                     </div>
-                                </div>
+                                    <div class="row">
+
+                                        <div class="col-12">
+                                            <hr>
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-slate table-sm">
+                                                    <thead class="">
+                                                    <tr>
+                                                        <th>product ID</th>
+                                                        <th>Product Name</th>
+                                                        <th>Warranty Period</th>
+                                                        <th>Buy Price</th>
+                                                        <th>Sell Price</th>
+                                                        <th>Units</th>
+                                                        <th>Total</th>
+                                                        <th></th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody id="tblProducts">
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
                                     <div class="row">
                                         <div class="col-3 offset-9">
                                             <div class="form-group row">
-                                                <label for="staticEmail" class="col-sm-3 offset-1 col-form-label">Total : </label>
+                                                <label for="staticEmail" class="col-sm-3 offset-1 col-form-label">Total
+                                                    : </label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" readonly class="form-control form-control-sm" id="fullTotal" value="0">
+                                                    <input type="text" readonly class="form-control form-control-sm"
+                                                           id="fullTotal" value="0">
                                                 </div>
                                             </div>
                                             <div class="form-group float-right">
-                                                <button type="submit" class="btn btn-success" id="mdBtUpdateUser" disabled>Save GRN</button>
+                                                <button type="button" class="btn btn-success" id="btSaveGrn" >
+                                                    Save GRN
+                                                </button>
                                             </div>
                                         </div>
 
@@ -167,19 +198,34 @@
                         <form id="FrmMdAddProduct">
                             <div class="form-group">
                                 <label for="slctItems">Select Product</label>
-                                <select class="slctItems form-control form-control-sm" id="slctItems" name="slctItems"></select>
+                                <select class="slctItems form-control form-control-sm" id="slctItems"
+                                        name="slctItems"></select>
                             </div>
 
                             <div class="form-group">
                                 <label for="mdQuantity">Quantity</label>
-                                <input type="number" class="form-control form-control-sm" id="mdQuantity"
+                                <input type="number" value="0" class="form-control form-control-sm" id="mdQuantity"
                                        name="mdQuantity">
                             </div>
 
                             <div class="form-group">
-                                <label for="mdUnitPrice">Unit Price</label>
-                                <input type="text" class="form-control form-control-sm" id="mdUnitPrice"
-                                       name="mdUnitPrice">
+                                <label for="mdBuyPrice">Buy Price</label>
+                                <input type="text" value="0" class="form-control form-control-sm" id="mdBuyPrice"
+                                       name="mdBuyPrice">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="mdSellPrice">Sell Price</label>
+                                <input type="text" value="0" class="form-control form-control-sm" id="mdSellPrice"
+                                       name="mdSellPrice">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="mdWarranty">Warranty</label>
+                                <input type="text" class="form-control form-control-sm" id="mdWarranty"
+                                       name="mdWarranty">
+                                <small class="form-text text-muted">Enter Warranty Period in Months. Ex: for 1 year 12
+                                    Months</small>
                             </div>
 
                             <div class="form-group">
@@ -189,8 +235,7 @@
                             </div>
 
 
-
-                        <span class="float-right">
+                            <span class="float-right">
                             <button type="submit" class="btn btn-success" id="mdBtAddProducts" value="add">Add</button>
 
                                 </span>

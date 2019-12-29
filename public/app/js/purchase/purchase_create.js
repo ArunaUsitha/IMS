@@ -4,6 +4,7 @@ let modelbtAdd = $('#mdBtAddProductToList');
 let grnData = {
     supplierID: 0,
     supplierName: null,
+    invoiceNo: null,
     productsInfo: {},
 
     setSupplierID: function (supplierID, supplierName) {
@@ -54,7 +55,7 @@ $(document).ready(function () {
 
 
     wizard.on("leaveStep", function (e, anchorObject, stepNumber, stepDirection) {
-        console.log(stepDirection)
+
 
         if (stepNumber === 0) {
             return x.status();
@@ -84,6 +85,9 @@ $(document).ready(function () {
         let addressPO = $('#addressPO');
         let PONo = $('#PONo');
         let tbodyPO = $('#tbodyPO');
+        let supplierNamePO = $('#supplierNamePO');
+
+        let supplierName = grnData.supplierName;
 
 
         $.ajax({
@@ -92,19 +96,22 @@ $(document).ready(function () {
             type: 'get',
             cache: false,
             success: function (data, textStatus, xhr) {
+                grnData.invoiceNo = data;
                 purchaseCode += data;
 
 
                 addressPO.html(supplierAddress.html().split(",").join("<br />"));
                 PONo.html(purchaseCode);
 
+                supplierNamePO.html(supplierName);
+
                 let c = '';
 
-                $.each(grnData.productsInfo,function (k,v) {
+                $.each(grnData.productsInfo, function (k, v) {
                     c += ' <tr>\n' +
-                        '                                                            <td>'+v['itemID']+'</td>\n' +
-                        '                                                            <td>'+v['itemName']+'</td>\n' +
-                        '                                                            <td>'+v['quantity']+'</td>\n' +
+                        '                                                            <td>' + v['itemID'] + '</td>\n' +
+                        '                                                            <td>' + v['itemName'] + '</td>\n' +
+                        '                                                            <td>' + v['quantity'] + '</td>\n' +
                         '                                                        </tr>';
 
                 });
@@ -114,7 +121,6 @@ $(document).ready(function () {
 
             },
         });
-
 
 
     }
@@ -155,6 +161,50 @@ $(document).ready(function () {
         cache: false,
         placeholder: 'Search for a Product',
         minimumInputLength: 2,
+    });
+
+
+    //save purchase order
+    $(document).on('click', '#btSavePurchaseOrder', function () {
+        let btSave = $(this);
+
+        $.ajax({
+            headers: CSRF,
+            url: "savePurchaseOrder",
+            type: 'post',
+            cache: false,
+            data: {
+                supplierID: grnData.supplierID,
+                order_code: grnData.invoiceNo,
+                prodcutInfo: grnData.productsInfo
+
+            },
+
+            beforeSend: function () {
+                spinButton.start(btSave);
+
+            },
+            success: function (data, textStatus, xhr) {
+                spinButton.stop(btSave);
+
+                if (!data['status']) {
+                    notify.error(data['message'])
+                } else {
+                    notify.success(data['message']);
+
+                    $(wizard).smartWizard("reset");
+                    resetWizard();
+                }
+
+            },
+
+            statusCode: { // laravel server side validations
+                500: function (data, textStatus, xhr) {
+                    spinButton.stop(btSave);
+                    notify.serverError()
+                }
+            }
+        });
     });
 
 
@@ -218,7 +268,6 @@ $(document).on('change', '#supplier', function () {
     });
 
     grnData.setSupplierID(supplierID, supplierName)
-
 
 
 });
@@ -378,6 +427,24 @@ function formSetStatus(status) {
     }
 }
 
-$(document).on('click','#btnPrint',function () {
+$(document).on('click', '#btnPrint', function () {
     printElem('toPrint');
 });
+
+
+function resetWizard() {
+    $('#tbodyPurchaseOrder').empty();
+
+    $('#addressPO').html('');
+    $('#PONo').html('');
+    $('#tbodyPO').empty();
+    $('#supplierNamePO').html();
+
+    $('#supplier').prop('selectedIndex', -1);
+
+    $('#companyName').html('');
+    $('#email').html('');
+    $('#address').html('');
+    $('#fixed').html('');
+    $('#mobile').html('');
+}

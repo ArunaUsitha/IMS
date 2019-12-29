@@ -73,7 +73,8 @@ let DtableDefaultSetting = {
     dom: 'lrtip',
     "drawCallback": function( settings ) {
         initTooltips();
-    }
+    },
+    "pageLength": 50
 };
 
 

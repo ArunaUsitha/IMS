@@ -1,59 +1,7 @@
-let grnData = {
-    supplierID: 0,
-    productsInfo: {},
-    fullTotal: 0,
-
-    setSupplierID : function (supplierID) {
-        this.supplierID = supplierID;
-    },
-    setFullTotal : function (total) {
-        this.fullTotal = total;
-    },
-    setProductsInfo : function ({itemID,itemName,quantity,unitPrice,total}) {
-        console.log(unitPrice)
-        this.productsInfo
-            [itemID] = {
-            itemID: itemID,
-            itemName: itemName,
-            quantity: quantity,
-            unitPrice: unitPrice,
-            total: total
-        };
-    },
-    updateProductsInfo : function({itemID,quantity,unitPrice,total}){
-        this.productsInfo[itemID].quantity = parseFloat(quantity);
-        this.productsInfo[itemID].unitPrice = parseFloat(unitPrice);
-        this.productsInfo[itemID].total = parseFloat(total);
-    },
-
-    clearGrnData : function () {
-        this.supplierID = 0;
-        this.productsInfo = {};
-        this.fullTotal = 0;
-    },
-
-    updateFullTotal : function () {
-        this.fullTotal = 0;
-        $.each(grnData.productsInfo, function (k, v) {
-            grnData.fullTotal += parseFloat(v.total);
-            console.log(v)
-        });
-       return grnData.fullTotal
-    }
-
-};
-
 $(document).ready(function () {
 
-
-    //supplier search
+//supplier search
     $('#supplierSearch').select2({
-        closeOnSelect: true,
-        allowHtml: true,
-        minimumResultsForSearch: -1,
-        createSearchChoice: false,
-        allowClear: true,
-        tags: false,
         ajax: {
             url: base_url + '/supplier/searchSuppliers',
             dataType: 'json',
@@ -61,13 +9,9 @@ $(document).ready(function () {
             data: function (params) {
                 return {
                     name: params.term, // search term
-
                 };
             },
-
-
-            processResults: function (data, params) {
-                // let res = (data.results);
+            processResults: function (data) {
                 return {
                     results: $.map(JSON.parse(data.results), function (item) {
                         return {
@@ -78,20 +22,11 @@ $(document).ready(function () {
                 };
             },
         },
-        cache: false,
         placeholder: 'Search Supplier',
-        minimumInputLength: 2,
     });
 
-
-    //item search
+//item search
     $('#slctItems').select2({
-        closeOnSelect: true,
-        allowHtml: true,
-        createSearchChoice: false,
-        allowClear: true,
-        minimumResultsForSearch: -1,
-        tags: false,
         ajax: {
             url: base_url + '/product/searchProducts',
             dataType: 'json',
@@ -99,13 +34,9 @@ $(document).ready(function () {
             data: function (params) {
                 return {
                     name: params.term, // search term
-
                 };
             },
-
-
-            processResults: function (data, params) {
-                // let res = (data.results);
+            processResults: function (data) {
                 return {
                     results: $.map(JSON.parse(data.results), function (item) {
                         return {
@@ -116,94 +47,316 @@ $(document).ready(function () {
                 };
             },
         },
-        cache: false,
-        placeholder: 'Search for a Product',
-        minimumInputLength: 2,
+        placeholder: 'Search for a Product'
     });
+
 });
 
+let GRN = {
+    supplierID: null,
+    // supplierName: null,
+    invoiceNo: null,
+    repName: null,
+    fullTotal: 0,
+    productsInfo: {
+        // productID: null,
+        // productName: null,
+        // warranty: null,
+        // buyPrice: null,
+        // sellPrice: null,
+        // units: null,
+        // total: null,
+    },
 
-$(document).on('change', '#supplierSearch', function () {
+    getTotal: function () {
+        this.updateTotal();
+        return GRN.fullTotal
+    },
+    updateTotal: function () {
+        GRN.fullTotal = 0;
+        $.each(GRN.productsInfo, function (k, v) {
+            GRN.fullTotal += parseFloat(v.total);
+        });
+        $('#fullTotal').val(GRN.fullTotal);
+    },
+    setProductsInfo: function (productID, productName, warranty, buyPrice, sellPrice, units, total) {
 
-    let supplierID = $(this).val();
+        this.productsInfo
+            [productID] = {
+            productID: productID,
+            productName: productName,
+            warranty: warranty,
+            buyPrice: buyPrice,
+            sellPrice: sellPrice,
+            units: units,
+            total: total,
+        };
 
-    let companyName = $('#companyName');
-    let email = $('#email');
-    let address = $('#address');
-    let fixed = $('#fixed');
-    let mobile = $('#mobile');
+        this.fullTotal += total
 
+    },
+    updateProductsInfo: function (productID, warranty, buyPrice, sellPrice, units, total) {
+        this.productsInfo[productID].productID = productID;
+        this.productsInfo[productID].warranty = warranty;
+        this.productsInfo[productID].units = units;
+        this.productsInfo[productID].buyPrice = parseFloat(buyPrice);
+        this.productsInfo[productID].sellPrice = parseFloat(sellPrice);
+        this.productsInfo[productID].total = parseFloat(total);
 
-    function empty() {
-        companyName.html('');
-        email.html('');
-        address.html('');
-        fixed.html('');
-        mobile.html('');
+    },
+
+    clearGrnData: function () {
+        this.supplierID = null;
+        this.invoiceNo = null;
+        this.repName = null;
+        this.fullTotal = 0;
+        this.productsInfo = {};
+
+    },
+
+    getAllData : function () {
+        return  {
+            supplierID: this.supplierID,
+            invoiceNo: this.invoiceNo,
+            repName: this.repName,
+            fullTotal: this.fullTotal,
+            productsInfo: this.productsInfo
+        }
+    }
+};
+
+let supplier = {
+    supCompanyName: $('#supCompanyName'),
+    supEmail: $('#supEmail'),
+    supAddress: $('#supAddress'),
+
+    showInfo: function (email, address, company) {
+        this.supEmail.html(email);
+        this.supAddress.html(address);
+        this.supCompanyName.html(company);
+    },
+
+    clearInfo: function () {
+        this.supEmail.html('');
+        this.supAddress.html('');
+        this.supCompanyName.html('');
     }
 
+};
+
+
+let products = {
+    tbody: $('#tblProducts'),
+
+    append: function (productID, productName, warrantyPeriod, buyPrice, sellPrice, units, total) {
+        let c = '<tr id="tr-' + productID + '">\n' +
+            '                                                    <td id="tdProductID-' + productID + '">' + productID + '</td>\n' +
+            '                                                    <td id="tdProductName-' + productID + '">' + productName + '</td>\n' +
+            '                                                    <td id="tdWarranty-' + productID + '">' + warrantyPeriod + '</td>\n' +
+            '                                                    <td id="tdBuyPrice-' + productID + '">' + buyPrice + '</td>\n' +
+            '                                                    <td id="tdSellPrice-' + productID + '">' + sellPrice + '</td>\n' +
+            '                                                    <td id="tdUnits-' + productID + '">' + units + '</td>\n' +
+            '                                                    <td id="tdTotal-' + productID + '">' + total + '</td>\n' +
+
+            '                                                    <td>' +
+            '<button type="button" value="' + productID + '"\n' +
+            '                                                                    class="btn btn-icon text-info btn-sm btnTblQuickEdit"\n' +
+            '                                                                    data-toggle="tooltip" data-placement="top"\n' +
+            '                                                                    title=""\n' +
+            '                                                                    data-original-title="Quick Edit"><i\n' +
+            '                                                                    class="fas fa-edit"></i>\n' +
+            '                                                        </button>' +
+            '<button type="button" value="' + productID + '"\n' +
+            '                                                                    class="btn btn-icon text-danger btn-sm btnTblRemoveRow"\n' +
+            '                                                                    data-toggle="tooltip" data-placement="top"\n' +
+            '                                                                    title=""\n' +
+            '                                                                    data-original-title="Quick Edit"><i\n' +
+            '                                                                    class="fas fa-trash"></i>\n' +
+            '                                                        </button>' +
+
+            '</td>' +
+            '                                                </tr>';
+
+        this.tbody.append(c);
+    },
+
+    update: function (productID, warrantyPeriod, buyPrice, sellPrice, units, total) {
+
+        let tr = 'tr-' + productID;
+        let tableRow = this.tbody.find('#' + tr);
+
+        tableRow.find('#tdWarranty-' + productID).html(warrantyPeriod);
+        tableRow.find('#tdBuyPrice-' + productID).html(buyPrice);
+        tableRow.find('#tdSellPrice-' + productID).html(sellPrice);
+        tableRow.find('#tdUnits-' + productID).html(units);
+        tableRow.find('#tdTotal-' + productID).html(total);
+
+        GRN.updateProductsInfo(productID, warrantyPeriod, buyPrice, sellPrice, units, total);
+        GRN.updateTotal()
+    },
+
+    clear: function () {
+        this.tbody.empty();
+        $('#fullTotal').val('')
+    },
+
+    setButtonStatus: function (option) {
+        let btnAddProduct = $('#btnAddProduct');
+
+        if (option === 'enable') {
+            btnAddProduct.attr('disabled', false)
+        } else {
+            btnAddProduct.attr('disabled', true)
+        }
+    }
+
+};
+
+
+//model form
+let mdAddItem = {
+    model: $('#mdAddProduct'),
+    button: $('#mdBtAddProducts'),
+    //inputs
+    slctItems: $("#slctItems"),
+    mdQuantity: $("#mdQuantity"),
+    mdBuyPrice: $("#mdBuyPrice"),
+    mdSellPrice: $("#mdSellPrice"),
+    mdWarranty: $("#mdWarranty"),
+    mdTotal: $("#mdTotal"),
+
+    disableSelect: function () {
+        this.slctItems.prop("disabled", true);
+    },
+
+    enableSelect: function () {
+        this.slctItems.prop("disabled", false)
+    },
+
+    show: function () {
+        this.enableSelect();
+        this.slctItems.select2('focus');
+        this.model.modal('show');
+    },
+
+    clear: function () {
+        this.slctItems.val(null).trigger('change').prop("disabled", false);
+        this.mdQuantity.val('');
+        this.mdBuyPrice.val('');
+        this.mdSellPrice.val('');
+        this.mdWarranty.val('');
+        this.mdTotal.val('');
+    },
+
+    setDataNshow: function (productID, productName, quantity, buyPrice, sellPrice, warranty, total) {
+        this.slctItems.select2("trigger", "select", {
+            data: {id: productID, text: productName},
+        });
+        this.disableSelect();
+        this.mdQuantity.val(quantity);
+        this.mdBuyPrice.val(buyPrice);
+        this.mdSellPrice.val(sellPrice);
+        this.mdWarranty.val(warranty);
+        this.mdTotal.val(total);
+
+        this.model.modal('show');
+    },
+
+    setStatus: function (status) {
+
+        if (status === 'add') {
+            this.button.html('Add');
+            this.button.val('add');
+        } else if (status === 'update') {
+            this.button.html('Update');
+            this.button.val('update');
+        }
+    },
+
+    updateTotal: function () {
+        let quntity = this.mdQuantity.val();
+        let unitPrice = this.mdBuyPrice.val();
+
+        let total = quntity * Number(unitPrice).toFixed(2);
+
+        this.mdTotal.val(Number(total).toFixed(2))
+    }
+
+};
+
+
+//supplier change event
+$(document).on('change', '#supplierSearch', function () {
+    let supplierID = $(this).val();
+    // let supplierName = $("#supplierSearch option:selected").text();
 
     $.ajax({
-        headers: CSRF,
         url: base_url + '/supplier/show',
         type: 'get',
         data: {
             'id': supplierID
         },
-        cache: false,
         success: function (data, textStatus, xhr) {
             if (data['status']) {
 
                 if (data['data'] !== null) {
 
+                    let email = data['data']['email'];
+                    let address = data['data']['address'];
+                    let company_name = data['data']['company_name'];
 
-                    companyName.html(data['data']['company_name']);
-                    email.html(data['data']['email']);
-                    address.html(data['data']['address']);
-                    fixed.html(data['data']['fixed']);
-                    mobile.html(data['data']['mobile']);
+                    supplier.clearInfo();
+                    supplier.showInfo(email, address, company_name);
+
+                    products.setButtonStatus('enable');
+
+                    GRN.supplierID = supplierID;
+                    // GRN.supplierName = supplierName;
+
                 } else {
-                    empty();
+                    supplier.clearInfo();
                 }
 
-
             } else {
-                empty();
+                supplier.clearInfo();
                 notify.serverError()
             }
         },
         error: function () {
             notify.serverError()
         }
-    });
-
-
+    })
 });
 
 
-$(document).on('change', '#supplierSearch', function () {
-    let slct = $(this);
-
-    if (slct.val() !== null) {
-        $('#btnAddProduct').prop('disabled', false);
-        grnData.setSupplierID(slct.val());
-    }
-});
-
+//product add button click
 $(document).on('click', '#btnAddProduct', function () {
-    //check supplier is selected
-    let slctSupplier = $('#supplierSearch').val();
-    clearAddModalForm();
+    mdAddItem.clear();
+    mdAddItem.setStatus('add');
 
-    formSetStatus('add');
+    //set GRNNo and rep name
+    GRN.invoiceNo = $('#grnNo').val();
+    GRN.repName = $('#repName').val();
 
-    if (slctSupplier !== null) {
-        $('#mdAddProduct').modal('show');
-        $("#slctItems").select2('focus');
-
+    if (GRN.supplierID !== null) {
+        mdAddItem.show();
     }
+});
 
 
+//update model total on keyup
+$(document).on('keyup', '#mdQuantity,#mdBuyPrice', function () {
+
+    mdAddItem.updateTotal();
+});
+
+//remove table rows
+$(document).on('click', '.btnTblRemoveRow', function () {
+    $(this).closest('tr').remove();
+    let productID = $(this).val();
+
+    delete GRN.productsInfo[productID];
+    GRN.updateTotal()
 });
 
 
@@ -219,7 +372,11 @@ let mdAddProductsOptions = ({
             type: 'number',
             methods: 'required'
         },
-        mdUnitPrice: {
+        mdBuyPrice: {
+            type: 'number',
+            methods: 'required'
+        },
+        mdSellPrice: {
             type: 'number',
             methods: 'required'
         },
@@ -235,176 +392,131 @@ $('#FrmMdAddProduct').submit(function (e) {
     e.preventDefault();
 
     let mdBtAddProducts = $('#mdBtAddProducts');
-    let btSave = $('#bt_submit');
-    let tblProducts = $('#tblProducts');
-
 
     if (v.status()) {//form validated OK!
 
-        let slctItems = $('#slctItems');
-        slctItems.prop("disabled", false);
+
+        mdAddItem.enableSelect();
 
         let values = $(this).serializeObject();
-
 
         let itemName = $("#slctItems option:selected").text();
         let itemID = values['slctItems'];
         let quantity = values['mdQuantity'];
-        let unitPrice = values['mdUnitPrice'];
-        let total = values['mdTotal'];
+        let mdBuyPrice = values['mdBuyPrice'];
+        let mdSellPrice = values['mdSellPrice'];
+        let mdWarranty = values['mdWarranty'];
+        let mdTotal = values['mdTotal'];
 
 
-        if (mdBtAddProducts.val() === 'Update') {
-            let tr = 'tr-' + itemID;
-            let tableRow = tblProducts.find('#' + tr);
+        if (mdBtAddProducts.val() === 'update') {
 
-            tableRow.find('#tdUnitPrice-'+itemID).html(unitPrice);
-            tableRow.find('#tdMdQuantity-'+itemID).html(quantity);
-            tableRow.find('#tdMdTotal-'+itemID).html(total);
+            products.update(itemID, mdWarranty, mdBuyPrice, mdSellPrice, quantity, mdTotal);
 
-            grnData.updateProductsInfo({itemID,unitPrice,quantity,total});
+            mdAddItem.disableSelect();
 
-            updateFullTotal()
-
+            GRN.updateTotal();
         } else {
 
-            if (grnData.productsInfo[itemID]) {
+            if (GRN.productsInfo[itemID]) {
                 notify.error('Item Already added to the list');
             } else {
 
+                products.append(itemID, itemName, mdWarranty, mdBuyPrice, mdSellPrice, quantity, mdTotal);
 
-                let c = '';
-
-                c += '<tr id="tr-' + itemID + '">' +
-                    '<td id="tdItemID-' + itemID + '">' + itemID + '</td>' +
-                    '<td id="tdItemName-' + itemID + '">' + itemName + '</td>' +
-                    '<td id="tdUnitPrice-' + itemID + '">' + unitPrice + '</td>' +
-                    '<td id="tdMdQuantity-' + itemID + '">' + quantity + '</td>' +
-                    '<td id="tdMdTotal-' + itemID + '">' + total + '</td>' +
-                    '<td><button type="button" value="' + itemID + '"\n' +
-                    '                                                                    class="btn btn-icon text-info btn-sm btnTblQuickEdit"\n' +
-                    '                                                                    data-toggle="tooltip" data-placement="top"\n' +
-                    '                                                                    title=""\n' +
-                    '                                                                    data-original-title="Quick Edit"><i\n' +
-                    '                                                                    class="fas fa-edit"></i>\n' +
-                    '                                                        </button>' +
-                    '<button type="button" value="' + itemID + '"\n' +
-                    '                                                                    class="btn btn-icon text-danger btn-sm btnTblRemoveRow"\n' +
-                    '                                                                    data-toggle="tooltip" data-placement="top"\n' +
-                    '                                                                    title=""\n' +
-                    '                                                                    data-original-title="Quick Edit"><i\n' +
-                    '                                                                    class="fas fa-trash"></i>\n' +
-                    '                                                        </button>' +
-
-                    '</td>' +
-                    '</tr>';
-
-                tblProducts.append(c);
-
-                grnData.setProductsInfo({itemID,itemName,quantity,unitPrice,total});
-
-
-                updateFullTotal();
-
+                GRN.setProductsInfo(itemID, itemName, mdWarranty, mdBuyPrice, mdSellPrice, quantity, mdTotal);
+                GRN.updateTotal();
                 v.resetForm();
 
-                $("#slctItems").select2('focus');
+
             }
-
-
         }
-
-
     }
-
-});
-
-
-$(document).on('keyup', '#mdQuantity,#mdUnitPrice', function () {
-    let quntity = $('#mdQuantity').val();
-    let unitPrice = $('#mdUnitPrice').val();
-
-    let total = quntity * Number(unitPrice).toFixed(2);
-
-    $('#mdTotal').val(Number(total).toFixed(2))
-});
-
-//remove table rows
-$(document).on('click', '.btnTblRemoveRow', function () {
-    let s = $(this).closest('tr').remove();
-    let productID = $(this).val();
-
-    // let subTotal = grnData.productsInfo[productID].total;
-    // grnData.fullTotal = parseFloat(grnData.fullTotal) - parseFloat(subTotal);
-
-    delete grnData.productsInfo[productID];
-
-    updateFullTotal();
-
-
 });
 
 
 //edit items
 $(document).on('click', '.btnTblQuickEdit', function () {
-    let tr = $(this).closest('tr');
+
     let itemID = $(this).val();
 
-    let itemName = grnData.productsInfo[itemID]['itemName'];
-    let quantity = grnData.productsInfo[itemID]['quantity'];
-    let unitPrice = grnData.productsInfo[itemID]['unitPrice'];
-    let total = grnData.productsInfo[itemID]['total'];
+    let itemName = GRN.productsInfo[itemID]['productName'];
+    let warranty = GRN.productsInfo[itemID]['warranty'];
+    let buyPrice = GRN.productsInfo[itemID]['buyPrice'];
+    let sellPrice = GRN.productsInfo[itemID]['sellPrice'];
+    let units = GRN.productsInfo[itemID]['units'];
+    let total = GRN.productsInfo[itemID]['total'];
 
-    // $('#slctItems').select2('data', {id: itemID, text: itemName}).change();
-    let slctItems = $("#slctItems");
-
-    slctItems.select2("trigger", "select", {
-        data: {id: itemID, text: itemName},
-    });
-    slctItems.prop("disabled", true);
-
-
-    $('#mdQuantity').val(quantity);
-    $('#mdUnitPrice').val(unitPrice);
-    $('#mdTotal').val(total);
-
-    formSetStatus('update');
-
-    $('#mdAddProduct').modal('show');
-
+    mdAddItem.setStatus('update');
+    mdAddItem.setDataNshow(itemID, itemName, units, buyPrice, sellPrice, warranty, total)
 
 });
 
 
-function clearAddModalForm() {
-    // let slctItems = $("#slctItems");
-    $("#slctItems").val(null).trigger('change').prop("disabled", false);
-    $('#mdQuantity').val('');
-    $('#mdUnitPrice').val('');
-    $('#mdTotal').val(0);
+let grnNrepOptions = ({
+    formID: 'grnNRep',
+    animate: true,
+    validate: {
+        supplierSearch: {
+            type: 'text',
+            methods: 'required'
+        },
+        grnNo: {
+            type: 'text',
+            methods: 'required'
+        },
+        repName: {
+            type: 'number',
+            methods: 'required'
+        },
 
-}
+    },
+});
 
-function updateFullTotal() {
-    // grnData.fullTotal = 0;
-    // $.each(grnData.productsInfo, function (k, v) {
-    //     grnData.fullTotal += parseFloat(v.total);
-    //
-    //
-    // });
-    $('#fullTotal').val(grnData.updateFullTotal())
-}
 
-function formSetStatus(status) {
-    let button = $('#mdBtAddProducts');
+let x = validator(grnNrepOptions);
+x.init();
 
-    if (status === 'add') {
-        button.html('Add');
-        button.val('Add');
-    } else if (status === 'update') {
-        button.html('Update');
-        button.val('Update');
+$(document).on('click', '#btSaveGrn', function () {
+    let btSave = $(this);
+
+    if (x.status()) {
+        if (Object.keys(GRN.productsInfo).length < 1) {
+            notify.error('Oops!, Please select items to continue!');
+        }else {
+            $.ajax({
+                url: 'saveGRN',
+                type: 'POST',
+                data: GRN.getAllData()
+                ,
+                beforeSend: function () {
+                    spinButton.start(btSave);
+
+                },
+                success: function (data, textStatus, xhr) {
+                    spinButton.stop(btSave);
+
+                    if (!data['status']) {
+                        notify.error(data['message'])
+                    } else {
+                        notify.success(data['message']);
+
+                        x.resetForm();
+                        GRN.clearGrnData();
+                        mdAddItem.clear();
+                        products.clear();
+                        supplier.clearInfo();
+                    }
+                },
+                statusCode: { // laravel server side validations
+                    500: function (data, textStatus, xhr) {
+                        spinButton.stop(btSave);
+                        notify.serverError()
+                    }
+                }
+            })
+        }
     }
-}
+});
 
 

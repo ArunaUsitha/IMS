@@ -45,11 +45,15 @@
                                             <label for="product_code">Product Code</label>
                                             <div class="input-group mb-3">
 
-                                                <input type="text" class="form-control form-control-sm" id="product_code"
+                                                <input type="text" class="form-control form-control-sm"
+                                                       id="product_code"
                                                        name="product_code" readonly
                                                        placeholder="Click the refresh button on the right to get new code">
                                                 <div class="input-group-append">
-                                                    <button class="btn btn-success btn-sm" id="btnGetNewProductCode" data-toggle="tooltip" data-placement="top" title="" data-original-title="Get New Prodcut Code"  type="button"><i class="fas fa-sync-alt"></i></button>
+                                                    <button class="btn btn-success btn-sm" id="btnGetNewProductCode"
+                                                            data-toggle="tooltip" data-placement="top" title=""
+                                                            data-original-title="Get New Prodcut Code" type="button"><i
+                                                            class="fas fa-sync-alt"></i></button>
                                                 </div>
                                             </div>
 
@@ -59,6 +63,7 @@
                                             <input type="text" class="form-control form-control-sm" id="c_product_code"
                                                    name="c_product_code"
                                                    placeholder="category - brand name - model ">
+                                            <small class="form-text text-muted">CATEGORY - BRAND NAME - MODEL</small>
                                         </div>
 
                                         <div class="form-group">

@@ -122,6 +122,9 @@ select.form-control-sm{
 .table-slate,
 .table-slate > th,
 .table-slate > td {
-    background-color: #778899;
-    color: #e2e2e2;
+    /*background-color: #778899;*/
+    /*color: #e2e2e2;*/
+    /*background-color: #f4f6f9;*/
+    background-color: transparent;
+    color: #8a8a8a;
 }

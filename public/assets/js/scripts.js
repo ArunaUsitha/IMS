@@ -680,3 +680,71 @@ function printElem(elem)
 
     return true;
 }
+
+
+//select2 defaults
+$.fn.select2.defaults.set('closeOnSelect', true);
+$.fn.select2.defaults.set('allowHtml', true);
+$.fn.select2.defaults.set('minimumResultsForSearch', -1);
+$.fn.select2.defaults.set('createSearchChoice', false);
+$.fn.select2.defaults.set('allowClear', true);
+$.fn.select2.defaults.set('tags', false);
+$.fn.select2.defaults.set('cache', false);
+$.fn.select2.defaults.set('minimumInputLength', 2);
+
+//
+// let ajaxSettingsForm = {
+//     headers: CSRF,
+//     url: '',
+//     type: 'POST',
+//     cache: false,
+//     async: true,
+//     data: '',
+//     delay: 0,
+//     contentType: false,
+//     processData: false,
+//
+//     beforeSend: function (callback) {
+//         callback()
+//     },
+//     error: function(callback) {
+//         callback();
+//     },
+//     success: function(data,callback) {
+//         callback()
+//     },
+//     processResults: function (data,callback) {
+//       callback()
+//     },
+// };
+//
+//
+// let ajaxSettings = {
+//     headers: CSRF,
+//     dataType : 'JSON',
+//     url: '',
+//     type: 'POST',
+//     data: '',
+//
+//     beforeSend: function (callback) {
+//         callback
+//     },
+//     error: function(callback) {
+//         callback;
+//     },
+//     success: function(data,callback) {
+//         callback
+//     },
+//     processResults: function (data,callback) {
+//       callback
+//     },
+// };
+
+
+$.ajaxSetup({
+    headers: CSRF,
+    dataType : 'JSON',
+    url: '',
+    type: 'POST',
+    data: '',
+});

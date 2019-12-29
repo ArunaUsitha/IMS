@@ -97,6 +97,7 @@ class SupplierController extends Controller
      *
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function show(Request $request)
     {
