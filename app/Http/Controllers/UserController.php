@@ -132,9 +132,7 @@ class UserController extends Controller
             $user->initials = $request->post('initials');
             $user->initials_full = $request->post('initials_full');
             $user->first_name = $request->post('first_name');
-            $user->last_name = $request->post('last_name');
             $user->gender = $request->post('gender');
-            $user->mobile = $request->post('mobile');
             $user->mobile = $request->post('mobile');
             $user->address_no = $request->post('address_no');
             $user->address_street = $request->post('address_street');

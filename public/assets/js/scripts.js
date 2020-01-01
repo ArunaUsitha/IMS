@@ -743,7 +743,6 @@ $.fn.select2.defaults.set('minimumInputLength', 2);
 
 $.ajaxSetup({
     headers: CSRF,
-    dataType : 'JSON',
     url: '',
     type: 'POST',
     data: '',

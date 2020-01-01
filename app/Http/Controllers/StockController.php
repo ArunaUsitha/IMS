@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Product;
 use App\Stock;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -21,4 +23,8 @@ class StockController extends Controller
 
         return response()->json(['stock'=>$stocks]);
     }
+
+
+
+
 }

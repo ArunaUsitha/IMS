@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Brand;
 use App\Product;
 use App\ProductCategory;
+use App\purchaseProducts;
 use App\SystemCode;
 use App\Warranty;
 use Auth;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -313,11 +315,34 @@ class ProductController extends Controller
         if ($searchTerm !== '') {
 
 
-            $products = Product::where('name', 'LIKE', '%'.$searchTerm.'%')
-                ->orWhere('code','=',$searchTerm)
-                ->orWhere('custom_code','=',$searchTerm)
+            $products = Product::where('name', 'LIKE', '%' . $searchTerm . '%')
+                ->orWhere('code', '=', $searchTerm)
+                ->orWhere('custom_code', '=', $searchTerm)
                 ->where('status', '=', 1)
                 ->get(['id', 'name'])->toJson();
+
+            return response()->json(array('results' => $products));
+        }
+    }
+
+
+    public function searchProductsForSale(Request $request)
+    {
+
+
+        $searchTerm = $request->get('name');
+
+        if ($searchTerm !== '') {
+
+
+            $products = DB::table('products')->join('stocks', 'products.id', '=', 'stocks.product_id')
+                ->where('products.status', '=', 1)
+                ->where('products.name', 'LIKE', '%'.$searchTerm.'%')
+                ->where(function ($query) use ($searchTerm) {
+                    $query->where('stocks.stock', '>', 0)
+                        ->orWhere('products.code', '=', $searchTerm)
+                        ->orWhere('products.custom_code', '=', $searchTerm);
+                })->get(['products.id', 'products.name'])->toJson();
 
             return response()->json(array('results' => $products));
         }
@@ -327,22 +352,38 @@ class ProductController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function getProductByID(Request $request){
+    public function getProductByID(Request $request)
+    {
         $searchTerm = $request->get('id');
         if ($searchTerm !== '') {
 
             $products = Product::where('id', '=', $searchTerm)
                 ->where('status', '=', 1)
-                ->get(['id', 'name'])->toJson();
+                ->get()->toJson();
 
             return response()->json(array('results' => $products));
         }
         return response()->json(array('results' => ''));
     }
 
-    public function warrantyManagementOverview(){
+    public function getProductDetails(Request $request)
+    {
+        $searchTerm = $request->get('id');
+        if ($searchTerm !== '') {
+
+            $products =  DB::table('products')->join('purchase_products', 'products.id', '=', 'purchase_products.product_id')
+                ->where('products.id', '=',$searchTerm)
+                ->get()->toJson();
+
+            return response()->json(array('results' => $products));
+        }
+        return response()->json(array('results' => ''));
+    }
+
+    public function warrantyManagementOverview()
+    {
         $warranties = Warranty::all();
-        return view('admin.products.warranty_management')->with('warranties',$warranties);
+        return view('admin.products.warranty_management')->with('warranties', $warranties);
     }
 
     public function getNewProductCode()

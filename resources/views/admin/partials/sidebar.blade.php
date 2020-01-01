@@ -24,8 +24,9 @@
             <li class="nav-item dropdown {{(request()->is('sales*')) ? 'active' :''}}">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-store"></i><span>Sales Management</span></a>
                 <ul class="dropdown-menu">
-                    @can('create',Auth::user())<li><a class="nav-link" href="{{Route('sales.newSale')}}">New Sale</a></li>@endcan
-                    @can('create',Auth::user())<li><a class="nav-link" href="{{Route('sales.newCustomer')}}">Register New Customer</a></li>@endcan
+                    @can('create',Auth::user())<li><a class="nav-link" href="{{Route('sales.newSalesOrder')}}">New Sales Order</a></li>@endcan
+                    @can('create',Auth::user())<li><a class="nav-link" href="{{Route('sales.customerCreate')}}">Register New Customer</a></li>@endcan
+                    @can('read',Auth::user())<li><a class="nav-link" href="{{Route('sales.customerOverview')}}">Customer overview</a></li>@endcan
                 </ul>
             </li>
 

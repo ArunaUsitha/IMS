@@ -77,6 +77,9 @@ Route::name('product.')->prefix('product')->middleware('auth')->group(function (
     Route::get('searchProducts','ProductController@searchProducts')->name('searchProducts');
     Route::get('getProductByID','ProductController@getProductByID')->name('getProductByID');
     Route::get('warrantyManagementOverview','ProductController@warrantyManagementOverview')->name('warrantyManagementOverview');
+    Route::get('getProductPrice','ProductController@getProductPrice')->name('getProductPrice');
+    Route::get('searchProductsForSale','ProductController@searchProductsForSale')->name('searchProductsForSale');
+    Route::get('getProductDetails','ProductController@getProductDetails')->name('getProductDetails');
 });
 
 
@@ -99,10 +102,26 @@ Route::name('stock.')->prefix('stock')->middleware('auth')->group(function (){
 });
 
 
-//Stock Routes
+//Sale Routes
 Route::name('sales.')->prefix('sales')->middleware('auth')->group(function (){
-    Route::get('newSale','SalesController@newSale')->name('newSale');
-    Route::get('newCustomer','SalesController@newCustomer')->name('newCustomer');
+    //sales
+    Route::get('newSalesOrder','SalesController@newSalesOrder')->name('newSalesOrder');
+
+
+
+    //customer
+    Route::get('customerCreate','SalesController@customerCreate')->name('customerCreate');
+    Route::get('customerCreate','SalesController@customerCreate')->name('customerCreate');
+    Route::post('customerStore','SalesController@customerStore')->name('customerStore');
+    Route::get('customerOverview','SalesController@customerOverview')->name('customerOverview');
+    Route::get('getAllCustomers','SalesController@getAllCustomers')->name('getAllCustomers');
+    Route::post('setCustomerStatus','SalesController@setCustomerStatus')->name('setCustomerStatus');
+    Route::get('customerShowEdit','SalesController@customerShowEdit')->name('customerShowEdit');
+    Route::post('customerUpdate','SalesController@customerUpdate')->name('customerUpdate');
+    Route::get('searchCustomer','SalesController@searchCustomer')->name('searchCustomer');
+    Route::get('getCustomerInfoByID','SalesController@getCustomerInfoByID')->name('getCustomerInfoByID');
+    Route::post('storeSalesOrder','SalesController@storeSalesOrder')->name('storeSalesOrder');
+
 
 });
 

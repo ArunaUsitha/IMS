@@ -1,9 +1,9 @@
 $(document).ready(function () {
 
 //supplier search
-    $('#supplierSearch').select2({
+    $('#customerSearch').select2({
         ajax: {
-            url: base_url + '/supplier/searchSuppliers',
+            url: base_url + '/sales/searchCustomer',
             dataType: 'json',
             delay: 250,
             data: function (params) {
@@ -16,19 +16,20 @@ $(document).ready(function () {
                     results: $.map(JSON.parse(data.results), function (item) {
                         return {
                             id: item.id,
-                            text: item.name
+                            text: item.first_name
                         };
                     })
                 };
             },
         },
-        placeholder: 'Search Supplier',
+        placeholder: 'Search Customer',
     });
 
-//item search
+
+//product search
     $('#slctItems').select2({
         ajax: {
-            url: base_url + '/product/searchProducts',
+            url: base_url + '/product/searchProductsForSale',
             dataType: 'json',
             delay: 250,
             data: function (params) {
@@ -47,116 +48,124 @@ $(document).ready(function () {
                 };
             },
         },
-        placeholder: 'Search for a Product'
+        placeholder: 'Search Products',
     });
+
 
 });
 
-let GRN = {
-    supplierID: null,
-    // supplierName: null,
-    invoiceNo: null,
-    repName: null,
-    fullTotal: 0,
-    productsInfo: {
-        // productID: null,
-        // productName: null,
-        // warranty: null,
-        // buyPrice: null,
-        // sellPrice: null,
-        // units: null,
-        // total: null,
+
+let salesOrder = {
+    customerID: null,
+    total: null,
+    productsInfo: {},
+
+    setProductsInfo: function (product_id, productCode, productName, price, warranty, quantity, total) {
+        this.productsInfo
+            [product_id] = {
+            productID: product_id,
+            productCode: productCode,
+            productName: productName,
+            warranty: warranty,
+            price: price,
+            quantity: quantity,
+            total: total,
+        };
+
+        this.total += total
+    },
+
+    updateProductsInfo: function (product_id, price, warranty, quantity, total) {
+
+        this.productsInfo[product_id].price = price;
+        this.productsInfo[product_id].warranty = warranty;
+        this.productsInfo[product_id].price = parseFloat(price);
+        this.productsInfo[product_id].quantity = quantity;
+        this.productsInfo[product_id].total = parseFloat(total);
+
+        console.log(this.productsInfo)
+
+    },
+
+    removeProduct: function (product_id) {
+        delete this.productsInfo[product_id];
+        this.updateTotal()
     },
 
     getTotal: function () {
         this.updateTotal();
-        return GRN.fullTotal
+        return this.fullTotal
     },
+
+    setCustomerID: function (customer_id) {
+        this.customerID = customer_id
+    },
+
+
+    clear: function () {
+        this.customerID = null;
+        this.total = null;
+        this.productsInfo = {}
+    },
+
     updateTotal: function () {
-        GRN.fullTotal = 0;
-        $.each(GRN.productsInfo, function (k, v) {
-            GRN.fullTotal += parseFloat(v.total);
+        salesOrder.total = 0;
+        $.each(this.productsInfo, function (k, v) {
+            salesOrder.total += parseFloat(v.total);
         });
-        $('#fullTotal').val(GRN.fullTotal);
+        $('#fullTotal').val(salesOrder.total);
     },
-    setProductsInfo: function (productID, productName, warranty, buyPrice, sellPrice, units, total) {
-
-        this.productsInfo
-            [productID] = {
-            productID: productID,
-            productName: productName,
-            warranty: warranty,
-            buyPrice: buyPrice,
-            sellPrice: sellPrice,
-            units: units,
-            total: total,
-        };
-
-        this.fullTotal += total
-
-    },
-
-    updateProductsInfo: function (productID, warranty, buyPrice, sellPrice, units, total) {
-        this.productsInfo[productID].productID = productID;
-        this.productsInfo[productID].warranty = warranty;
-        this.productsInfo[productID].units = units;
-        this.productsInfo[productID].buyPrice = parseFloat(buyPrice);
-        this.productsInfo[productID].sellPrice = parseFloat(sellPrice);
-        this.productsInfo[productID].total = parseFloat(total);
-
-    },
-
-    clearGrnData: function () {
-        this.supplierID = null;
-        this.invoiceNo = null;
-        this.repName = null;
-        this.fullTotal = 0;
-        this.productsInfo = {};
-
-    },
-
-    getAllData : function () {
-        return  {
-            supplierID: this.supplierID,
-            invoiceNo: this.invoiceNo,
-            repName: this.repName,
-            fullTotal: this.fullTotal,
+    getAllData: function () {
+        return {
+            customerID: this.customerID,
+            total: this.total,
             productsInfo: this.productsInfo
         }
     }
+
+
 };
 
-let supplier = {
-    supCompanyName: $('#supCompanyName'),
-    supEmail: $('#supEmail'),
-    supAddress: $('#supAddress'),
 
-    showInfo: function (email, address, company) {
-        this.supEmail.html(email);
-        this.supAddress.html(address);
-        this.supCompanyName.html(company);
+let customer = {
+    supCustomerName: $('#supCustomerName'),
+    supCustomerMobile: $('#supCustomerMobile'),
+    supCustomerAddress: $('#supCustomerAddress'),
+
+    showInfo: function (name, mobile, address) {
+        this.supCustomerName.html(name);
+        this.supCustomerMobile.html(mobile);
+        this.supCustomerAddress.html(address);
+        console.log(name)
     },
 
     clearInfo: function () {
-        this.supEmail.html('');
-        this.supAddress.html('');
-        this.supCompanyName.html('');
+        this.supCustomerName.html('');
+        this.supCustomerMobile.html('');
+        this.supCustomerAddress.html('');
     }
 
 };
 
 
-let products = {
-    tbody: $('#tblProducts'),
+let productInfoHandler = {
+    btnAddProducts: $('#btnAddProduct'),
+    btnPrintQuotation: $('#btPrintQuote'),
+    btnPrint: $('#btPrint'),
+    btnCheckout: $('#btCheckout'),
+    btnClear: $('#btClear'),
 
-    append: function (productID, productName, warrantyPeriod, buyPrice, sellPrice, units, total) {
+    fullTotal: $('#fullTotal'),
+
+    tbodyProducts: $('#tbodyProducts'),
+
+    append: function (productID, productCode, productName, warrantyPeriod, price, quantity, total) {
         let c = '<tr id="tr-' + productID + '">\n' +
-            '                                                    <td id="tdProductID-' + productID + '">' + productID + '</td>\n' +
+            '                                                    <td id="tdProductID-' + productID + '">' + productCode + '</td>\n' +
             '                                                    <td id="tdProductName-' + productID + '">' + productName + '</td>\n' +
             '                                                    <td id="tdWarranty-' + productID + '">' + warrantyPeriod + '</td>\n' +
-            '                                                    <td id="tdBuyPrice-' + productID + '">' + buyPrice + '</td>\n' +
-            '                                                    <td id="tdSellPrice-' + productID + '">' + sellPrice + '</td>\n' +
-            '                                                    <td id="tdUnits-' + productID + '">' + units + '</td>\n' +
+            '                                                    <td id="tdBuyPrice-' + productID + '">' + price + '</td>\n' +
+            '                                                    <td id="tdUnits-' + productID + '">' + quantity + '</td>\n' +
             '                                                    <td id="tdTotal-' + productID + '">' + total + '</td>\n' +
 
             '                                                    <td>' +
@@ -178,22 +187,21 @@ let products = {
             '</td>' +
             '                                                </tr>';
 
-        this.tbody.append(c);
+        this.tbodyProducts.append(c);
     },
 
-    update: function (productID, warrantyPeriod, buyPrice, sellPrice, units, total) {
+    update: function (productID, productCode, productName, warrantyPeriod, price, quantity, total) {
 
         let tr = 'tr-' + productID;
-        let tableRow = this.tbody.find('#' + tr);
+        let tableRow = this.tbodyProducts.find('#' + tr);
 
         tableRow.find('#tdWarranty-' + productID).html(warrantyPeriod);
-        tableRow.find('#tdBuyPrice-' + productID).html(buyPrice);
-        tableRow.find('#tdSellPrice-' + productID).html(sellPrice);
-        tableRow.find('#tdUnits-' + productID).html(units);
+        tableRow.find('#tdSellPrice-' + productID).html(price);
+        tableRow.find('#tdUnits-' + productID).html(quantity);
         tableRow.find('#tdTotal-' + productID).html(total);
 
-        GRN.updateProductsInfo(productID, warrantyPeriod, buyPrice, sellPrice, units, total);
-        GRN.updateTotal()
+        salesOrder.updateProductsInfo(productID, price, warrantyPeriod, quantity, total);
+        salesOrder.updateTotal()
     },
 
     clear: function () {
@@ -210,7 +218,6 @@ let products = {
             btnAddProduct.attr('disabled', true)
         }
     }
-
 };
 
 
@@ -221,10 +228,10 @@ let mdAddItem = {
     //inputs
     slctItems: $("#slctItems"),
     mdQuantity: $("#mdQuantity"),
-    mdBuyPrice: $("#mdBuyPrice"),
-    mdSellPrice: $("#mdSellPrice"),
-    mdWarranty: $("#mdWarranty"),
+    mdProductCode: $("#mdProductCode"),
+    mdPrice: $("#mdPrice"),
     mdTotal: $("#mdTotal"),
+    mdWarranty: $("#mdWarranty"),
 
     disableSelect: function () {
         this.slctItems.prop("disabled", true);
@@ -243,24 +250,30 @@ let mdAddItem = {
     clear: function () {
         this.slctItems.val(null).trigger('change').prop("disabled", false);
         this.mdQuantity.val('');
-        this.mdBuyPrice.val('');
-        this.mdSellPrice.val('');
-        this.mdWarranty.val('');
-        this.mdTotal.val('');
+
     },
 
-    setDataNshow: function (productID, productName, quantity, buyPrice, sellPrice, warranty, total) {
+    setDataNshow: function (productID, productName, quantity, productCode, price, warranty, total) {
         this.slctItems.select2("trigger", "select", {
             data: {id: productID, text: productName},
         });
         this.disableSelect();
         this.mdQuantity.val(quantity);
-        this.mdBuyPrice.val(buyPrice);
-        this.mdSellPrice.val(sellPrice);
+        this.mdProductCode.val(productCode);
+        this.mdPrice.val(price);
         this.mdWarranty.val(warranty);
         this.mdTotal.val(total);
 
+
         this.model.modal('show');
+    },
+
+    updateProductDetails: function (productCode, price, warranty, total) {
+        this.mdProductCode.val(productCode);
+        this.mdPrice.val(price);
+        this.mdWarranty.val(warranty);
+        this.mdTotal.val(total);
+
     },
 
     setStatus: function (status) {
@@ -273,55 +286,84 @@ let mdAddItem = {
             this.button.val('update');
         }
     },
-
     updateTotal: function () {
         let quntity = this.mdQuantity.val();
-        let unitPrice = this.mdBuyPrice.val();
+        let unitPrice = this.mdPrice.val();
 
         let total = quntity * Number(unitPrice).toFixed(2);
-
+        console.log(total)
         this.mdTotal.val(Number(total).toFixed(2))
     }
+
 
 };
 
 
-//supplier change event
-$(document).on('change', '#supplierSearch', function () {
-    let supplierID = $(this).val();
+//customer change event
+$(document).on('change', '#customerSearch', function () {
+    let customerID = $(this).val();
     // let supplierName = $("#supplierSearch option:selected").text();
 
     $.ajax({
-        url: base_url + '/supplier/show',
+        url: base_url + '/sales/getCustomerInfoByID',
         type: 'get',
         data: {
-            'id': supplierID
+            'id': customerID
         },
         success: function (data, textStatus, xhr) {
             if (data['status']) {
 
                 if (data['data'] !== null) {
 
-                    let email = data['data']['email'];
-                    let address = data['data']['address'];
-                    let company_name = data['data']['company_name'];
 
-                    supplier.clearInfo();
-                    supplier.showInfo(email, address, company_name);
+                    let name = data['data'][0]['first_name'];
+                    let address = data['data'][0]['address'];
+                    let mobile = data['data'][0]['mobile'];
 
-                    products.setButtonStatus('enable');
+                    customer.clearInfo();
+                    customer.showInfo(name, mobile, address);
 
-                    GRN.supplierID = supplierID;
-                    // GRN.supplierName = supplierName;
+                    productInfoHandler.setButtonStatus('enable');
+
+                    salesOrder.setCustomerID(customerID);
 
                 } else {
-                    supplier.clearInfo();
+                    customer.clearInfo();
                 }
 
             } else {
-                supplier.clearInfo();
+                customer.clearInfo();
                 notify.serverError()
             }
+        },
+        error: function () {
+            notify.serverError()
+        }
+    })
+});
+
+//item search change event
+$(document).on('change', '#slctItems', function () {
+    let productID = $(this).val();
+
+    $.ajax({
+        url: base_url + '/product/getProductDetails',
+        type: 'get',
+        data: {
+            'id': productID
+        },
+        success: function (data, textStatus, xhr) {
+
+            data = JSON.parse(data['results']);
+
+
+            if (data[0] !== undefined) {
+                console.log(data)
+                mdAddItem.updateProductDetails(data[0]['code'], data[0]['sell_price'], data[0]['warranty_period']);
+                // mdAddItem.updateProductDetails(10,10,10);
+            }
+
+
         },
         error: function () {
             notify.serverError()
@@ -335,29 +377,9 @@ $(document).on('click', '#btnAddProduct', function () {
     mdAddItem.clear();
     mdAddItem.setStatus('add');
 
-    //set GRNNo and rep name
-    GRN.invoiceNo = $('#grnNo').val();
-    GRN.repName = $('#repName').val();
-
-    if (GRN.supplierID !== null) {
+    if (salesOrder.supplierID !== null) {
         mdAddItem.show();
     }
-});
-
-
-//update model total on keyup
-$(document).on('keyup', '#mdQuantity,#mdBuyPrice', function () {
-
-    mdAddItem.updateTotal();
-});
-
-//remove table rows
-$(document).on('click', '.btnTblRemoveRow', function () {
-    $(this).closest('tr').remove();
-    let productID = $(this).val();
-
-    delete GRN.productsInfo[productID];
-    GRN.updateTotal()
 });
 
 
@@ -373,14 +395,7 @@ let mdAddProductsOptions = ({
             type: 'number',
             methods: 'required'
         },
-        mdBuyPrice: {
-            type: 'number',
-            methods: 'required'
-        },
-        mdSellPrice: {
-            type: 'number',
-            methods: 'required'
-        },
+
     },
 });
 
@@ -401,32 +416,35 @@ $('#FrmMdAddProduct').submit(function (e) {
 
         let values = $(this).serializeObject();
 
-        let itemName = $("#slctItems option:selected").text();
-        let itemID = values['slctItems'];
+        console.log(values)
+        let productName = $("#slctItems option:selected").text();
+        let productID = values['slctItems'];
+        let productCode = values['mdProductCode'];
         let quantity = values['mdQuantity'];
-        let mdBuyPrice = values['mdBuyPrice'];
-        let mdSellPrice = values['mdSellPrice'];
-        let mdWarranty = values['mdWarranty'];
-        let mdTotal = values['mdTotal'];
+        let warrantyPeriod = values['mdWarranty'];
+        let price = values['mdPrice'];
+        let total = values['mdTotal'];
+
+        // productID, productCode, productName, warrantyPeriod, price, quantity, total
 
 
         if (mdBtAddProducts.val() === 'update') {
 
-            products.update(itemID, mdWarranty, mdBuyPrice, mdSellPrice, quantity, mdTotal);
+            productInfoHandler.update(productID, productCode, productName, warrantyPeriod, price, quantity, total);
 
             mdAddItem.disableSelect();
 
-            GRN.updateTotal();
+            salesOrder.updateTotal();
         } else {
 
-            if (GRN.productsInfo[itemID]) {
+            if (salesOrder.productsInfo[productID]) {
                 notify.error('Item Already added to the list');
             } else {
 
-                products.append(itemID, itemName, mdWarranty, mdBuyPrice, mdSellPrice, quantity, mdTotal);
+                productInfoHandler.append(productID, productCode, productName, warrantyPeriod, price, quantity, total);
 
-                GRN.setProductsInfo(itemID, itemName, mdWarranty, mdBuyPrice, mdSellPrice, quantity, mdTotal);
-                GRN.updateTotal();
+                salesOrder.setProductsInfo(productID, productCode, productName, price, warrantyPeriod, quantity, total);
+                salesOrder.updateTotal();
                 v.resetForm();
 
 
@@ -435,41 +453,51 @@ $('#FrmMdAddProduct').submit(function (e) {
     }
 });
 
+//update model total on keyup
+$(document).on('keyup', '#mdQuantity', function () {
+
+    mdAddItem.updateTotal();
+});
+
 
 //edit items
 $(document).on('click', '.btnTblQuickEdit', function () {
 
-    let itemID = $(this).val();
+    let productID = $(this).val();
+    // productID, productCode, productName, warrantyPeriod, price, quantity, total
 
-    let itemName = GRN.productsInfo[itemID]['productName'];
-    let warranty = GRN.productsInfo[itemID]['warranty'];
-    let buyPrice = GRN.productsInfo[itemID]['buyPrice'];
-    let sellPrice = GRN.productsInfo[itemID]['sellPrice'];
-    let units = GRN.productsInfo[itemID]['units'];
-    let total = GRN.productsInfo[itemID]['total'];
+    let productCode = salesOrder.productsInfo[productID]['productCode'];
+    let productName = salesOrder.productsInfo[productID]['productName'];
+    let warranty = salesOrder.productsInfo[productID]['warranty'];
+    let price = salesOrder.productsInfo[productID]['price'];
+    let quantity = salesOrder.productsInfo[productID]['quantity'];
+    let total = salesOrder.productsInfo[productID]['total'];
+
 
     mdAddItem.setStatus('update');
-    mdAddItem.setDataNshow(itemID, itemName, units, buyPrice, sellPrice, warranty, total)
+    mdAddItem.setDataNshow(productID, productName, quantity, productCode, price, warranty, total)
 
 });
 
 
+//remove table rows
+$(document).on('click', '.btnTblRemoveRow', function () {
+    $(this).closest('tr').remove();
+    let productID = $(this).val();
+
+    delete salesOrder.productsInfo[productID];
+    salesOrder.updateTotal()
+});
+
+
 let grnNrepOptions = ({
-    formID: 'grnNRep',
+    formID: 'salesCustomer',
     animate: true,
     validate: {
-        supplierSearch: {
+        customerSearch : {
             type: 'text',
             methods: 'required'
-        },
-        grnNo: {
-            type: 'text',
-            methods: 'required'
-        },
-        repName: {
-            type: 'number',
-            methods: 'required'
-        },
+        }
 
     },
 });
@@ -478,17 +506,17 @@ let grnNrepOptions = ({
 let x = validator(grnNrepOptions);
 x.init();
 
-$(document).on('click', '#btSaveGrn', function () {
+$(document).on('click', '#btCheckout', function () {
     let btSave = $(this);
 
     if (x.status()) {
-        if (Object.keys(GRN.productsInfo).length < 1) {
+        if (Object.keys(salesOrder.productsInfo).length < 1) {
             notify.error('Oops!, Please select items to continue!');
-        }else {
+        } else {
             $.ajax({
-                url: 'saveGRN',
+                url: 'storeSalesOrder',
                 type: 'POST',
-                data: GRN.getAllData()
+                data: salesOrder.getAllData()
                 ,
                 beforeSend: function () {
                     spinButton.start(btSave);
@@ -503,10 +531,10 @@ $(document).on('click', '#btSaveGrn', function () {
                         notify.success(data['message']);
 
                         x.resetForm();
-                        GRN.clearGrnData();
+                        salesOrder.clear();
                         mdAddItem.clear();
                         products.clear();
-                        supplier.clearInfo();
+                        customer.clearInfo();
                     }
                 },
                 statusCode: { // laravel server side validations

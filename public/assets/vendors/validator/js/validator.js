@@ -578,7 +578,7 @@ let validator = function (options) {
                 let spanID = attributes.spanID;
                 let element = attributes.element;
                 if (element.is('select')){
-                    element.empty().trigger('change')
+                    element.val(-1).trigger('change')
                 }
 
                 style.clear(element, spanID);
