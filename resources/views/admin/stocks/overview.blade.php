@@ -37,12 +37,7 @@
                                        placeholder="Search">
                             </div>
                             <div class="col-md" style="">
-                                <div class="card-header-action">
-                                    @can('create',Auth::user())
-                                        <a href="{{Route('user.create')}}" class="btn btn-success float-right">Add New
-                                            User</a>
-                                    @endcan
-                                </div>
+
                             </div>
                         </div>
 

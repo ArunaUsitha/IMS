@@ -149,6 +149,18 @@ Route::name('reports.')->prefix('reports')->middleware('auth')->group(function (
 
 });
 
+//System Settings Routes
+Route::name('settings.')->prefix('settings')->middleware('auth')->group(function (){
+    Route::get('userAdministrationOverview','SystemSettingsController@userAdministrationOverview')->name('userAdministrationOverview');
+    Route::post('getUserModulesNPermissions','SystemSettingsController@getUserModulesNPermissions')->name('getUserModulesNPermissions');
+    Route::post('getPermissions','SystemSettingsController@getPermissions')->name('getPermissions');
+    Route::post('updatePermission','SystemSettingsController@updatePermission')->name('updatePermission');
+    Route::post('storeNewModule','SystemSettingsController@storeNewModule')->name('storeNewModule');
+    Route::post('storeNewUserRole','SystemSettingsController@storeNewUserRole')->name('storeNewUserRole');
+
+
+});
+
 
 
 

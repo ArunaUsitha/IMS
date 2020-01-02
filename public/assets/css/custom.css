@@ -7,9 +7,15 @@
 
 /*# sourceMappingURL=custom.css.map */
 .navbar-bg{
-    /*background-color: #34395e;*/
+    background-color: #34395e;
 }
 
+body.sidebar-mini .main-sidebar .sidebar-menu > li.active > a{
+    background-color: #34395e;
+}
+.section .section-title:before{
+    background-color: #34395e;
+}
 select.form-control-sm{
     font-size: 14px;
     padding: .25rem 0.8rem !important;

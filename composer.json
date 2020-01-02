@@ -20,7 +20,8 @@
         "laravel/ui": "^1.1",
         "maatwebsite/excel": "^3.1",
         "spatie/laravel-activitylog": "^3.9",
-        "wemersonjanuario/wkhtmltopdf-windows": "0.12.2.3"
+        "wemersonjanuario/wkhtmltopdf-windows": "0.12.2.3",
+      "ext-json": "*"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.6",

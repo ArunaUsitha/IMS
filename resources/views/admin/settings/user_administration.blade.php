@@ -1,0 +1,204 @@
+@extends('layouts.admin-master')
+
+@section('title')
+    User Administration
+@endsection
+{{--load js--}}
+@section('js')
+    <script src="{{URL::asset('app/js/settings/user_administration.js')}}"></script>
+@endsection
+
+@section('css')
+    <link rel="stylesheet" type="text/css" href="{{URL::asset('app/css/settings/user_administration.css')}}">
+@endsection
+
+
+@section('content')
+    <section class="section">
+        <div class="section-body">
+            <div class="section-header">
+                <h1>User Administration</h1>
+                <div class="section-header-breadcrumb">
+                    <div class="breadcrumb-item active"><a href="#">Settings</a></div>
+                    <div class="breadcrumb-item"><a href="#">User Administration</a></div>
+                </div>
+            </div>
+
+            <div class="section-body">
+                <h2 class="section-title">User Administration</h2>
+                <p class="section-lead">
+                    System User roles and permission changes can be made here.
+                </p>
+
+
+                <div class="card">
+                    <div class="card-header">
+                        <h4></h4>
+
+                        <div class="row container-fluid">
+                            <div class="col-md" style="">
+                                <div class="card-header-action">
+                                    @can('create',Auth::user())
+                                        <button class="btn btn-primary float-right" id="addModule">Add New
+                                            Module
+                                        </button>
+                                    @endcan
+                                    @can('create',Auth::user())
+                                        <button class="btn btn-primary float-right" id="addRole">Add New
+                                            User Role
+                                        </button>
+                                    @endcan
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="col-3 offset-2">
+                                <div class="form-group">
+                                    <label for="slctUserRole">Select User role</label>
+                                    <select class="form-control form-control-sm" id="slctUserRole">
+                                        <option value="-1">Select User Role</option>
+                                        @foreach($user_roles as $role)
+                                            <option value="{{$role->id}}">{{$role->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label for="slctUserRole">Select System Module</label>
+                                    <select class="form-control form-control-sm" id="slctModule">
+                                        <option value="-1">Select System Module</option>
+                                        @foreach($permissions as $permission)
+                                            <option value="{{$permission->id}}">{{$permission->module}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-3">
+
+                                <label class="label-hidden">&nbsp;</label>
+                                <button class="btn btn-sm btn-success" id="btnShowPer">Show permissions</button>
+
+
+                            </div>
+                        </div>
+
+                        <div class="row mx-auto">
+
+                            <div class="col-4 offset-3">
+                                <hr>
+
+                                <table width="100%">
+                                    <tr class="text-left">
+                                        <td>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input chkPermission"
+                                                       id="pCreate">
+                                                <label class="custom-control-label" for="pCreate">Create</label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input chkPermission"
+                                                       id="pRead">
+                                                <label class="custom-control-label" for="pRead">Read</label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr class="text-left">
+                                        <td>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input chkPermission"
+                                                       id="pUpdate">
+                                                <label class="custom-control-label" for="pUpdate">Update</label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input chkPermission"
+                                                       id="pDelete">
+                                                <label class="custom-control-label" for="pDelete">Delete</label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+
+    {{--    modals--}}
+    <div class="modal fade" tabindex="-1" role="dialog" id="msAddModule" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered " role="document">
+            <div class="modal-content">
+
+                <div class="card card-warning">
+                    <div class="card-header">
+                        <h4>Add New Module</h4>
+                    </div>
+
+                    <form id="frmAddModule">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="moduleName"></label>
+                                <input type="text" class="form-control form-control-sm" id="moduleName"
+                                       name="moduleName">
+                            </div>
+                            <span class="float-right">
+                            <button type="submit" class="btn btn-success" id="mdBtSaveModule">Save</button>
+
+                                </span>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    {{--    modals--}}
+    <div class="modal fade" tabindex="-1" role="dialog" id="msAddUserRole" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered " role="document">
+            <div class="modal-content">
+
+                <div class="card card-warning">
+                    <div class="card-header">
+                        <h4>Add New User role</h4>
+                    </div>
+
+                    <form id="frmAddUserRole">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="userRoleName"></label>
+                                <input type="text" class="form-control form-control-sm" id="userRoleName"
+                                       name="userRoleName">
+                            </div>
+                            <span class="float-right">
+                            <button type="submit" class="btn btn-success" id="mdBtSaveUserRole">Save</button>
+
+                                </span>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+@endsection('content')

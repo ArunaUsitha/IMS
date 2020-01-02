@@ -387,6 +387,8 @@ class UserController extends Controller
 
         }
 
+        DB::commit();
+
 
         activity()->by(Auth::id())->log('updated the User with ID '.$userID);
 

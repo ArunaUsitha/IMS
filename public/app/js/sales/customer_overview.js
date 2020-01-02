@@ -57,13 +57,13 @@ let dTable = $('#tblCustomerOverview').dataTable($.extend(true, {}, {
                 let c = '';
                 let customerID = data['id'];
 
-                if (auth.can('read')) {
-                    c += '<button type="button" onclick="window.location= \'showCustomer?id=' + customerID + ' \'     "\n' +
-                        '                                                                    class="btn btn-icon text-success btn-sm"\n' +
-                        '                                                                    data-toggle="tooltip" data-placement="top" title=""\n' +
-                        '                                                                    data-original-title="Advance View"><i\n' +
-                        '                                                                    class="fas fa-search-plus"></i></button>'
-                }
+                // if (auth.can('read')) {
+                //     c += '<button type="button" onclick="window.location= \'showCustomer?id=' + customerID + ' \'     "\n' +
+                //         '                                                                    class="btn btn-icon text-success btn-sm"\n' +
+                //         '                                                                    data-toggle="tooltip" data-placement="top" title=""\n' +
+                //         '                                                                    data-original-title="Advance View"><i\n' +
+                //         '                                                                    class="fas fa-search-plus"></i></button>'
+                // }
 
                 if (auth.can('update')) {
                     c += '<button type="button" onclick="window.location= \'customerShowEdit?id=' + customerID + ' \'     " \n' +

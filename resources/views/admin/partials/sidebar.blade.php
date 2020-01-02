@@ -52,7 +52,7 @@
                 <ul class="dropdown-menu">
                     @can('read',Auth::user())<li><a class="nav-link" href="{{Route('product.overview')}}">Overview</a></li>@endcan
                     @can('create',Auth::user())<li><a class="nav-link" href="{{Route('product.create')}}">Add New Product</a></li>@endcan
-                    @can('read',Auth::user())<li><a class="nav-link" href="{{Route('product.warrantyManagementOverview')}}">Manage Warranties</a></li>@endcan
+{{--                    @can('read',Auth::user())<li><a class="nav-link" href="{{Route('product.warrantyManagementOverview')}}">Manage Warranties</a></li>@endcan--}}
                 </ul>
             </li>
 
@@ -71,7 +71,7 @@
             <li class="nav-item dropdown {{(request()->is('settings*')) ? 'active' :''}}">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-cogs"></i><span>System Settings</span></a>
                 <ul class="dropdown-menu">
-                    @can('create',Auth::user())<li><a class="nav-link" href="{{Route('purchase.create')}}">User Administration</a></li>@endcan
+                    @can('create',Auth::user())<li><a class="nav-link" href="{{Route('settings.userAdministrationOverview')}}">User Administration</a></li>@endcan
                 </ul>
             </li>
 

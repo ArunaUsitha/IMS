@@ -249,7 +249,7 @@ class SupplierController extends Controller
         return response()->json(self::getJSONResponse(
             true,
             'toast',
-            'The user was updated!',
+            'The Supplier was updated!',
             ''
         ));
 

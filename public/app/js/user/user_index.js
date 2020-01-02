@@ -57,14 +57,6 @@
                             '                                                        </button>'
                     }
 
-                    if (auth.can('delete')) {
-                        c += '<button type="button"\n' +
-                            '                                                                    class="btn btn-icon text-warning btn-sm"\n' +
-                            '                                                                    data-toggle="tooltip" data-placement="top"\n' +
-                            '                                                                    title=""\n' +
-                            '                                                                    data-original-title="Delete User"><i\n' +
-                            '                                                                    class="fas fa-trash"></i></button>'
-                    }
 
                     return c;
 
