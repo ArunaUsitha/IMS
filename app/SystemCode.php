@@ -8,6 +8,7 @@ class SystemCode extends Model
 {
     private $productCode;
     private $purchaseOrderCode;
+    private $invoiceNo;
 
     public function getNewProductCode(){
         $productCodeCount = self::where('module','product')->where('type','productCode')->count();
@@ -113,6 +114,63 @@ class SystemCode extends Model
         $sysCode = self::find($id);
 
         $sysCode->last_code = $purchaseOrderCode;
+
+        $sysCode->save();
+
+    }
+
+
+
+
+
+
+
+
+
+    public function getNewInvoiceNo(){
+        $invoiceCount = self::where('module','sales')->where('type','invoiceNo')->count();
+
+        if ($invoiceCount == 0){
+            //save initial product code
+            $this->invoiceNo = '100001';
+
+            $this->saveInvoiceNo();
+
+
+        }else{
+            $data =  self::where('module','sales')->where('type','invoiceNo')->get(['last_code','id'])->first();
+
+            $this->invoiceNo = intval($data->last_code) + 1;
+            $id = $data->id;
+
+            $this->updateInvoiceNo($id);
+
+        }
+
+        return $this->invoiceNo;
+
+    }
+
+
+    private function saveInvoiceNo(){
+
+        $invoiceNo = $this->invoiceNo;
+        $sysCode = new self();
+
+        $sysCode->module = 'sales';
+        $sysCode->type = 'invoiceNo';
+        $sysCode->last_code = $invoiceNo;
+
+        $sysCode->save();
+
+    }
+
+    private function updateInvoiceNo($id){
+
+        $invoiceNo = $this->invoiceNo;
+        $sysCode = self::find($id);
+
+        $sysCode->last_code = $invoiceNo;
 
         $sysCode->save();
 

@@ -1,11 +1,11 @@
 @extends('layouts.admin-master')
 
 @section('title')
-  Create New Sales Order
+    Create New Sales Quotation
 @endsection
 {{--load js--}}
 @section('js')
-    <script src="{{URL::asset('app/js/sales/sale_order_create.js')}}"></script>
+    <script src="{{URL::asset('app/js/sales/sales_quotation_create.js')}}"></script>
 @endsection
 
 
@@ -16,14 +16,14 @@
                 <h1>Sales Management</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Sales</a></div>
-                    <div class="breadcrumb-item"><a href="#">New Sales Order</a></div>
+                    <div class="breadcrumb-item"><a href="#">New Sales Quotation</a></div>
                 </div>
             </div>
 
             <div class="section-body">
-                <h2 class="section-title">New Sales Order</h2>
+                <h2 class="section-title">New Sales Quotation</h2>
                 <p class="section-lead">
-                   A user can create a new sales order for inhouse customer. Also sales quotation can be generated.
+                    A user can create a new sales quotation
                 </p>
 
 
@@ -46,48 +46,7 @@
                     <div class="card-body">
                         <div class="row mx-auto">
                             <div class="col-10 offset-1">
-                                <fieldset class="border p-3">
-                                    <legend class="w-auto h4 p-2">Customer Info</legend>
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <a href="{{Route('sales.customerCreate')}}" target="_blank"
-                                               class="btn btn-success btn-sm">Register New Customer</a>
-                                            <hr>
-                                        </div>
 
-                                    </div>
-                                    <div class="row" id="salesCustomer">
-                                        <div class="col-3">
-                                            <div class="form-group">
-                                                <label for="customerSearch">Search Customer</label>
-                                                <select class="customerSearch form-control form-control-sm"
-                                                        id="customerSearch">
-
-                                                </select>
-                                            </div>
-                                        </div>
-
-
-
-
-                                    </div>
-                                    <div class="row">
-
-
-                                        <div class="col-4">
-                                            <hr>
-
-                                            <p><strong>Customer Name :</strong> <span id="supCustomerName"></span></p>
-                                            <p><strong>Mobile :</strong> <span id="supCustomerMobile"></span></p>
-
-                                        </div>
-                                        <div class="col-4">
-                                            <hr>
-                                            <p><strong>Address :</strong> <span id="supCustomerAddress"></span></p>
-                                        </div>
-
-                                    </div>
-                                </fieldset>
 
 
                             </div>
@@ -97,7 +56,7 @@
                                     <legend class="w-auto h4 p-2">Products Info</legend>
                                     <div class="row">
                                         <div class="col-12">
-                                            <button id="btnAddProduct" class="btn btn-success btn-sm" disabled>Add
+                                            <button id="btnAddProduct" class="btn btn-success btn-sm">Add
                                                 Product
                                             </button>
                                         </div>
@@ -145,18 +104,14 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-12">
-{{--                                            <div class="form-group float-left">--}}
-{{--                                                <button type="button" class="btn btn-primary" id="btPrintQuote" >--}}
-{{--                                                    Print Quotation--}}
-{{--                                                </button>--}}
-{{--                                                <button type="button" class="btn btn-primary" id="btPrint" >--}}
-{{--                                                    Print--}}
-{{--                                                </button>--}}
-{{--                                            </div>--}}
+                                                                                        <div class="form-group float-left">
+
+
+                                                                                        </div>
                                             <div class="form-group float-right">
 
-                                                <button type="button" class="btn btn-success" id="btCheckout" >
-                                                    Checkout
+                                                <button type="button" class="btn btn-primary" id="btPrintQuote" >
+                                                    Print Quotation
                                                 </button>
                                                 <button type="button" class="btn btn-warning" id="btClear" >
                                                     Clear

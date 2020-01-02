@@ -20,8 +20,8 @@ require('select2');
 
 
 
-//
-// window.Swal = require('Sweetalert2');
-// window.Swal = require('Sweetalert2/dist/sweetalert');
+
+window.Swal = require('sweetalert2');
+// window.Swal = require('sweetalert2/dist/sweetalert');
 
 

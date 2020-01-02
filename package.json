@@ -37,6 +37,7 @@
         "jszip": "^3.2.2",
         "pdfmake": "^0.1.63",
         "select2": "^4.0.12",
-        "smartwizard": "^4.3.1"
+        "smartwizard": "^4.3.1",
+        "sweetalert2": "^9.5.4"
     }
 }

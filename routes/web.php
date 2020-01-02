@@ -121,6 +121,30 @@ Route::name('sales.')->prefix('sales')->middleware('auth')->group(function (){
     Route::get('searchCustomer','SalesController@searchCustomer')->name('searchCustomer');
     Route::get('getCustomerInfoByID','SalesController@getCustomerInfoByID')->name('getCustomerInfoByID');
     Route::post('storeSalesOrder','SalesController@storeSalesOrder')->name('storeSalesOrder');
+    Route::get('generateInvoice','SalesController@generateInvoice')->name('generateInvoice');
+    Route::get('createNewSalesQuotation','SalesController@createNewSalesQuotation')->name('createNewSalesQuotation');
+    Route::post('triggerSalesQuotation','SalesController@triggerSalesQuotation')->name('triggerSalesQuotation');
+    Route::get('generateSalesQuotation','SalesController@generateSalesQuotation')->name('generateSalesQuotation');
+
+
+});
+
+
+
+
+//Report Routes
+Route::name('reports.')->prefix('reports')->middleware('auth')->group(function (){
+    Route::get('overview','ReportsController@overview')->name('overview');
+
+    //reports
+    Route::get('generateUserActivityReport','ReportsController@generateUserActivityReport')->name('generateUserActivityReport');
+    Route::get('generateSalesReport','ReportsController@generateSalesReport')->name('generateSalesReport');
+    Route::get('generateSupplierReport','ReportsController@generateSupplierReport')->name('generateSupplierReport');
+    Route::get('generateCustomerReport','ReportsController@generateCustomerReport')->name('generateCustomerReport');
+    Route::get('generateCustomerWiseReport','ReportsController@generateCustomerWiseReport')->name('generateCustomerWiseReport');
+    Route::get('generateStockReport','ReportsController@generateStockReport')->name('generateStockReport');
+
+
 
 
 });

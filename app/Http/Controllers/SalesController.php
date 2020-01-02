@@ -3,15 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Customer;
-use App\ProductSales;
+use App\ProductSale;
 use App\Sale;
+use App\Stock;
+use App\SystemCode;
+use App\SystemDetail;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class salesController extends Controller
 {
+    private $salesQuoteData;
+
     public function newSalesOrder()
     {
 
@@ -46,6 +52,7 @@ class salesController extends Controller
             $customer->title = $request->post('title');
             $customer->initials = $request->post('initials');
             $customer->first_name = $request->post('first_name');
+            $customer->last_name = $request->post('last_name');
             $customer->gender = $request->post('gender');
             $customer->mobile = $request->post('mobile');
             $customer->address_no = $request->post('address_no');
@@ -141,6 +148,7 @@ class salesController extends Controller
     public function customerUpdate(Request $request)
     {
 
+        dd($request);
         $request->validate([
             'title' => 'required',
             'initials' => 'required',
@@ -161,6 +169,7 @@ class salesController extends Controller
             $customer->title = $request->post('title');
             $customer->initials = $request->post('initials');
             $customer->first_name = $request->post('first_name');
+            $customer->last_name = $request->post('last_name');
             $customer->gender = $request->post('gender');
             $customer->mobile = $request->post('mobile');
             $customer->address_no = $request->post('address_no');
@@ -249,8 +258,12 @@ class salesController extends Controller
             try {
                 $sale = new Sale();
 
+                $sysCode = new SystemCode();
+                $invoiceNo = $sysCode->getNewInvoiceNo();
+
                 $sale->customer_id = $request->post('customerID');
                 $sale->amount = $request->post('total');
+                $sale->invoice_no = $invoiceNo;
 
                 $sale->save();
 
@@ -258,12 +271,21 @@ class salesController extends Controller
 
                 foreach ($products as $product) {
 
-                    $productSales = new ProductSales();
+                    $productSales = new ProductSale();
+
+                    $productID = $product['productID'];
+                    $quantity = $product['quantity'];
 
                     $productSales->product_id = $product['productID'];
+                    $productSales->sales_id = $sale->id;
                     $productSales->price = $product['price'];
                     $productSales->quantity = $product['quantity'];
                     $productSales->total = $product['total'];
+
+                    //substract from stock
+                    Stock::where('product_id', $productID)
+                        ->decrement('stock', $quantity);
+
 
                     $productSales->save();
 
@@ -286,11 +308,13 @@ class salesController extends Controller
 
             DB::commit();
 
+            $invoice_url = array('invoice_url' => Route('sales.generateInvoice') . '?salesID=' . $sale->id);
+
             return response()->json(self::getJSONResponse(
                 true,
                 'toast',
                 'Sale was success!!',
-                ''
+                $invoice_url
 
             ));
 
@@ -298,6 +322,109 @@ class salesController extends Controller
         }
 
     }
+
+
+    public function generateInvoice(Request $request)
+    {
+
+        if ($request->get('salesID') !== null) {
+
+            $salesID = $request->get('salesID');
+            //get business details
+            $systemDetail = SystemDetail::find(1);
+            $companyName = $systemDetail->company_name;
+            $companyAddress = $systemDetail->company_address;
+            $companyPhone = $systemDetail->company_phone;
+
+            $customerInfo = DB::table('sales')
+                ->join('customers', 'sales.customer_id', '=', 'customers.id')
+                ->where('sales.id', '=', $salesID)
+                ->get();
+
+            $salesInfo = DB::table('sales')
+                ->join('product_sales', 'sales.id', '=', 'product_sales.sales_id')
+                ->join('customers', 'sales.customer_id', '=', 'customers.id')
+                ->join('products', 'product_sales.product_id', '=', 'products.id')
+                ->join('purchase_products', 'products.id', '=', 'purchase_products.product_id')
+                ->where('sales.id', '=', $salesID)
+                ->select('*', DB::raw('product_sales.price as psPrice, product_sales.quantity as psQuantity, product_sales.total as psTotal'))
+                ->get();
+
+
+            $data = array(
+                'header_details' => array(
+                    'company_name' => $companyName,
+                    'company_address' => $companyAddress,
+                    'company_phone' => $companyPhone
+                ),
+                'customer_details' => $customerInfo[0],
+                'sales_details' => $salesInfo);
+
+            $pdf = App::make('snappy.pdf.wrapper');
+            $pdf->loadHTML(view('admin.sales.invoice')->with('data', $data))->setOption('title', $data['customer_details']->invoice_no);
+            return $pdf->inline();
+
+        }
+    }
+
+
+    public function createNewSalesQuotation()
+    {
+
+        return view('admin.sales.new_sales_quotation');
+
+    }
+
+
+    public function triggerSalesQuotation(Request $request)
+    {
+
+        session(['salesQuoteData' => $request->all()]);
+
+        $invoice_url = array('invoice_url' => Route('sales.generateSalesQuotation'));
+
+        return response()->json(self::getJSONResponse(
+            true,
+            '',
+            '',
+            $invoice_url
+
+        ));
+
+
+    }
+
+    public function generateSalesQuotation()
+    {
+
+        if (session()->has('usersalesQuoteDatas')) {
+
+
+            $request = session('salesQuoteData');
+
+
+            $systemDetail = SystemDetail::find(1);
+            $companyName = $systemDetail->company_name;
+            $companyAddress = $systemDetail->company_address;
+            $companyPhone = $systemDetail->company_phone;
+
+            $data = array(
+                'header_details' => array(
+                    'company_name' => $companyName,
+                    'company_address' => $companyAddress,
+                    'company_phone' => $companyPhone,
+                    'total' => $request['total']
+                ),
+
+                'sales_details' => $request['productsInfo']);
+
+            $pdf = App::make('snappy.pdf.wrapper');
+            $pdf->loadHTML(view('admin.sales.quotation')->with('data', $data))->setOption('title', 'sales Quotation');
+            session()->forget('salesQuoteData');
+            return $pdf->inline();
+        }
+    }
+
 
 }
 

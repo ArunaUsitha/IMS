@@ -1,30 +1,5 @@
 $(document).ready(function () {
 
-//supplier search
-    $('#customerSearch').select2({
-        ajax: {
-            url: base_url + '/sales/searchCustomer',
-            dataType: 'json',
-            delay: 250,
-            data: function (params) {
-                return {
-                    name: params.term, // search term
-                };
-            },
-            processResults: function (data) {
-                return {
-                    results: $.map(JSON.parse(data.results), function (item) {
-                        return {
-                            id: item.id,
-                            text: item.first_name
-                        };
-                    })
-                };
-            },
-        },
-        placeholder: 'Search Customer',
-    });
-
 
 //product search
     $('#slctItems').select2({
@@ -56,7 +31,6 @@ $(document).ready(function () {
 
 
 let salesOrder = {
-    customerID: null,
     total: null,
     productsInfo: {},
 
@@ -84,7 +58,6 @@ let salesOrder = {
         this.productsInfo[product_id].total = parseFloat(total);
 
 
-
     },
 
     removeProduct: function (product_id) {
@@ -95,10 +68,6 @@ let salesOrder = {
     getTotal: function () {
         this.updateTotal();
         return this.fullTotal
-    },
-
-    setCustomerID: function (customer_id) {
-        this.customerID = customer_id
     },
 
 
@@ -117,33 +86,11 @@ let salesOrder = {
     },
     getAllData: function () {
         return {
-            customerID: this.customerID,
             total: this.total,
             productsInfo: this.productsInfo
         }
     }
 
-
-};
-
-
-let customer = {
-    supCustomerName: $('#supCustomerName'),
-    supCustomerMobile: $('#supCustomerMobile'),
-    supCustomerAddress: $('#supCustomerAddress'),
-
-    showInfo: function (name, mobile, address) {
-        this.supCustomerName.html(name);
-        this.supCustomerMobile.html(mobile);
-        this.supCustomerAddress.html(address);
-
-    },
-
-    clearInfo: function () {
-        this.supCustomerName.html('');
-        this.supCustomerMobile.html('');
-        this.supCustomerAddress.html('');
-    }
 
 };
 
@@ -299,57 +246,11 @@ let mdAddItem = {
 };
 
 
-//customer change event
-$(document).on('change', '#customerSearch', function () {
-    let customerID = $(this).val();
-
-if (customerID !== null){
-
-
-    $.ajax({
-        url: base_url + '/sales/getCustomerInfoByID',
-        type: 'get',
-        data: {
-            'id': customerID
-        },
-        success: function (data, textStatus, xhr) {
-            if (data['status']) {
-
-                if (data['data'] !== null) {
-
-
-                    let name = data['data'][0]['first_name'];
-                    let address = data['data'][0]['address'];
-                    let mobile = data['data'][0]['mobile'];
-
-                    customer.clearInfo();
-                    customer.showInfo(name, mobile, address);
-
-                    productInfoHandler.setButtonStatus('enable');
-
-                    salesOrder.setCustomerID(customerID);
-
-                } else {
-                    customer.clearInfo();
-                }
-
-            } else {
-                customer.clearInfo();
-                notify.serverError()
-            }
-        },
-        error: function () {
-            notify.serverError()
-        }
-    })
-}
-});
-
 //item search change event
 $(document).on('change', '#slctItems', function () {
     let productID = $(this).val();
 
-    if (productID !== null){
+    if (productID !== null) {
         $.ajax({
             url: base_url + '/product/getProductDetails',
             type: 'get',
@@ -382,10 +283,8 @@ $(document).on('change', '#slctItems', function () {
 $(document).on('click', '#btnAddProduct', function () {
     mdAddItem.clear();
     mdAddItem.setStatus('add');
+    mdAddItem.show();
 
-    if (salesOrder.supplierID !== null) {
-        mdAddItem.show();
-    }
 });
 
 
@@ -496,128 +395,48 @@ $(document).on('click', '.btnTblRemoveRow', function () {
 });
 
 
-let grnNrepOptions = ({
-    formID: 'salesCustomer',
-    animate: true,
-    validate: {
-        customerSearch : {
-            type: 'text',
-            methods: 'required'
-        }
-
-    },
-});
 
 
-let x = validator(grnNrepOptions);
-x.init();
-
-$(document).on('click', '#btCheckout', function () {
-    let btSave = $(this);
-
-    if (x.status()) {
-        if (Object.keys(salesOrder.productsInfo).length < 1) {
-            notify.error('Oops!, Please select items to continue!');
-        } else {
-            Swal.fire({
-                title: 'Are you sure?',
-                text: 'Youre going to checkout and complete the sale. If you want to continue the sale, Collect the cash from the customer and press Confirm Button',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: "Confirm",
-                cancelButtonText: "Cancel"
-            }).then((result) => {
-                if (result.value) {
-                    $.ajax({
-                        url: 'storeSalesOrder',
-                        type: 'POST',
-                        data: salesOrder.getAllData()
-                        ,
-                        beforeSend: function () {
-                            spinButton.start(btSave);
-
-                        },
-                        success: function (data, textStatus, xhr) {
-                            spinButton.stop(btSave);
-
-                            if (!data['status']) {
-                                notify.error(data['message'])
-                            } else {
-                                notify.success(data['message']);
-
-                                x.resetForm();
-                                salesOrder.clear();
-                                mdAddItem.clear();
-                                productInfoHandler.clear();
-                                customer.clearInfo();
+$(document).on('click', '#btPrintQuote', function () {
 
 
-                                let a= document.createElement('a');
-                                a.target= '_blank';
-                                a.href= data['data']['invoice_url'];
-                                a.click();
-                                a.remove();
+    if (Object.keys(salesOrder.productsInfo).length < 1) {
+        notify.error('Oops!, Please select items to continue!');
+    } else {
+        $.ajax({
+            url: 'triggerSalesQuotation',
+            type: 'POST',
+            data: salesOrder.getAllData()
+            ,
+            success: function (data, textStatus, xhr) {
 
-                            }
-                        },
-                        statusCode: { // laravel server side validations
-                            500: function (data, textStatus, xhr) {
-                                spinButton.stop(btSave);
-                                notify.serverError()
-                            }
-                        }
-                    })
+                console.log(data)
+
+                let a = document.createElement('a');
+                a.target = '_blank';
+                a.href = data['data']['invoice_url'];
+                a.click();
+                a.remove();
+
+
+            },
+            statusCode: { // laravel server side validations
+                500: function (data, textStatus, xhr) {
+
+                    notify.serverError()
                 }
-            })
+            }
+        })
 
-        }
     }
+
+
 });
 
 
 $(document).on('click','#btClear',function () {
-    x.resetForm();
+
     salesOrder.clear();
     mdAddItem.clear();
     productInfoHandler.clear();
-    customer.clearInfo();
 });
-
-
-$(document).on('click','#btPrintQuote',function () {
-
-    if (x.status()) {
-        if (Object.keys(salesOrder.productsInfo).length < 1) {
-            notify.error('Oops!, Please select items to continue!');
-        } else {
-            $.ajax({
-                url: 'triggerSalesQuotation',
-                type: 'POST',
-                data: salesOrder.getAllData()
-                ,
-                success: function (data, textStatus, xhr) {
-
-
-
-                    let a= document.createElement('a');
-                    a.target= '_blank';
-                    a.href= data['data']['invoice_url'];
-                    a.click();
-                    a.remove();
-
-
-                },
-                statusCode: { // laravel server side validations
-                    500: function (data, textStatus, xhr) {
-                        spinButton.stop(btSave);
-                        notify.serverError()
-                    }
-                }
-            })
-
-        }
-    }
-
-});
-
-
