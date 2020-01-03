@@ -6,6 +6,7 @@ use App\Customer;
 use App\ProductSale;
 use App\Sale;
 use App\Stock;
+use App\UAuth;
 use App\SystemCode;
 use App\SystemDetail;
 use Illuminate\Database\QueryException;
@@ -14,25 +15,30 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
+
+
 class salesController extends Controller
 {
     private $salesQuoteData;
 
+
     public function newSalesOrder()
     {
 
+        $this->authorize('read',Sale::class);
         return view('admin.sales.new_sales_order');
 
     }
 
     public function customerCreate()
     {
+        $this->authorize('create', Sale::class);
         return view('admin.sales.customer_create');
     }
 
     public function customerStore(Request $request)
     {
-
+        $this->authorize('create', Sale::class);
         $request->validate([
             'title' => 'required',
             'initials' => 'required',
@@ -87,11 +93,13 @@ class salesController extends Controller
 
     public function customerOverview()
     {
+        $this->authorize('read', Sale::class);
         return view('admin.sales.customer_overview');
     }
 
     public function getAllCustomers()
     {
+        $this->authorize('read', Sale::class);
         $customers = Customer::select('customers.*', DB::raw('DATE(`created_at`) as joined_date'))->get();
 
         return response()->json(['customers' => $customers]);
@@ -100,6 +108,7 @@ class salesController extends Controller
 
     public function setCustomerStatus(Request $request)
     {
+        $this->authorize('update', Sale::class);
         $customerID = $request->post('id');
         $status = $request->post('status');
 
@@ -137,6 +146,7 @@ class salesController extends Controller
 
     public function customerShowEdit(Request $request)
     {
+        $this->authorize('update', Sale::class);
         $customerID = $request->get('id');
 
         $customers = Customer::find($customerID);
@@ -147,8 +157,7 @@ class salesController extends Controller
 
     public function customerUpdate(Request $request)
     {
-
-        dd($request);
+        $this->authorize('update', Sale::class);
         $request->validate([
             'title' => 'required',
             'initials' => 'required',
@@ -204,6 +213,7 @@ class salesController extends Controller
 
     public function searchCustomer(Request $request)
     {
+        $this->authorize('read', Sale::class);
         $searchTerm = $request->get('name');
 
         if ($searchTerm !== '') {
@@ -224,6 +234,7 @@ class salesController extends Controller
 
     public function getCustomerInfoByID(Request $request)
     {
+        $this->authorize('read', Sale::class);
         $customer_id = $request->post('id');
 
         $customers = Customer::where('id', '=', $customer_id)
@@ -251,7 +262,7 @@ class salesController extends Controller
     public function storeSalesOrder(Request $request)
     {
 
-
+        $this->authorize('read', Sale::class);
         if ($request->post('customerID') !== null) {
 
             DB::beginTransaction();
@@ -326,7 +337,7 @@ class salesController extends Controller
 
     public function generateInvoice(Request $request)
     {
-
+        $this->authorize('create', Sale::class);
         if ($request->get('salesID') !== null) {
 
             $salesID = $request->get('salesID');
@@ -370,7 +381,7 @@ class salesController extends Controller
 
     public function createNewSalesQuotation()
     {
-
+        $this->authorize('create', Sale::class);
         return view('admin.sales.new_sales_quotation');
 
     }
@@ -378,7 +389,7 @@ class salesController extends Controller
 
     public function triggerSalesQuotation(Request $request)
     {
-
+        $this->authorize('create', Sale::class);
         session(['salesQuoteData' => $request->all()]);
 
         $invoice_url = array('invoice_url' => Route('sales.generateSalesQuotation'));
@@ -396,6 +407,7 @@ class salesController extends Controller
 
     public function generateSalesQuotation()
     {
+        $this->authorize('create', Sale::class);
 
         if (session()->has('usersalesQuoteDatas')) {
 

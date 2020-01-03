@@ -3,9 +3,10 @@
 namespace App\Policies;
 
 use App\User;
+use App\UAuth;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class UserPolicy
+class UsersManagementPolicy
 {
     use HandlesAuthorization;
 
@@ -28,7 +29,7 @@ class UserPolicy
      */
     public function read(User $user)
     {
-        $per = User::getUserPrivileges('user');
+        $per = UAuth::getUserPrivileges('user');
 
         return $per->read == 1 ? true : false;
     }
@@ -41,7 +42,7 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        $per = User::getUserPrivileges('user');
+        $per = UAuth::getUserPrivileges('user');
 
         return $per->create == 1 ? true : false;
     }
@@ -55,7 +56,7 @@ class UserPolicy
      */
     public function update(User $user, user $model)
     {
-        $per = User::getUserPrivileges('user');
+        $per = UAuth::getUserPrivileges('user');
 
         return $per->update == 1 ? true : false;
     }
@@ -69,7 +70,7 @@ class UserPolicy
      */
     public function delete(User $user, user $model)
     {
-        $per = User::getUserPrivileges('user');
+        $per = UAuth::getUserPrivileges('user');
 
         return $per->delete == 1 ? true : false;
     }

@@ -2,24 +2,36 @@
 
 namespace App\Policies;
 
-use App\Purchase;
+use App\Sale;
 use App\User;
 use App\UAuth;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class PurchasePolicy
+class SalesPolicy
 {
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view any purchases.
+     * Create a new policy instance.
      *
-     * @param  \App\User  $user
+     * @return void
+     */
+    public function __construct()
+    {
+        //
+    }
+
+
+    /**
+     * Determine whether the user can view the purchase.
+     *
+     * @param \App\User $user
+     * @param Sale $sale
      * @return mixed
      */
-    public function viewAny(User $user)
+    public function view(User $user, Sale $sale)
     {
-        $per = UAuth::getUserPrivileges('purchase');
+        $per = User::getUserPrivileges('sale');
 
         return $per->read == 1 ? true : false;
     }
@@ -27,13 +39,15 @@ class PurchasePolicy
     /**
      * Determine whether the user can view the purchase.
      *
-     * @param  \App\User  $user
-     * @param  \App\Purchase  $purchase
+     * @param \App\User $user
+     * @param Sale $sale
      * @return mixed
      */
-    public function view(User $user, Purchase $purchase)
+    public function read(User $user)
     {
-        $per = UAuth::getUserPrivileges('purchase');
+
+        $per = UAuth::getUserPrivileges('sale');
+
 
         return $per->read == 1 ? true : false;
     }
@@ -41,12 +55,12 @@ class PurchasePolicy
     /**
      * Determine whether the user can create purchases.
      *
-     * @param  \App\User  $user
+     * @param \App\User $user
      * @return mixed
      */
     public function create(User $user)
     {
-        $per = UAuth::getUserPrivileges('purchase');
+        $per = UAuth::getUserPrivileges('sale');
 
         return $per->create == 1 ? true : false;
     }
@@ -54,13 +68,13 @@ class PurchasePolicy
     /**
      * Determine whether the user can update the purchase.
      *
-     * @param  \App\User  $user
-     * @param  \App\Purchase  $purchase
+     * @param \App\User $user
+     * @param Sale $sale
      * @return mixed
      */
-    public function update(User $user, Purchase $purchase)
+    public function update(User $user, Sale $sale)
     {
-        $per = UAuth::getUserPrivileges('purchase');
+        $per = UAuth::getUserPrivileges('sale');
 
         return $per->update == 1 ? true : false;
     }
@@ -68,16 +82,15 @@ class PurchasePolicy
     /**
      * Determine whether the user can delete the purchase.
      *
-     * @param  \App\User  $user
-     * @param  \App\Purchase  $purchase
+     * @param \App\User $user
+     * @param Sale $sale
      * @return mixed
      */
-    public function delete(User $user, Purchase $purchase)
+    public function delete(User $user, Sale $sale)
     {
-        $per = UAuth::getUserPrivileges('purchase');
+        $per = UAuth::getUserPrivileges('sale');
 
         return $per->delete == 1 ? true : false;
     }
-
 
 }

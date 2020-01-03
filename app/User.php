@@ -42,18 +42,5 @@ class User extends Authenticatable
         return $this->belongsTo('App\Role');
     }
 
-    static function getUserPrivileges($module)
-    {
 
-        if (auth()->user()) {
-            $user = User::find(auth()->user()->id);
-            $role = $user->role;
-            $role_permissions = $role->permissions()->where('module', $module)->get();
-
-            return $role_permissions[0]->pivot;
-        } else {
-            return false;
-        }
-
-    }
 }

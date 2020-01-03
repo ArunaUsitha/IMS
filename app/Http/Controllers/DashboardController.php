@@ -32,7 +32,7 @@ class DashboardController extends Controller
 
         $topProducts = DB::select(DB::raw('SELECT p.id,p.code,p.name,SUM(ps.quantity) AS sales FROM product_sales ps
                                               INNER JOIN products p ON ps.product_id = p.id
-                                              GROUP BY p.id ORDER BY sales DESC LIMIT 5'));
+                                              GROUP BY p.id,p.code,p.name ORDER BY sales DESC LIMIT 5'));
 
         $latestAddedProducts = DB::select(DB::raw('SELECT p.code,p.name,p.brand_id,p.model_no,b.name AS brand_name FROM products p
                                               INNER JOIN stocks s ON s.product_id = p.id

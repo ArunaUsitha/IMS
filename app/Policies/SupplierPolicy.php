@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Supplier;
 use App\User;
+use App\UAuth;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class SupplierPolicy
@@ -19,7 +20,7 @@ class SupplierPolicy
      */
     public function read(User $user)
     {
-        $per = User::getUserPrivileges('supplier');
+        $per = UAuth::getUserPrivileges('supplier');
 
         return $per->read == 1 ? true : false;
     }
@@ -32,7 +33,7 @@ class SupplierPolicy
      */
     public function create(User $user)
     {
-        $per = User::getUserPrivileges('supplier');
+        $per = UAuth::getUserPrivileges('supplier');
 
         return $per->create == 1 ? true : false;
     }
@@ -45,7 +46,7 @@ class SupplierPolicy
      */
     public function update(User $user)
     {
-        $per = User::getUserPrivileges('supplier');
+        $per = UAuth::getUserPrivileges('supplier');
 
         return $per->update == 1 ? true : false;
     }
@@ -58,7 +59,7 @@ class SupplierPolicy
      */
     public function delete(User $user)
     {
-        $per = User::getUserPrivileges('supplier');
+        $per = UAuth::getUserPrivileges('supplier');
 
         return $per->delete == 1 ? true : false;
     }

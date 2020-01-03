@@ -2,7 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3d4a3b5c-a9e5-4459-b80c-45bd734e1345" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/Policies/ReportPolicy.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Policies/SalesPolicy.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Report.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/UAuth.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/DashboardController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/DashboardController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SalesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SalesController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SupplierController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SupplierController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Policies/ProductPolicy.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Policies/ProductPolicy.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Policies/PurchasePolicy.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Policies/PurchasePolicy.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Policies/SupplierPolicy.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Policies/SupplierPolicy.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Policies/UserPolicy.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Policies/UsersManagementPolicy.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Providers/AuthServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/AuthServiceProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/partials/sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/partials/sidebar.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/partials/topnav.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/partials/topnav.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_classmap.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_classmap.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_static.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_static.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -232,7 +252,7 @@
       <workItem from="1576256444544" duration="599000" />
       <workItem from="1576327352918" duration="38461000" />
       <workItem from="1576651259697" duration="263957000" />
-      <workItem from="1577934242601" duration="48358000" />
+      <workItem from="1577934242601" duration="62767000" />
     </task>
     <servers />
   </component>
@@ -271,14 +291,14 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="640" y="247" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1576223201031" />
-    <state x="714" y="88" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1577968740335">
+    <state x="714" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1578073625276">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="714" y="88" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1577968740335" />
-    <state x="690" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1577989076409">
+    <state x="714" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1578073625276" />
+    <state x="690" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1578069608344">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="690" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1577989076409" />
+    <state x="690" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1578069608344" />
     <state x="690" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/1920.194.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1575997069115" />
     <state x="644" y="174" width="645" height="691" key="#phpunit.xml" timestamp="1577378392454">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -364,6 +384,10 @@
     </state>
     <state x="561" y="130" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1577982930718" />
     <state x="561" y="130" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/1920.194.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1575530196764" />
+    <state x="656" y="257" width="607" height="526" key="find.popup" timestamp="1578074817769">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="656" y="257" width="607" height="526" key="find.popup/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1578074817769" />
     <state x="683" y="162" key="refactoring.ChangeSignatureDialog" timestamp="1577170666590">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -372,10 +396,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="616" y="240" key="run.anything.popup/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1577966918284" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1577971704955">
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1578074813121">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1577971704955" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1578074813121" />
     <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/1920.194.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1575629556257" />
   </component>
 </project>

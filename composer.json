@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
+        "ext-json": "*",
         "barryvdh/laravel-snappy": "^0.4.6",
         "consoletvs/invoices": "^1.5",
         "fideloper/proxy": "^4.0",
@@ -19,9 +20,9 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^1.1",
         "maatwebsite/excel": "^3.1",
+        "phpoffice/phpspreadsheet": "^1.10",
         "spatie/laravel-activitylog": "^3.9",
-        "wemersonjanuario/wkhtmltopdf-windows": "0.12.2.3",
-      "ext-json": "*"
+        "wemersonjanuario/wkhtmltopdf-windows": "0.12.2.3"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.6",

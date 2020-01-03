@@ -44,9 +44,9 @@
     <div class="d-sm-none d-lg-inline-block">Hi, {{ Auth::user()->first_name }}</div></a>
     <div class="dropdown-menu dropdown-menu-right">
       <div class="dropdown-title">Welcome, {{ Auth::user()->first_name }}</div>
-      <a href="{{ Auth::user()->profilelink }}" class="dropdown-item has-icon">
-        <i class="far fa-user"></i> Profile Settings
-      </a>
+{{--      <a href="{{ Auth::user()->profilelink }}" class="dropdown-item has-icon">--}}
+{{--        <i class="far fa-user"></i> Profile Settings--}}
+{{--      </a>--}}
       <div class="dropdown-divider"></div>
       <a href="{{ route('logout') }}" class="dropdown-item has-icon text-danger">
         <i class="fas fa-sign-out-alt"></i> Logout

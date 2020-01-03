@@ -256,6 +256,7 @@ class SupplierController extends Controller
     }
 
     public function searchSuppliers(Request $request){
+        $this->authorize('read', Auth::user());
 
         $searchTerm = $request->get('name');
 

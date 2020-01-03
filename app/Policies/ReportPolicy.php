@@ -6,7 +6,7 @@ use App\User;
 use App\UAuth;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ProductPolicy
+class ReportPolicy
 {
     use HandlesAuthorization;
 
@@ -20,56 +20,56 @@ class ProductPolicy
         //
     }
 
-
     /**
-     * Determine whether the user can view the supplier.
+     * Determine whether the user can view the purchase.
      *
      * @param \App\User $user
      * @return mixed
      */
-    public function read(User $user)
+    public function view(User $user)
     {
-        $per = UAuth::getUserPrivileges('product');
+        $per = UAuth::getUserPrivileges('report');
 
         return $per->read == 1 ? true : false;
     }
 
     /**
-     * Determine whether the user can create suppliers.
+     * Determine whether the user can create purchases.
      *
      * @param  \App\User  $user
      * @return mixed
      */
     public function create(User $user)
     {
-        $per = UAuth::getUserPrivileges('product');
+        $per = UAuth::getUserPrivileges('report');
 
         return $per->create == 1 ? true : false;
     }
 
     /**
-     * Determine whether the user can update the supplier.
+     * Determine whether the user can update the purchase.
      *
      * @param \App\User $user
      * @return mixed
      */
     public function update(User $user)
     {
-        $per = UAuth::getUserPrivileges('product');
+        $per = UAuth::getUserPrivileges('report');
 
         return $per->update == 1 ? true : false;
     }
 
     /**
-     * Determine whether the user can delete the supplier.
+     * Determine whether the user can delete the purchase.
      *
      * @param \App\User $user
      * @return mixed
      */
     public function delete(User $user)
     {
-        $per = UAuth::getUserPrivileges('product');
+        $per = UAuth::getUserPrivileges('report');
 
         return $per->delete == 1 ? true : false;
     }
+
 }
