@@ -2,24 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3d4a3b5c-a9e5-4459-b80c-45bd734e1345" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Http/Controllers/SystemSettingsController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/app/css/settings/user_administration.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/app/js/settings/user_administration.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/users_data/911234568V/profile_img.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/users_data/953665882V/profile_img.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/admin/settings/user_administration.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SupplierController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SupplierController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/app/js/sales/customer_overview.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/app/js/sales/customer_overview.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/app/js/user/user_index.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/app/js/user/user_index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/assets/css/custom.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/css/custom.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/users_data/911234567V/profile_img.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/partials/sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/partials/sidebar.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/stocks/overview.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/stocks/overview.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -249,7 +232,7 @@
       <workItem from="1576256444544" duration="599000" />
       <workItem from="1576327352918" duration="38461000" />
       <workItem from="1576651259697" duration="263957000" />
-      <workItem from="1577934242601" duration="47471000" />
+      <workItem from="1577934242601" duration="48358000" />
     </task>
     <servers />
   </component>
