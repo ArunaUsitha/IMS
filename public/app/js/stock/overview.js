@@ -21,9 +21,10 @@ let dTable =   $('#tblStocksOverview').dataTable( $.extend( true, {},{
                 let stock = data['stock'];
                 let r_quantity = data['reorder_quantity'];
 
+                console.log(stock)
 
-                if (stock === stock < r_quantity) {
-                    return '<label class="badge badge-warning">'+stock+'</label>';
+                if (stock < r_quantity) {
+                    return '<label class="badge badge-danger">'+stock+'</label>';
                 } else {
                     return '<label class="badge badge-success">'+stock+'</label>';
                 }

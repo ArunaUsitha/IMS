@@ -621,3 +621,43 @@ $(document).on('click','#btPrintQuote',function () {
 });
 
 
+$(document).on('keyup','#mdQuantity',function () {
+    let itemid = $('#slctItems').val();
+    let mdQuantity  = $('#mdQuantity');
+    let mdQuantitySpan  = $('#mdQuantitySpan');
+    let quantity = $(this).val();
+
+    let btnAdd = $('#mdBtAddProducts');
+    $.ajax({
+        url: base_url +'/product/checkStock',
+        type: 'get',
+        data: {
+            item_id : itemid
+        }
+        ,
+        success: function (data, textStatus, xhr) {
+
+            if (data[0]['stock'] > quantity){
+                btnAdd.attr('disabled',false)
+
+                mdQuantitySpan.html('')
+
+            }else if(data[0]['stock'] == quantity){
+                btnAdd.attr('disabled',false)
+
+                mdQuantitySpan.html('')
+            }else {
+                btnAdd.attr('disabled',false);
+                mdQuantitySpan.html('Selected Quantity is more than in stock')
+            }
+
+
+        },
+        statusCode: { // laravel server side validations
+            500: function (data, textStatus, xhr) {
+
+            }
+        }
+    })
+
+})

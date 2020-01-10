@@ -203,6 +203,7 @@
                                 <label for="mdQuantity">Quantity</label>
                                 <input type="number" value="0" class="form-control form-control-sm" id="mdQuantity"
                                        name="mdQuantity">
+                                <span id="mdQuantitySpan" class="text-danger"></span>
                             </div>
 
                             <div class="form-group">

@@ -34,7 +34,7 @@
             <li class="nav-item dropdown {{(request()->is('stock*')) ? 'active' :''}}">
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-warehouse"></i><span>Stock Management</span></a>
                 <ul class="dropdown-menu">
-                    @can('read',\App\Stock::class)<li><a class="nav-link" href="{{Route('stock.viewStock')}}">View Stock</a></li>@endcan
+                    @can('read',\App\Sale::class)<li><a class="nav-link" href="{{Route('stock.viewStock')}}">View Stock</a></li>@endcan
                 </ul>
             </li>
 

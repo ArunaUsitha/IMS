@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Brand;
 use App\Product;
 use App\ProductCategory;
-use App\purchaseProducts;
+use App\Stock;
 use App\SystemCode;
 use App\Warranty;
 use Auth;
@@ -335,13 +335,16 @@ class ProductController extends Controller
         if ($searchTerm !== '') {
 
 
-            $products = DB::table('products')->join('stocks', 'products.id', '=', 'stocks.product_id')
+            $products = DB::table('products')
+                ->join('stocks', 'products.id', '=', 'stocks.product_id')
+                ->join('product_categories', 'products.product_category_id', '=', 'product_categories.id')
                 ->where('products.status', '=', 1)
-                ->where('products.name', 'LIKE', '%'.$searchTerm.'%')
                 ->where(function ($query) use ($searchTerm) {
                     $query->where('stocks.stock', '>', 0)
-                        ->orWhere('products.code', '=', $searchTerm)
-                        ->orWhere('products.custom_code', '=', $searchTerm);
+//                        ->orWhere('products.code', '=', $searchTerm)
+//                        ->orWhere('products.custom_code', '=', $searchTerm)
+//                        ->orWhere('products.name', 'LIKE', '%' . $searchTerm)
+                        ->orWhere('product_categories.name', 'LIKE', '%' . $searchTerm);
                 })->get(['products.id', 'products.name'])->toJson();
 
             return response()->json(array('results' => $products));
@@ -371,8 +374,8 @@ class ProductController extends Controller
         $searchTerm = $request->get('id');
         if ($searchTerm !== '') {
 
-            $products =  DB::table('products')->join('purchase_products', 'products.id', '=', 'purchase_products.product_id')
-                ->where('products.id', '=',$searchTerm)
+            $products = DB::table('products')->join('purchase_products', 'products.id', '=', 'purchase_products.product_id')
+                ->where('products.id', '=', $searchTerm)
                 ->get()->toJson();
 
             return response()->json(array('results' => $products));
@@ -390,5 +393,15 @@ class ProductController extends Controller
     {
         $sysCode = new SystemCode();
         return response()->json($sysCode->getNewProductCode());
+    }
+
+    public function checkStock(Request $request){
+        $itemid = $request->get('item_id');
+        if ($itemid){
+
+            $quantity = DB::select(DB::raw('SELECT s.stock FROM stocks s WHERE s.product_id = '.$itemid));
+
+            return response()->json($quantity);
+        }
     }
 }

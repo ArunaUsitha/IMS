@@ -80,6 +80,7 @@ Route::name('product.')->prefix('product')->middleware('auth')->group(function (
     Route::get('getProductPrice','ProductController@getProductPrice')->name('getProductPrice');
     Route::get('searchProductsForSale','ProductController@searchProductsForSale')->name('searchProductsForSale');
     Route::get('getProductDetails','ProductController@getProductDetails')->name('getProductDetails');
+    Route::get('checkStock','ProductController@checkStock')->name('checkStock');
 });
 
 
