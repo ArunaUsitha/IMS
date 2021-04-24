@@ -36,18 +36,22 @@
                         <h4></h4>
 
                         <div class="row container-fluid">
+                            <div class="col-md-3">
+                                <input type="text" id="dTableSearchBox" name="search" class="form-control"
+                                       placeholder="Search">
+                            </div>
                             <div class="col-md" style="">
                                 <div class="card-header-action">
-                                    @can('create',Auth::user())
-                                        <button class="btn btn-primary float-right" id="addModule">Add New
-                                            Module
-                                        </button>
-                                    @endcan
-                                    @can('create',Auth::user())
-                                        <button class="btn btn-primary float-right" id="addRole">Add New
-                                            User Role
-                                        </button>
-                                    @endcan
+                                    {{--                                    @can('create',Auth::user())--}}
+{{--                                    <button class="btn btn-primary float-right" id="addModule">Add New--}}
+{{--                                        Module--}}
+{{--                                    </button>--}}
+                                    {{--                                    @endcan--}}
+                                    {{--                                    @can('create',Auth::user())--}}
+                                    <a class="btn btn-primary float-right" id="addRole" href="{{route('settings.showCreateNewRoleView')}}">Add New
+                                        User Role
+                                    </a>
+                                    {{--                                    @endcan--}}
                                 </div>
                             </div>
                         </div>
@@ -56,87 +60,34 @@
                     </div>
                     <div class="card-body">
 
-                        <div class="row">
-                            <div class="col-3 offset-2">
-                                <div class="form-group">
-                                    <label for="slctUserRole">Select User role</label>
-                                    <select class="form-control form-control-sm" id="slctUserRole">
-                                        <option value="-1">Select User Role</option>
-                                        @foreach($user_roles as $role)
-                                            <option value="{{$role->id}}">{{$role->name}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-3">
-                                <div class="form-group">
-                                    <label for="slctUserRole">Select System Module</label>
-                                    <select class="form-control form-control-sm" id="slctModule">
-                                        <option value="-1">Select System Module</option>
-                                        @foreach($permissions as $permission)
-                                            <option value="{{$permission->id}}">{{$permission->module}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-3">
-
-                                <label class="label-hidden">&nbsp;</label>
-                                <button class="btn btn-sm btn-success" id="btnShowPer">Show permissions</button>
-
-
-                            </div>
-                        </div>
 
                         <div class="row mx-auto">
+                            <div class="col-12">
+                                <div class="table-responsive">
 
-                            <div class="col-4 offset-3">
-                                <hr>
 
-                                <table width="100%">
-                                    <tr class="text-left">
-                                        <td>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input chkPermission"
-                                                       id="pCreate">
-                                                <label class="custom-control-label" for="pCreate">Create</label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input chkPermission"
-                                                       id="pRead">
-                                                <label class="custom-control-label" for="pRead">Read</label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr class="text-left">
-                                        <td>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input chkPermission"
-                                                       id="pUpdate">
-                                                <label class="custom-control-label" for="pUpdate">Update</label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input chkPermission"
-                                                       id="pDelete">
-                                                <label class="custom-control-label" for="pDelete">Delete</label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>
+                                    <table class="table table-striped table-hover table-sm" id="tblRolesOverview">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Role</th>
+                                            <th>Permissions</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                        </thead>
+                                    </table>
+
+                                </div>
                             </div>
 
                         </div>
+
                     </div>
                 </div>
-
-
             </div>
+
+
+        </div>
         </div>
     </section>
 

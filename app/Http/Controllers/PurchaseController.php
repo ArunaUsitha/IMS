@@ -209,8 +209,10 @@ class PurchaseController extends Controller
                     $purchaseProduct->quantity = $productInfo['units'];
                     $purchaseProduct->buy_price = $productInfo['buyPrice'];
                     $purchaseProduct->sell_price = $productInfo['sellPrice'];
+                    $purchaseProduct->profit_percentage = $productInfo['profitPercentage'];
+                    $purchaseProduct->profit_type = $productInfo['profitPercentageType'];
                     $purchaseProduct->warranty_period = $productInfo['warranty'];
-                    $purchaseProduct->total = $productInfo['total'];
+//                    $purchaseProduct->total = $productInfo['total'];
 
                     $units = $productInfo['units'];
                     $productID = $productInfo['productID'];

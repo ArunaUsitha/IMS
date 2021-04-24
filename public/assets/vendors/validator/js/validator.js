@@ -174,9 +174,6 @@ let validator = function (options) {
             }
         },
 
-        min:function(element, value, spanID){
-
-        },
 
         date: function (element, value, spanID) {
             function isValidDate(dateString) {

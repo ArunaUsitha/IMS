@@ -32,6 +32,45 @@ $(document).ready(function () {
         placeholder: 'Search for a Product',
         minimumInputLength: 2   ,
     });
+
+
+    //supplier serch
+    $('#supplierSearch').select2({
+        closeOnSelect : false,
+        allowHtml: true,
+        allowClear: true,
+        // tags: true,
+        ajax: {
+            url: base_url + '/supplier/searchSuppliers',
+            dataType: 'json',
+            delay: 250,
+            data: function (params) {
+                return {
+                    name: params.term, // search term
+
+                };
+            },
+
+
+            processResults: function (data, params) {
+                // let res = (data.results);
+                return {
+                    results : $.map(JSON.parse(data.results), function (item) {
+                        return {
+                            id: item.id,
+                            text: item.name
+                        };
+                    })
+                };
+            },
+        },
+        cache: false,
+        placeholder: 'Search for a Supplier',
+        minimumInputLength: 2   ,
+    });
+
+
+
 });
 
 

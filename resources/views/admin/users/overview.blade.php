@@ -40,10 +40,10 @@
                             </div>
                             <div class="col-md" style="">
                                 <div class="card-header-action">
-                                    @can('create',Auth::user())
+{{--                                    @can('create',Auth::user())--}}
                                         <a href="{{Route('user.create')}}" class="btn btn-success float-right">Add New
                                             User</a>
-                                    @endcan
+{{--                                    @endcan--}}
                                 </div>
                             </div>
                         </div>
@@ -173,7 +173,7 @@
                                     <option value="-1">Select title</option>
                                     @foreach($roles as $role)
 
-                                        <option value="{{$role->id}}"> {{$role->name}}</option>
+                                        <option value="{{$role->name}}"> {{$role->name}}</option>
                                     @endforeach
                                 </select>
                             </div>

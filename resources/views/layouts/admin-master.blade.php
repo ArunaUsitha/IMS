@@ -15,10 +15,10 @@
 {{--          integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">--}}
 
     <!-- CSS Libraries -->
-    <link rel="stylesheet" href="{{asset('assets/vendors/izitoast/dist/css/iziToast.min.css')}}">
+    <link rel="stylesheet"  type="text/css" href="{{asset('assets/vendors/izitoast/dist/css/iziToast.min.css')}}">
 {{--    <link rel="stylesheet" href="{{asset('assets/vendors/sweetalert2/dist/sweetalert2.css')}}">--}}
 {{--    <link rel="stylesheet" href="{{asset('assets/vendors/sweetalert2-themes/dark/dark.scss')}}">--}}
-    <link rel="stylesheet" href="{{asset('css/app.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('css/app.css')}}">
 {{--    <link rel="stylesheet" type="text/css" href="{{asset('assets/vendors/DataTables-1.10.20/datatables.min.css')}}">--}}
     <link rel="stylesheet" type="text/css" href="{{asset('assets/vendors/DataTables/DataTables-1.10.20/css/dataTables.bootstrap4.min.css')}}">
 {{--    <link rel="stylesheet" type="text/css" href="{{asset('assets/vendors/DataTables-1.10.20/Buttons-1.6.1/css/buttons.bootstrap4.css')}}">--}}
@@ -30,9 +30,9 @@
     <!--End Dynamic css inject-->
 
     <!-- Template CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/components.css')}}">
-    <link rel="stylesheet" href="{{ asset('assets/css/custom.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/components.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/custom.css')}}">
 
     @yield('css')
 

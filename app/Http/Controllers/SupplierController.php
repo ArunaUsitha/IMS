@@ -33,7 +33,7 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        $this->authorize('create', Auth::user());
+//        //  $this->authorize('create', Auth::user());
 
         return view('admin.suppliers.create');
     }
@@ -47,7 +47,7 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('create', Auth::user());
+//        //  $this->authorize('create', Auth::user());
 
         $request->validate([
             'supplier_name' => 'required',
@@ -101,12 +101,12 @@ class SupplierController extends Controller
      */
     public function show(Request $request)
     {
-        $this->authorize('read', Auth::user());
+//        //  $this->authorize('read', Auth::user());
 
         $supplierID = $request->id;
 
         try {
-            $this->authorize('read', Auth::user());
+//            //  $this->authorize('read', Auth::user());
             $supplier = Supplier::find($supplierID);
 
         } catch (Exception $e) {
@@ -138,7 +138,7 @@ class SupplierController extends Controller
      */
     public function edit(Request $request)
     {
-        $this->authorize('update', Auth::user());
+//        //  $this->authorize('update', Auth::user());
 
         $supplierID = $request->id;
 
@@ -158,7 +158,7 @@ class SupplierController extends Controller
      */
     public function update(Request $request)
     {
-        $this->authorize('update', Auth::user());
+//        //  $this->authorize('update', Auth::user());
 
         $supplier_id = $request->supplier_id;
 
@@ -213,7 +213,7 @@ class SupplierController extends Controller
      */
     public function updateQuick(Request $request)
     {
-        $this->authorize('update', Auth::user());
+//        //  $this->authorize('update', Auth::user());
 
         $supplierID = $request->supplierID;
         $supplierStatus = $request->supplierStatus;
@@ -256,7 +256,7 @@ class SupplierController extends Controller
     }
 
     public function searchSuppliers(Request $request){
-        $this->authorize('read', Auth::user());
+//        //  $this->authorize('read', Auth::user());
 
         $searchTerm = $request->get('name');
 
@@ -280,17 +280,7 @@ class SupplierController extends Controller
     }
 
 
-
-
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+    public function viewOrderHistory(Request $request){
+        return view('admin.suppliers.order_history');
     }
 }

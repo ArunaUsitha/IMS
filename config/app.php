@@ -56,6 +56,21 @@ return [
 
     'asset_url' => env('ASSET_URL', null),
 
+
+
+    /*roles and permissions configuration
+    *
+     *
+     */
+    'users' => [
+        'admin_role' => 'administrator',
+        'manager_role' => 'manager',
+        'default_role' => 'user',
+        'cashier_role' => 'cashier',
+        'sales_ref' => 'ref',
+
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Application Timezone

@@ -182,7 +182,7 @@
                                                 <option value="-1">Select title</option>
                                                 @foreach($roles as $role)
                                                     <option
-                                                        value=" {{$role->id}}" {{($user->role_id) === $role->id ? 'selected' : ''}}> {{$role->name}}</option>
+                                                        value=" {{$role->name}}" {{$user->hasRole($role->name) ? 'selected' : ''}}> {{$role->name}}</option>
                                                 @endforeach
                                             </select>
                                         </div>

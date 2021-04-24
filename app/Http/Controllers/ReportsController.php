@@ -36,7 +36,7 @@ class ReportsController extends Controller
         return view('admin.reports.reports_overview')->with(['users' => $users, 'suppliers' => $suppliers, 'customers' => $customers]);
     }
 
-    private function printAsSelected($type, $title, $data, $view)
+      private function printAsSelected($type, $title, $data, $view)
     {
         $pdf = App::make('snappy.pdf.wrapper');
         $pdf->loadHTML(view($view)->with('data', $data))->setOption('title', $title);

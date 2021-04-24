@@ -172,7 +172,7 @@
                                                     name="role_id">
                                                 <option value="-1">Select title</option>
                                                 @foreach($roles as $role)
-                                                    <option value=" {{$role->id}}"> {{$role->name}}</option>
+                                                    <option value=" {{$role->name}}"> {{$role->name}}</option>
                                                 @endforeach
                                             </select>
                                         </div>

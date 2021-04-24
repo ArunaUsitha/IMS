@@ -79,7 +79,31 @@ let GRN = {
         });
         $('#fullTotal').val(GRN.fullTotal);
     },
-    setProductsInfo: function (productID, productName, warranty, buyPrice, sellPrice, units, total) {
+
+    getProfitpercentageAndSellPrice: function (SelectProfitType, ProfitPercentage, BuyPrice, SellPrice) {
+
+        BuyPrice = parseFloat(BuyPrice)
+        SellPrice = parseFloat(SellPrice)
+        ProfitPercentage = parseFloat(ProfitPercentage)
+
+        if (SelectProfitType === 'fixed') {
+            let profit = SellPrice - BuyPrice;
+
+            ProfitPercentage = profit * 100 / BuyPrice;
+        }
+
+        if (SelectProfitType === 'percentage') {
+            SellPrice = BuyPrice + (BuyPrice / 100 * ProfitPercentage)
+        }
+
+        return {
+            profitPercentage: ProfitPercentage,
+            sellPrice: SellPrice
+        }
+    },
+
+    setProductsInfo: function (productID, productName, warranty, buyPrice, sellPrice, units, total, profitPercentage, profitPercentageType) {
+
 
         this.productsInfo
             [productID] = {
@@ -88,6 +112,8 @@ let GRN = {
             warranty: warranty,
             buyPrice: buyPrice,
             sellPrice: sellPrice,
+            profitPercentage: profitPercentage,
+            profitPercentageType: profitPercentageType,
             units: units,
             total: total,
         };
@@ -96,12 +122,16 @@ let GRN = {
 
     },
 
-    updateProductsInfo: function (productID, warranty, buyPrice, sellPrice, units, total) {
+    updateProductsInfo: function (productID, warranty, buyPrice, sellPrice, units, total, profitPercentage, profitPercentageType) {
+
+
         this.productsInfo[productID].productID = productID;
         this.productsInfo[productID].warranty = warranty;
         this.productsInfo[productID].units = units;
         this.productsInfo[productID].buyPrice = parseFloat(buyPrice);
         this.productsInfo[productID].sellPrice = parseFloat(sellPrice);
+        this.productsInfo[productID].profitPercentage = profitPercentage;
+        this.productsInfo[productID].profitPercentageType = profitPercentageType
         this.productsInfo[productID].total = parseFloat(total);
 
     },
@@ -115,13 +145,14 @@ let GRN = {
 
     },
 
-    getAllData : function () {
-        return  {
+    getAllData: function () {
+        return {
             supplierID: this.supplierID,
             invoiceNo: this.invoiceNo,
             repName: this.repName,
             fullTotal: this.fullTotal,
-            productsInfo: this.productsInfo
+            productsInfo: this.productsInfo,
+            getProfitpercentageAndSellPrice: this.getProfitpercentageAndSellPrice
         }
     }
 };
@@ -149,13 +180,15 @@ let supplier = {
 let products = {
     tbody: $('#tblProducts'),
 
-    append: function (productID, productName, warrantyPeriod, buyPrice, sellPrice, units, total) {
+    append: function (productID, productName, warrantyPeriod, buyPrice, sellPrice, units, total, profitPercentage, profitPercentageType) {
         let c = '<tr id="tr-' + productID + '">\n' +
             '                                                    <td id="tdProductID-' + productID + '">' + productID + '</td>\n' +
             '                                                    <td id="tdProductName-' + productID + '">' + productName + '</td>\n' +
             '                                                    <td id="tdWarranty-' + productID + '">' + warrantyPeriod + '</td>\n' +
             '                                                    <td id="tdBuyPrice-' + productID + '">' + buyPrice + '</td>\n' +
             '                                                    <td id="tdSellPrice-' + productID + '">' + sellPrice + '</td>\n' +
+            '                                                    <td id="tdProfitPercentage-' + productID + '">' + profitPercentage + '</td>\n' +
+            '                                                    <td id="tdProfitPercentageType-' + productID + '">' + profitPercentageType + '</td>\n' +
             '                                                    <td id="tdUnits-' + productID + '">' + units + '</td>\n' +
             '                                                    <td id="tdTotal-' + productID + '">' + total + '</td>\n' +
 
@@ -181,18 +214,22 @@ let products = {
         this.tbody.append(c);
     },
 
-    update: function (productID, warrantyPeriod, buyPrice, sellPrice, units, total) {
+    update: function (productID, warrantyPeriod, buyPrice, sellPrice, units, total, profitPercentage, profitPercentageType) {
 
         let tr = 'tr-' + productID;
         let tableRow = this.tbody.find('#' + tr);
 
+        let sellPriceandPercentage = GRN.getProfitpercentageAndSellPrice(profitPercentageType, profitPercentage, buyPrice, sellPrice)
+
         tableRow.find('#tdWarranty-' + productID).html(warrantyPeriod);
         tableRow.find('#tdBuyPrice-' + productID).html(buyPrice);
-        tableRow.find('#tdSellPrice-' + productID).html(sellPrice);
+        tableRow.find('#tdSellPrice-' + productID).html(sellPriceandPercentage.sellPrice);
         tableRow.find('#tdUnits-' + productID).html(units);
+        tableRow.find('#tdProfitPercentage-' + productID).html(sellPriceandPercentage.profitPercentage);
+        tableRow.find('#tdProfitPercentageType-' + productID).html(profitPercentageType);
         tableRow.find('#tdTotal-' + productID).html(total);
 
-        GRN.updateProductsInfo(productID, warrantyPeriod, buyPrice, sellPrice, units, total);
+        GRN.updateProductsInfo(productID, warrantyPeriod, buyPrice, sellPrice, units, total, profitPercentage, profitPercentageType);
         GRN.updateTotal()
     },
 
@@ -224,6 +261,8 @@ let mdAddItem = {
     mdBuyPrice: $("#mdBuyPrice"),
     mdSellPrice: $("#mdSellPrice"),
     mdWarranty: $("#mdWarranty"),
+    mdProfitPercentage: $("#mdProfitPercentage"),
+    mdSelectProfitType: $("#mdSelectProfitType"),
     mdTotal: $("#mdTotal"),
 
     disableSelect: function () {
@@ -245,18 +284,26 @@ let mdAddItem = {
         this.mdQuantity.val('');
         this.mdBuyPrice.val('');
         this.mdSellPrice.val('');
+        this.mdProfitPercentage.val('');
         this.mdWarranty.val('');
         this.mdTotal.val('');
     },
 
-    setDataNshow: function (productID, productName, quantity, buyPrice, sellPrice, warranty, total) {
+    setDataNshow: function (productID, productName, quantity, buyPrice, sellPrice, warranty, total, profitPercentage, selectProfitType) {
         this.slctItems.select2("trigger", "select", {
             data: {id: productID, text: productName},
         });
+
+        let sellPriceandPercentage = GRN.getProfitpercentageAndSellPrice(selectProfitType, profitPercentage, buyPrice, sellPrice);
+
+
+        console.log(selectProfitType)
         this.disableSelect();
         this.mdQuantity.val(quantity);
         this.mdBuyPrice.val(buyPrice);
-        this.mdSellPrice.val(sellPrice);
+        this.mdSellPrice.val(sellPriceandPercentage.sellPrice);
+        this.mdProfitPercentage.val(sellPriceandPercentage.profitPercentage);
+        this.mdSelectProfitType.val(selectProfitType).change();
         this.mdWarranty.val(warranty);
         this.mdTotal.val(total);
 
@@ -329,38 +376,6 @@ $(document).on('change', '#supplierSearch', function () {
     })
 });
 
-
-//product add button click
-$(document).on('click', '#btnAddProduct', function () {
-    mdAddItem.clear();
-    mdAddItem.setStatus('add');
-
-    //set GRNNo and rep name
-    GRN.invoiceNo = $('#grnNo').val();
-    GRN.repName = $('#repName').val();
-
-    if (GRN.supplierID !== null) {
-        mdAddItem.show();
-    }
-});
-
-
-//update model total on keyup
-$(document).on('keyup', '#mdQuantity,#mdBuyPrice', function () {
-
-    mdAddItem.updateTotal();
-});
-
-//remove table rows
-$(document).on('click', '.btnTblRemoveRow', function () {
-    $(this).closest('tr').remove();
-    let productID = $(this).val();
-
-    delete GRN.productsInfo[productID];
-    GRN.updateTotal()
-});
-
-
 let mdAddProductsOptions = ({
     formID: 'FrmMdAddProduct',
     animate: true,
@@ -381,12 +396,79 @@ let mdAddProductsOptions = ({
             type: 'number',
             methods: 'required'
         },
+        mdProfitPercentage: {
+            type: 'number',
+            methods: 'required'
+        },
+        mdSelectProfitType: {
+            type: 'number',
+            methods: 'required'
+        },
     },
 });
 
 
 let v = validator(mdAddProductsOptions);
 v.init();
+
+let grnNrepOptions = ({
+    formID: 'grnNRep',
+    animate: true,
+    validate: {
+        supplierSearch: {
+            type: 'text',
+            methods: 'required'
+        },
+        grnNo: {
+            type: 'text',
+            methods: 'required'
+        },
+        // repName: {
+        //     type: 'number',
+        //     methods: 'required'
+        // },
+
+    },
+});
+
+
+let x = validator(grnNrepOptions);
+x.init();
+
+//product add button click
+$(document).on('click', '#btnAddProduct', function () {
+
+    if (x.status()) {//form validated OK!
+        mdAddItem.clear();
+        mdAddItem.setStatus('add');
+
+        //set GRNNo and rep name
+        GRN.invoiceNo = $('#grnNo').val();
+        GRN.repName = $('#repName').val();
+
+        if (GRN.supplierID !== null) {
+            mdAddItem.show();
+        }
+    }
+});
+
+
+//update model total on keyup
+$(document).on('keyup', '#mdQuantity,#mdBuyPrice', function () {
+
+    mdAddItem.updateTotal();
+});
+
+//remove table rows
+$(document).on('click', '.btnTblRemoveRow', function () {
+    $(this).closest('tr').remove();
+    let productID = $(this).val();
+
+    delete GRN.productsInfo[productID];
+    GRN.updateTotal()
+});
+
+
 
 
 $('#FrmMdAddProduct').submit(function (e) {
@@ -401,18 +483,24 @@ $('#FrmMdAddProduct').submit(function (e) {
 
         let values = $(this).serializeObject();
 
+        console.log(values)
         let itemName = $("#slctItems option:selected").text();
         let itemID = values['slctItems'];
         let quantity = values['mdQuantity'];
         let mdBuyPrice = values['mdBuyPrice'];
         let mdSellPrice = values['mdSellPrice'];
+        let mdProfitPercentage = values['mdProfitPercentage'];
+        let mdSelectProfitType = values['mdSelectProfitType'];
         let mdWarranty = values['mdWarranty'];
         let mdTotal = values['mdTotal'];
 
 
+        let sellPriceandPercentage = GRN.getProfitpercentageAndSellPrice(mdSelectProfitType, mdProfitPercentage, mdBuyPrice, mdSellPrice);
+
+
         if (mdBtAddProducts.val() === 'update') {
 
-            products.update(itemID, mdWarranty, mdBuyPrice, mdSellPrice, quantity, mdTotal);
+            products.update(itemID, mdWarranty, mdBuyPrice, sellPriceandPercentage.sellPrice, quantity, mdTotal, sellPriceandPercentage.profitPercentage, mdSelectProfitType);
 
             mdAddItem.disableSelect();
 
@@ -423,9 +511,9 @@ $('#FrmMdAddProduct').submit(function (e) {
                 notify.error('Item Already added to the list');
             } else {
 
-                products.append(itemID, itemName, mdWarranty, mdBuyPrice, mdSellPrice, quantity, mdTotal);
+                products.append(itemID, itemName, mdWarranty, mdBuyPrice, sellPriceandPercentage.sellPrice, quantity, mdTotal, sellPriceandPercentage.profitPercentage, mdSelectProfitType);
 
-                GRN.setProductsInfo(itemID, itemName, mdWarranty, mdBuyPrice, mdSellPrice, quantity, mdTotal);
+                GRN.setProductsInfo(itemID, itemName, mdWarranty, mdBuyPrice, sellPriceandPercentage.sellPrice, quantity, mdTotal, sellPriceandPercentage.profitPercentage, mdSelectProfitType);
                 GRN.updateTotal();
                 v.resetForm();
 
@@ -441,42 +529,24 @@ $(document).on('click', '.btnTblQuickEdit', function () {
 
     let itemID = $(this).val();
 
+    console.log(GRN.productsInfo[itemID])
+
     let itemName = GRN.productsInfo[itemID]['productName'];
     let warranty = GRN.productsInfo[itemID]['warranty'];
     let buyPrice = GRN.productsInfo[itemID]['buyPrice'];
     let sellPrice = GRN.productsInfo[itemID]['sellPrice'];
+    let profitPercentage = GRN.productsInfo[itemID]['profitPercentage'];
+    let profitPercentageType = GRN.productsInfo[itemID]['profitPercentageType'];
     let units = GRN.productsInfo[itemID]['units'];
     let total = GRN.productsInfo[itemID]['total'];
 
     mdAddItem.setStatus('update');
-    mdAddItem.setDataNshow(itemID, itemName, units, buyPrice, sellPrice, warranty, total)
+    mdAddItem.setDataNshow(itemID, itemName, units, buyPrice, sellPrice, warranty, total, profitPercentage, profitPercentageType)
 
 });
 
 
-let grnNrepOptions = ({
-    formID: 'grnNRep',
-    animate: true,
-    validate: {
-        supplierSearch: {
-            type: 'text',
-            methods: 'required'
-        },
-        grnNo: {
-            type: 'text',
-            methods: 'required'
-        },
-        repName: {
-            type: 'number',
-            methods: 'required'
-        },
 
-    },
-});
-
-
-let x = validator(grnNrepOptions);
-x.init();
 
 $(document).on('click', '#btSaveGrn', function () {
     let btSave = $(this);
@@ -484,7 +554,7 @@ $(document).on('click', '#btSaveGrn', function () {
     if (x.status()) {
         if (Object.keys(GRN.productsInfo).length < 1) {
             notify.error('Oops!, Please select items to continue!');
-        }else {
+        } else {
             $.ajax({
                 url: 'saveGRN',
                 type: 'POST',
@@ -519,5 +589,21 @@ $(document).on('click', '#btSaveGrn', function () {
         }
     }
 });
+
+let sellPriceDiv = $('#sellPriceDiv')
+let profitPercentageDiv = $('#profitPercentageDiv')
+
+$(document).on('change', '#mdSelectProfitType', function () {
+    let profitType = $(this).val()
+
+    if (profitType == 'percentage') {
+        sellPriceDiv.hide()
+        profitPercentageDiv.show()
+    } else {
+        sellPriceDiv.show()
+        profitPercentageDiv.hide()
+    }
+})
+
 
 

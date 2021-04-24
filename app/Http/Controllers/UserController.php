@@ -41,7 +41,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $this->authorize('read', Auth::user());
+//        //  $this->authorize('read', Auth::user());
 
         $users = User::all();
         $roles = Role::all();
@@ -55,7 +55,7 @@ class UserController extends Controller
      * @throws AuthorizationException
      */
     public function getAllUsersNRoles(){
-        $this->authorize('read', Auth::user());
+//        //  $this->authorize('read', Auth::user());
 
         $users = User::all();
         $roles = Role::all();
@@ -75,7 +75,7 @@ class UserController extends Controller
     public function create()
     {
         $user = new User;
-        $this->authorize('create', $user);
+//        //  $this->authorize('create', $user);
         $roles = Role::all();
 
         return view('admin.users.create')->with('roles', $roles);
@@ -94,7 +94,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('create', Auth::user());
+        //  $this->authorize('create', Auth::user());
 
         $request->validate([
             'title' => 'required',
@@ -141,10 +141,12 @@ class UserController extends Controller
             $user->NIC = $request->post('nic');
             $user->email = $request->post('email');
             $user->password = Hash::make($request->post('password'));
-            $user->role_id = $request->post('role_id');
+//            $user->role_id = $request->post('role_id');
             $user->profile_img = $pathForDB;
 
             $user->save();
+
+            $user->syncRoles($request->post('role_id'));
 
         } catch (QueryException $e) {
             $errorCode = $e->errorInfo[1];
@@ -195,8 +197,8 @@ class UserController extends Controller
 
 
         try {
-            $this->authorize('read', Auth::user());
-            $userData = User::find($request->id, ['status', 'role_id', 'first_name']);
+//            //  $this->authorize('read', Auth::user());
+            $userData = User::find($request->id, ['status', 'first_name']);
 
         } catch (Exception $e) {
 
@@ -272,13 +274,13 @@ class UserController extends Controller
 
         $status = $status == null ? 0 : 1;
 
-        $user->role_id = $userType;
         $user->status = $status;
 
 
         try {
 
-            $user->save();
+            $user->syncRoles($userType);
+
 
         } catch (QueryException $e) {
             $errorCode = $e->errorInfo[1];
@@ -318,7 +320,7 @@ class UserController extends Controller
 
         $pathForDB = $newPathData['pathForDB'];
 
-        $this->authorize('update', Auth::user());
+        //  $this->authorize('update', Auth::user());
 
         $request->validate([
             'title' => 'required',
@@ -356,9 +358,10 @@ class UserController extends Controller
             $user->NIC = $request->post('nic');
             $user->profile_img = $pathForDB;
             $user->email = $request->post('email');
-            $user->role_id = $request->post('role_id');
+//            $user->role_id = $request->post('role_id');
 
             $user->save();
+            $user->syncRoles($request->post('role_id'));
 
         } catch (QueryException $e) {
             $errorCode = $e->errorInfo[1];
@@ -555,10 +558,10 @@ class UserController extends Controller
 
         $permissions = array(
             [
-                'create' => ($this->authorize('create', Auth::user()) ? true : false),
-                'read' => ($this->authorize('read', Auth::user()) ? true : false),
-                'update' => ($this->authorize('update', Auth::user()) ? true : false),
-                'delete' => ($this->authorize('delete', Auth::user()) ? true : false),
+//                'create' => ($this->authorize('create', Auth::user()) ? true : false),
+//                'read' => ($this->authorize('read', Auth::user()) ? true : false),
+//                'update' => ($this->authorize('update', Auth::user()) ? true : false),
+//                'delete' => ($this->authorize('delete', Auth::user()) ? true : false),
             ],
         );
 

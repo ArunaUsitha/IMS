@@ -39,15 +39,15 @@
                     let c = '';
                     let userID = data['id'];
 
-                    if (auth.can('read')) {
+                    // if (auth.can('read')) {
                         c += '<button type="button" onclick="window.location= \'showUser?id='+userID+' \'     "\n' +
                             '                                                                    class="btn btn-icon text-success btn-sm"\n' +
                             '                                                                    data-toggle="tooltip" data-placement="top" title=""\n' +
                             '                                                                    data-original-title="Advance View"><i\n' +
                             '                                                                    class="fas fa-search-plus"></i></button>'
-                    }
+                    // }
 
-                    if (auth.can('update')) {
+                    // if (auth.can('update')) {
                         c += '<button type="button" value="' + userID + '"\n' +
                             '                                                                    class="btn btn-icon text-info btn-sm btnQuickEdit"\n' +
                             '                                                                    data-toggle="tooltip" data-placement="top"\n' +
@@ -55,7 +55,7 @@
                             '                                                                    data-original-title="Quick Edit"><i\n' +
                             '                                                                    class="fas fa-edit"></i>\n' +
                             '                                                        </button>'
-                    }
+                    // }
 
 
                     return c;
@@ -167,61 +167,4 @@ $('#mdFrmUserQuickUpdate').submit(function (e) {
     });
 });
 
-
-// $('#tblUserOverview').DataTable( {
-//     responsive: false,
-//     dom: 'Bfrtip',
-//     buttons: [
-//         'csv', 'excel', 'print'
-//     ],
-//     columns: [
-//         { data: 'id' },
-//         { data: 'first_name' },
-//         { data: 'last_name' },
-//         { data: 'email' },
-//         { data: 'gender' }
-//     ],
-//     data : [
-//         {"id":1,"first_name":"Martie","last_name":"Cescoti","email":"mcescoti0@about.com","gender":"Female"},
-//             {"id":2,"first_name":"Burk","last_name":"Hutchins","email":"bhutchins1@ftc.gov","gender":"Male"},
-//             {"id":3,"first_name":"Deedee","last_name":"Musslewhite","email":"dmusslewhite2@microsoft.com","gender":"Female"},
-//             {"id":4,"first_name":"Conrade","last_name":"Searle","email":"csearle3@yellowbook.com","gender":"Male"},
-//             {"id":5,"first_name":"Bryna","last_name":"Duker","email":"bduker4@webmd.com","gender":"Female"},
-//             {"id":6,"first_name":"Karlee","last_name":"Darlaston","email":"kdarlaston5@yahoo.co.jp","gender":"Female"},
-//             {"id":7,"first_name":"Francklin","last_name":"Droogan","email":"fdroogan6@dmoz.org","gender":"Male"},
-//             {"id":8,"first_name":"Risa","last_name":"Demelt","email":"rdemelt7@webmd.com","gender":"Female"},
-//             {"id":9,"first_name":"Izaak","last_name":"Turland","email":"iturland8@symantec.com","gender":"Male"},
-//             {"id":10,"first_name":"Mariya","last_name":"Uman","email":"muman9@tinyurl.com","gender":"Female"},
-//             {"id":11,"first_name":"Geordie","last_name":"Joslyn","email":"gjoslyna@google.it","gender":"Male"},
-//             {"id":12,"first_name":"Lindy","last_name":"Southall","email":"lsouthallb@eventbrite.com","gender":"Female"},
-//             {"id":13,"first_name":"Janeva","last_name":"Teodori","email":"jteodoric@wikipedia.org","gender":"Female"},
-//             {"id":14,"first_name":"Aileen","last_name":"Bullen","email":"abullend@skyrock.com","gender":"Female"},
-//             {"id":15,"first_name":"Harry","last_name":"Voelker","email":"hvoelkere@ifeng.com","gender":"Male"},
-//             {"id":16,"first_name":"Nollie","last_name":"Allawy","email":"nallawyf@baidu.com","gender":"Male"},
-//             {"id":17,"first_name":"Jemimah","last_name":"Castro","email":"jcastrog@scientificamerican.com","gender":"Female"},
-//             {"id":18,"first_name":"Marlee","last_name":"Duckering","email":"mduckeringh@nbcnews.com","gender":"Female"},
-//             {"id":19,"first_name":"Kalie","last_name":"Sabate","email":"ksabatei@zimbio.com","gender":"Female"},
-//             {"id":20,"first_name":"Belle","last_name":"MacRirie","email":"bmacririej@w3.org","gender":"Female"},
-//             {"id":21,"first_name":"Markos","last_name":"Blampy","email":"mblampyk@photobucket.com","gender":"Male"},
-//             {"id":22,"first_name":"Rock","last_name":"Massimi","email":"rmassimil@g.co","gender":"Male"},
-//             {"id":23,"first_name":"Cirilo","last_name":"Gossage","email":"cgossagem@sciencedaily.com","gender":"Male"},
-//             {"id":24,"first_name":"Jacky","last_name":"Serck","email":"jserckn@t-online.de","gender":"Male"},
-//             {"id":25,"first_name":"Keefer","last_name":"Ivchenko","email":"kivchenkoo@mit.edu","gender":"Male"},
-//             {"id":26,"first_name":"Had","last_name":"Kilian","email":"hkilianp@domainmarket.com","gender":"Male"},
-//             {"id":27,"first_name":"Waldon","last_name":"Dunthorne","email":"wdunthorneq@jalbum.net","gender":"Male"},
-//             {"id":28,"first_name":"Malia","last_name":"Isoldi","email":"misoldir@wufoo.com","gender":"Female"},
-//             {"id":29,"first_name":"Edy","last_name":"Romeuf","email":"eromeufs@exblog.jp","gender":"Female"},
-//             {"id":30,"first_name":"Tomaso","last_name":"Tomaszewicz","email":"ttomaszewiczt@pinterest.com","gender":"Male"},
-//             {"id":31,"first_name":"Verne","last_name":"Shovlar","email":"vshovlaru@icq.com","gender":"Male"},
-//             {"id":32,"first_name":"Read","last_name":"Hambribe","email":"rhambribev@furl.net","gender":"Male"},
-//             {"id":33,"first_name":"Edmon","last_name":"Armall","email":"earmallw@php.net","gender":"Male"},
-//             {"id":34,"first_name":"Annecorinne","last_name":"Alwen","email":"aalwenx@wordpress.org","gender":"Female"},
-//             {"id":35,"first_name":"Ariel","last_name":"Everleigh","email":"aeverleighy@ucoz.ru","gender":"Female"},
-//             {"id":36,"first_name":"Cybil","last_name":"Peepall","email":"cpeepallz@time.com","gender":"Female"},
-//             {"id":37,"first_name":"Emerson","last_name":"Trood","email":"etrood10@typepad.com","gender":"Male"},
-//             {"id":38,"first_name":"Karisa","last_name":"Conway","email":"kconway11@blogspot.com","gender":"Female"},
-//             {"id":39,"first_name":"Brigg","last_name":"Lampet","email":"blampet12@tuttocitta.it","gender":"Male"},
-//             {"id":40,"first_name":"Shandeigh","last_name":"Zamboniari","email":"szamboniari13@sciencedaily.com","gender":"Female"}
-//     ]
-// } );
 

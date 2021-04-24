@@ -140,6 +140,8 @@
                                                         <th>Warranty Period</th>
                                                         <th>Buy Price</th>
                                                         <th>Sell Price</th>
+                                                        <th>Profit %</th>
+                                                        <th>Profit Type</th>
                                                         <th>Units</th>
                                                         <th>Total</th>
                                                         <th></th>
@@ -165,7 +167,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-group float-right">
-                                                <button type="button" class="btn btn-success" id="btSaveGrn" >
+                                                <button type="button" class="btn btn-success" id="btSaveGrn">
                                                     Save GRN
                                                 </button>
                                             </div>
@@ -214,10 +216,25 @@
                                        name="mdBuyPrice">
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group" style="display: none" id="sellPriceDiv">
                                 <label for="mdSellPrice">Sell Price</label>
                                 <input type="text" value="0" class="form-control form-control-sm" id="mdSellPrice"
                                        name="mdSellPrice">
+                            </div>
+
+                            <div class="form-group" id="profitPercentageDiv">
+                                <label for="mdProfitPercentage">profit percentage</label>
+                                <input type="text" value="0" class="form-control form-control-sm" id="mdProfitPercentage"
+                                       name="mdProfitPercentage">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="mdSelectProfitType">Set Profit Type</label>
+                                <select type="text" class="form-control form-control-sm" id="mdSelectProfitType"
+                                        name="mdSelectProfitType">
+                                    <option value="percentage"> Percentage</option>
+                                    <option value="fixed"> fixed</option>
+                                </select>
                             </div>
 
                             <div class="form-group">

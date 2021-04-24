@@ -112,7 +112,7 @@ class ProductController extends Controller
      */
     public function storeProduct(Request $request)
     {
-        $this->authorize('create', Auth::user());
+//        //  $this->authorize('create', Auth::user());
 
         $product = new Product();
 

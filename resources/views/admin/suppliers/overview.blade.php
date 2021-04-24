@@ -41,11 +41,11 @@
                             </div>
                             <div class="col-md" style="">
                                 <div class="card-header-action">
-                                    @can('create',Auth::user())
+{{--                                    @can('create',Auth::user())--}}
                                         <a href="{{Route('supplier.create')}}" class="btn btn-success float-right">Add
                                             New
                                             Supplier</a>
-                                    @endcan
+{{--                                    @endcan--}}
                                 </div>
                             </div>
                         </div>
@@ -111,15 +111,15 @@
 
                                                 <td>
                                                     <span class="text-center">
-                                                        @can('read',Auth::user())
+{{--                                                        @can('read',Auth::user())--}}
                                                             <button type="button"
                                                                     onclick="window.location='edit?id={{$supplier->id}}'"
                                                                     class="btn btn-icon text-success btn-sm"
                                                                     data-toggle="tooltip" data-placement="top" title=""
                                                                     data-original-title="Advance View"><i
                                                                     class="fas fa-search-plus"></i></button>
-                                                        @endcan
-                                                        @can('update',Auth::user())
+{{--                                                        @endcan--}}
+{{--                                                        @can('update',Auth::user())--}}
                                                             <button type="button" value="{{$supplier->id}}"
                                                                     class="btn btn-icon text-info btn-sm btnQuickEdit"
                                                                     data-toggle="tooltip" data-placement="top"
@@ -127,7 +127,7 @@
                                                                     data-original-title="Quick Edit"><i
                                                                     class="fas fa-edit"></i>
                                                         </button>
-                                                        @endcan
+{{--                                                        @endcan--}}
 
                                                     </span>
                                                 </td>

@@ -39,10 +39,10 @@
                             </div>
                             <div class="col-md" style="">
                                 <div class="card-header-action">
-                                    @can('read',Auth::user())
+{{--                                    @can('read',Auth::user())--}}
                                         <a href="{{Route('purchase.overview')}}" class="btn btn-success float-right">View
                                             All purchase orders</a>
-                                    @endcan
+{{--                                    @endcan--}}
                                 </div>
                             </div>
                         </div>

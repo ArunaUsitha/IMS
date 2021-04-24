@@ -33,20 +33,37 @@
                 </div>
                 <div class="card-body">
                     <form class="" id="frmSupplierAssignItems" method="post">
-{{--                        <div class="row justify-content-center">--}}
+                        {{--                        <div class="row justify-content-center">--}}
                         <div class="row">
                             <div class="col-10">
                                 <div class="row">
-                                    <div class="col-4">
+                                    <div class="col-3">
                                         <div class="form-group">
-                                                                                    <label for="itemSearch">Seach and add items</label>
-                                            <select class="itemSearch" id="itemSearch" name="items[]" multiple="multiple">
+                                            <label for="itemSearch">Seach and add items</label>
+                                            <select class="itemSearch" id="itemSearch" name="items[]"
+                                                    multiple="multiple">
+
+                                            </select>
+
+
+                                        </div>
+
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <label for="supplierSearch">Select Supplier</label>
+                                            <select class="supplierSearch" id="supplierSearch">
 
                                             </select>
                                         </div>
                                     </div>
 
-
+                                    <div class="col-3">
+                                        <div class="form-group">
+                                            <label for="supplierSearch">Assign Products to supplier</label>
+                                            <button class="btn btn-success">Assign</button>
+                                        </div>
+                                    </div>
 
 
                                 </div>

@@ -36,11 +36,11 @@
                             </div>
                             <div class="col-md" style="">
                                 <div class="card-header-action">
-                                    @can('create',Auth::user())
+{{--                                    @can('create',Auth::user())--}}
                                         <a href="{{Route('sales.customerCreate')}}" class="btn btn-success float-right">Register
                                             New
                                             Customer</a>
-                                    @endcan
+{{--                                    @endcan--}}
                                 </div>
                             </div>
                         </div>

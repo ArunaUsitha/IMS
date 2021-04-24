@@ -2,15 +2,209 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3d4a3b5c-a9e5-4459-b80c-45bd734e1345" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/images/users_data/021544781V/profile_img.jpeg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.htaccess.bak" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/permission.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2021_04_02_194516_create_permission_tables.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2021_04_03_040051_create_brands_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2021_04_03_040310_create_customers_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2021_04_03_051332_create_product_categories_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2021_04_03_051333_create_products_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2021_04_03_051453_create_product_sales_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2021_04_03_052954_create_suppliers_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2021_04_03_052956_create_purchases_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2021_04_03_053437_create_purchase_orders_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2021_04_03_053915_create_purchase_order_products_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2021_04_03_054427_create_purchase_products_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2021_04_12_180232_create_sales_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2021_04_12_181329_create_stocks_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2021_04_12_182547_create_supplier_payments_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2021_04_13_165930_create_system_codes_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2021_04_13_174205_create_system_details_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2021_04_19_191529_create_warranties_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2021_04_24_084628_add_warranty_period_to_purchase_products_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/seeds/RolePermissionSeeder.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/seeds/UsersSeeder.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/forgetCachedPermissions()" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/.htaccess.bak" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/app/js/settings/create_new_role.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/app/js/settings/user_administration.js.bak" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/additional-methods.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/additional-methods.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/jquery.validate.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/jquery.validate.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_ar.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_ar.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_az.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_az.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_bg.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_bg.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_bn_BD.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_bn_BD.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_ca.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_ca.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_cs.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_cs.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_da.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_da.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_de.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_de.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_el.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_el.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_es.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_es.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_es_AR.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_es_AR.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_es_PE.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_es_PE.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_et.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_et.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_eu.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_eu.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_fa.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_fa.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_fi.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_fi.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_fr.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_fr.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_ge.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_ge.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_gl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_gl.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_he.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_he.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_hr.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_hr.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_hu.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_hu.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_hy_AM.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_hy_AM.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_id.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_id.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_is.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_is.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_it.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_it.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_ja.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_ja.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_ka.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_ka.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_kk.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_kk.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_ko.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_ko.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_lt.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_lt.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_lv.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_lv.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_mk.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_mk.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_my.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_my.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_nl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_nl.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_no.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_no.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_pl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_pl.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_pt_BR.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_pt_BR.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_pt_PT.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_pt_PT.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_ro.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_ro.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_ru.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_ru.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_sd.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_sd.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_si.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_si.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_sk.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_sk.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_sl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_sl.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_sr.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_sr.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_sr_lat.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_sr_lat.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_sv.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_sv.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_th.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_th.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_tj.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_tj.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_tr.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_tr.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_uk.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_uk.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_ur.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_ur.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_vi.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_vi.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_zh.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_zh.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_zh_TW.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/messages_zh_TW.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/methods_de.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/methods_de.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/methods_es_CL.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/methods_es_CL.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/methods_fi.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/methods_fi.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/methods_it.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/methods_it.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/methods_nl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/methods_nl.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/methods_pt.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/jquery-validate/localization/methods_pt.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/assets/vendors/validator.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/images/users_data/933603289V/profile_img.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/partials/sidebar.blade.bak.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/settings/create_new_role_view.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/settings/edit_role_permissions.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/settings/user_administration.blade.php.old" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/admin/suppliers/order_history.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/IMS.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/IMS.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProductController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/app/js/sales/sale_order_create.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/app/js/sales/sale_order_create.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/app/js/stock/overview.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/app/js/stock/overview.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PurchaseController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PurchaseController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ReportsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ReportsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SalesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SalesController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SupplierController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SupplierController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SystemSettingsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SystemSettingsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2019_12_15_111320_create_activity_log_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/DatabaseSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/.htaccess" beforeDir="false" afterPath="$PROJECT_DIR$/public/.htaccess" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/app/js/purchase/grn_create.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/app/js/purchase/grn_create.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/app/js/settings/user_administration.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/app/js/settings/user_administration.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/app/js/supplier/assign_items.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/app/js/supplier/assign_items.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/app/js/user/user_index.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/app/js/user/user_index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/vendors/validator/js/validator.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/vendors/validator/js/validator.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/admin/partials/sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/partials/sidebar.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/sales/new_sales_order.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/sales/new_sales_order.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/purchase/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/purchase/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/purchase/grn_create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/purchase/grn_create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/sales/customer_overview.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/sales/customer_overview.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/settings/user_administration.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/settings/user_administration.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/suppliers/assign_items.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/suppliers/assign_items.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/suppliers/overview.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/suppliers/overview.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/users/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/users/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/users/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/users/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/users/overview.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/users/overview.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/admin-master.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/admin-master.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_classmap.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_classmap.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_files.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_files.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_psr4.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_psr4.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_real.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_real.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/composer/autoload_static.php" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/autoload_static.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/vendor/composer/installed.json" beforeDir="false" afterPath="$PROJECT_DIR$/vendor/composer/installed.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,9 +213,7 @@
   </component>
   <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
-    <execution>
-      <executable />
-    </execution>
+    <execution />
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -40,13 +232,21 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="CSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="JsFlowSettings">
     <service-enabled>true</service-enabled>
@@ -54,7 +254,7 @@
     <other-services-enabled>true</other-services-enabled>
     <auto-save>true</auto-save>
   </component>
-  <component name="PhpDebugGeneral" listening_started="true" xdebug_force_break_when_no_path_mapping="false" />
+  <component name="PhpDebugGeneral" xdebug_force_break_when_no_path_mapping="false" />
   <component name="PhpServers">
     <servers>
       <server host="ims.test" id="464fc2c3-988b-4c48-9d9a-d2eb39892350" name="ims.test" />
@@ -180,6 +380,7 @@
       <path value="$PROJECT_DIR$/vendor/maatwebsite/excel" />
       <path value="$PROJECT_DIR$/vendor/markbaker/matrix" />
       <path value="$PROJECT_DIR$/vendor/markbaker/complex" />
+      <path value="$PROJECT_DIR$/vendor/spatie/laravel-permission" />
     </include_path>
   </component>
   <component name="ProjectId" id="1UWpR8heOE8Izblmt5JGQmlWLIj" />
@@ -188,7 +389,6 @@
   </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
@@ -197,10 +397,17 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Codeigniter" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../portal.quickhelp" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="Laravel.SettingsForm" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
+    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\PhpStorm 2019.3.1\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\laragon\www\IMS\public\assets\vendors" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
@@ -208,18 +415,7 @@
       <method v="2" />
     </configuration>
   </component>
-  <component name="ServiceViewManager">
-    <option name="viewStates">
-      <list>
-        <serviceView>
-          <treeState>
-            <expand />
-            <select />
-          </treeState>
-        </serviceView>
-      </list>
-    </option>
-  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -243,154 +439,76 @@
       <workItem from="1577934242601" duration="62767000" />
       <workItem from="1578075224084" duration="6430000" />
       <workItem from="1578323109344" duration="638000" />
+      <workItem from="1578675713993" duration="2336000" />
+      <workItem from="1580451428946" duration="1275000" />
+      <workItem from="1581266674205" duration="964000" />
+      <workItem from="1581268070501" duration="6149000" />
+      <workItem from="1582263756509" duration="8000" />
+      <workItem from="1582263834788" duration="32000" />
+      <workItem from="1582263896681" duration="128000" />
+      <workItem from="1582264060332" duration="100000" />
+      <workItem from="1582264311500" duration="14000" />
+      <workItem from="1582264356932" duration="12000" />
+      <workItem from="1582264394516" duration="81000" />
+      <workItem from="1582264707220" duration="506000" />
+      <workItem from="1582356218173" duration="3246000" />
+      <workItem from="1582465533108" duration="6818000" />
+      <workItem from="1582735831512" duration="510000" />
+      <workItem from="1582897597829" duration="1270000" />
+      <workItem from="1583140868568" duration="1000" />
+      <workItem from="1583509490097" duration="2539000" />
+      <workItem from="1584108816361" duration="117000" />
+      <workItem from="1592560784262" duration="2545000" />
+      <workItem from="1593493389277" duration="1341000" />
+      <workItem from="1594109153041" duration="84000" />
+      <workItem from="1594215990403" duration="5373000" />
+      <workItem from="1594234118383" duration="4000" />
+      <workItem from="1594234291899" duration="21000" />
+      <workItem from="1594234767166" duration="7000" />
+      <workItem from="1595436997488" duration="19797000" />
+      <workItem from="1595650411875" duration="4000" />
+      <workItem from="1597203945551" duration="1049000" />
+      <workItem from="1597380524611" duration="645000" />
+      <workItem from="1597634604612" duration="1237000" />
+      <workItem from="1597980614346" duration="1930000" />
+      <workItem from="1598172475662" duration="642000" />
+      <workItem from="1598248338597" duration="1832000" />
+      <workItem from="1599293658611" duration="786000" />
+      <workItem from="1599294637433" duration="2822000" />
+      <workItem from="1599397919801" duration="3815000" />
+      <workItem from="1600845553032" duration="177000" />
+      <workItem from="1602128890602" duration="13000" />
+      <workItem from="1602128927867" duration="21000" />
+      <workItem from="1604736322954" duration="153000" />
+      <workItem from="1604741222313" duration="9000" />
+      <workItem from="1604748247300" duration="103000" />
+      <workItem from="1604748378231" duration="18000" />
+      <workItem from="1604748712883" duration="10000" />
+      <workItem from="1604748871443" duration="641000" />
+      <workItem from="1604750333565" duration="401000" />
+      <workItem from="1606919233408" duration="17000" />
+      <workItem from="1617390019241" duration="11592000" />
+      <workItem from="1618163597315" duration="203000" />
+      <workItem from="1618163976198" duration="5446000" />
+      <workItem from="1618332207592" duration="56575000" />
+      <workItem from="1619198505030" duration="12962000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+      </list>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="651" y="214" width="816" height="651" key="#Log_Highlighting_(ideolog)" timestamp="1576410388590">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="651" y="214" width="816" height="651" key="#Log_Highlighting_(ideolog)/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1576410388590" />
-    <state x="393" y="44" key="#SQL_Dialects" timestamp="1578118063359">
-      <screen x="0" y="0" width="1366" height="728" />
-    </state>
-    <state x="393" y="44" key="#SQL_Dialects/0.0.1366.728@0.0.1366.728" timestamp="1578118063359" />
-    <state x="552" y="178" key="#SQL_Dialects/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1577977487933" />
-    <state x="540" y="174" key="#Servers" timestamp="1576223837571">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="540" y="174" key="#Servers/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1576223837571" />
-    <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1577905923832">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1577905923832" />
-    <state x="721" y="322" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1577950587695">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="721" y="322" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1577950587695" />
-    <state x="690" y="299" key="#com.intellij.ide.scriptingContext.ui.PerFileMappingsDialogWrapper" timestamp="1575628379467">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="690" y="299" key="#com.intellij.ide.scriptingContext.ui.PerFileMappingsDialogWrapper/1920.194.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1575628379467" />
-    <state x="640" y="247" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1576223201031">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="640" y="247" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1576223201031" />
-    <state x="714" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1578073625276">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="714" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1578073625276" />
-    <state x="690" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1578069608344">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="690" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1578069608344" />
-    <state x="690" y="274" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/1920.194.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1575997069115" />
-    <state x="644" y="174" width="645" height="691" key="#phpunit.xml" timestamp="1577378392454">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="644" y="174" width="645" height="691" key="#phpunit.xml/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1577378392454" />
-    <state x="740" y="274" key="FileChooserDialogImpl" timestamp="1578324362676">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="740" y="274" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1578324362676" />
-    <state x="740" y="274" key="FileChooserDialogImpl/1920.194.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1575628378769" />
-    <state width="1877" height="348" key="GridCell.Tab.0.bottom" timestamp="1576224204083">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="348" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1576224204083" />
-    <state width="1877" height="282" key="GridCell.Tab.0.bottom/1920.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1576050315850" />
-    <state width="1877" height="282" key="GridCell.Tab.0.bottom/1920.194.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1575524069999" />
-    <state width="1877" height="348" key="GridCell.Tab.0.center" timestamp="1576224204083">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="348" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1576224204083" />
-    <state width="1877" height="282" key="GridCell.Tab.0.center/1920.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1576050315849" />
-    <state width="1877" height="282" key="GridCell.Tab.0.center/1920.194.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1575524069999" />
-    <state width="1877" height="348" key="GridCell.Tab.0.left" timestamp="1576224204083">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="348" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1576224204083" />
-    <state width="1877" height="282" key="GridCell.Tab.0.left/1920.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1576050315849" />
-    <state width="1877" height="282" key="GridCell.Tab.0.left/1920.194.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1575524069998" />
-    <state width="1877" height="348" key="GridCell.Tab.0.right" timestamp="1576224204083">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="348" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1576224204083" />
-    <state width="1877" height="282" key="GridCell.Tab.0.right/1920.0.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1576050315850" />
-    <state width="1877" height="282" key="GridCell.Tab.0.right/1920.194.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1575524069999" />
-    <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1576224204083">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1576224204083" />
-    <state width="1877" height="348" key="GridCell.Tab.1.center" timestamp="1576224204083">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.center/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1576224204083" />
-    <state width="1877" height="348" key="GridCell.Tab.1.left" timestamp="1576224204083">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.left/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1576224204083" />
-    <state width="1877" height="348" key="GridCell.Tab.1.right" timestamp="1576224204083">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.right/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1576224204083" />
-    <state width="1877" height="348" key="GridCell.Tab.2.bottom" timestamp="1576224204084">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="348" key="GridCell.Tab.2.bottom/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1576224204084" />
-    <state width="1877" height="348" key="GridCell.Tab.2.center" timestamp="1576224204084">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="348" key="GridCell.Tab.2.center/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1576224204084" />
-    <state width="1877" height="348" key="GridCell.Tab.2.left" timestamp="1576224204084">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="348" key="GridCell.Tab.2.left/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1576224204084" />
-    <state width="1877" height="348" key="GridCell.Tab.2.right" timestamp="1576224204084">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state width="1877" height="348" key="GridCell.Tab.2.right/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1576224204084" />
-    <state x="790" y="334" key="NewPhpClassDialog" timestamp="1577950694377">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="790" y="334" key="NewPhpClassDialog/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1577950694377" />
-    <state x="794" y="443" key="NewPhpFileDialog" timestamp="1576909105342">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="794" y="443" key="NewPhpFileDialog/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1576909105342" />
-    <state x="794" y="443" key="NewPhpFileDialog/1920.194.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1575524385833" />
-    <state x="461" y="162" key="SettingsEditor" timestamp="1576695134844">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="461" y="162" key="SettingsEditor/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1576695134844" />
-    <state x="461" y="162" key="SettingsEditor/1920.194.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1575649087396" />
-    <state x="561" y="130" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1577982930718">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="561" y="130" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1577982930718" />
-    <state x="561" y="130" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/1920.194.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1575530196764" />
-    <state x="656" y="257" width="607" height="526" key="find.popup" timestamp="1578074817769">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="656" y="257" width="607" height="526" key="find.popup/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1578074817769" />
-    <state x="683" y="162" key="refactoring.ChangeSignatureDialog" timestamp="1577170666590">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="683" y="162" key="refactoring.ChangeSignatureDialog/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1577170666590" />
-    <state x="616" y="240" key="run.anything.popup" timestamp="1577966918284">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="616" y="240" key="run.anything.popup/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1577966918284" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1578074813121">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1366.728@0.0.1920.1040" timestamp="1578074813121" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/1920.194.1366.728/0.0.1920.1040@0.0.1920.1040" timestamp="1575629556257" />
   </component>
 </project>
