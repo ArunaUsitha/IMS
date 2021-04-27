@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\purchaseProducts;
 use App\Supplier;
 use App\SystemCode;
 use Exception;
@@ -282,5 +283,18 @@ class SupplierController extends Controller
 
     public function viewOrderHistory(Request $request){
         return view('admin.suppliers.order_history');
+    }
+
+    public function getAllOrderHistories(Request $request){
+
+       $purchaseProducts =  purchaseProducts::all();
+
+        activity()->by(Auth::id())->log('Viewed the supplier order history');
+        return response()->json(self::getJSONResponse(
+            true,
+            '',
+            '',
+            $purchaseProducts
+        ));
     }
 }

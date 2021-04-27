@@ -5,7 +5,7 @@
 @endsection
 {{--load js--}}
 @section('js')
-{{--    <script src="{{URL::asset('app/js/user/user_index.js')}}"></script>--}}
+    <script src="{{URL::asset('app/js/supplier/order_history.js')}}"></script>
 @endsection
 
 @section('css')
@@ -63,11 +63,13 @@
                                         <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Invoice No</th>
-                                            <th>Supplier Name</th>
-                                            <th>Items purchased</th>
-                                            <th>Cost</th>
-                                            <th>Actions</th>
+                                            <th>Purchase ID</th>
+                                            <th>Product ID</th>
+                                            <th>Quantity</th>
+                                            <th>Buy Price</th>
+                                            <th>Sell Price</th>
+                                            <th>Profit Percentage</th>
+                                            <th>Profit type</th>
                                         </tr>
                                         </thead>
 

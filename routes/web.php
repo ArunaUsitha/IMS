@@ -58,6 +58,7 @@ Route::name('supplier.')->prefix('supplier')->middleware('auth')->group(function
     Route::get('assignItems', 'SupplierController@assignItems')->name('assignItems');
     Route::get('searchSuppliers', 'SupplierController@searchSuppliers')->name('searchSuppliers');
     Route::get('viewOrderHistory', 'SupplierController@viewOrderHistory')->name('viewOrderHistory');
+    Route::get('getAllOrderHistories', 'SupplierController@getAllOrderHistories')->name('getAllOrderHistories');
 });
 
 
