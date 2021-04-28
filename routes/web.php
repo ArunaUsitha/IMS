@@ -128,6 +128,9 @@ Route::name('sales.')->prefix('sales')->middleware('auth')->group(function () {
     Route::post('triggerSalesQuotation', 'SalesController@triggerSalesQuotation')->name('triggerSalesQuotation');
     Route::get('generateSalesQuotation', 'SalesController@generateSalesQuotation')->name('generateSalesQuotation');
 
+    //reservations
+    Route::post('makeReservation', 'SalesController@makeReservation')->name('makeReservation');
+    Route::post('cancelReservation', 'SalesController@cancelReservation')->name('cancelReservation');
 
 });
 

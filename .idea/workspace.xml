@@ -2,10 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3d4a3b5c-a9e5-4459-b80c-45bd734e1345" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/app/js/supplier/order_history.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Reservation.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2021_04_27_173802_create_reservations_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2021_04_27_181424_add_sales_order_id_to_sales_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SupplierController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SupplierController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/suppliers/order_history.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/suppliers/order_history.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/ProductController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SalesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SalesController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/SystemCode.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/SystemCode.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/app/js/sales/sale_order_create.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/app/js/sales/sale_order_create.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/sales/new_sales_order.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/sales/new_sales_order.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -293,7 +298,7 @@
       <workItem from="1618163597315" duration="203000" />
       <workItem from="1618163976198" duration="5446000" />
       <workItem from="1618332207592" duration="56575000" />
-      <workItem from="1619198505030" duration="17139000" />
+      <workItem from="1619198505030" duration="34279000" />
     </task>
     <servers />
   </component>

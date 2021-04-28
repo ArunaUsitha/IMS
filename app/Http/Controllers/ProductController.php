@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Brand;
 use App\Product;
 use App\ProductCategory;
+use App\Reservation;
 use App\Stock;
 use App\SystemCode;
 use App\Warranty;
@@ -177,7 +178,7 @@ class ProductController extends Controller
         $brand->name = $request->post('brand_name');
 
 
-        Try {
+        try {
             $brand->save();
 
         } catch (Exception $e) {
@@ -213,7 +214,7 @@ class ProductController extends Controller
         $ProductCategory->name = $request->post('category_name');
 
 
-        Try {
+        try {
             $ProductCategory->save();
 
         } catch (Exception $e) {
@@ -395,13 +396,33 @@ class ProductController extends Controller
         return response()->json($sysCode->getNewProductCode());
     }
 
-    public function checkStock(Request $request){
+    public function checkStock(Request $request)
+    {
         $itemid = $request->get('item_id');
-        if ($itemid){
 
-            $quantity = DB::select(DB::raw('SELECT s.stock FROM stocks s WHERE s.product_id = '.$itemid));
+        //check with reservations
+        $hold_count = Reservation::getHoldCount($itemid);
 
-            return response()->json($quantity);
+
+        if ($itemid) {
+
+            $stock = Stock::where('product_id', $itemid)
+                ->select('stock')->first();
+
+            $stockQ = $stock->stock;
+
+
+            if ($stockQ > $hold_count) {
+                $quantityR = $stockQ - $hold_count;
+
+            } else if ($stockQ < $hold_count) {
+                $quantityR = $hold_count - $stockQ;
+
+            } else if ($stockQ == $hold_count) {
+                $quantityR = 0;
+            }
+
+            return response()->json($quantityR);
         }
     }
 }

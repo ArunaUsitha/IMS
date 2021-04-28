@@ -10,6 +10,8 @@
 
 
 @section('content')
+
+    <input type="hidden" value="{{$sales_order_no}}" id="sales_order_no">
     <section class="section">
         <div class="section-body">
             <div class="section-header">

@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Customer;
 use App\ProductSale;
+use App\Reservation;
 use App\Sale;
 use App\Stock;
-use App\UAuth;
 use App\SystemCode;
 use App\SystemDetail;
 use Illuminate\Database\QueryException;
@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 
-
 class salesController extends Controller
 {
     private $salesQuoteData;
@@ -24,9 +23,11 @@ class salesController extends Controller
 
     public function newSalesOrder()
     {
+        //get new sales order id
+        $sysCode = new SystemCode();
 
 //        $this->authorize('read',Sale::class);
-        return view('admin.sales.new_sales_order');
+        return view('admin.sales.new_sales_order')->with(['sales_order_no' => $sysCode->getNewSalesOrderNo()]);
 
     }
 
@@ -272,9 +273,14 @@ class salesController extends Controller
                 $sysCode = new SystemCode();
                 $invoiceNo = $sysCode->getNewInvoiceNo();
 
-                $sale->customer_id = $request->post('customerID');
+                $customer_id = $request->post('customerID');
+                $sales_order_no = $request->sales_order_no;
+
+                $sale->customer_id = $customer_id;
+                $sale->sales_order_id = $sales_order_no;
                 $sale->amount = $request->post('total');
                 $sale->invoice_no = $invoiceNo;
+
 
                 $sale->save();
 
@@ -284,7 +290,7 @@ class salesController extends Controller
 
                     $productSales = new ProductSale();
 
-                    $productID = $product['productID'];
+                    $product_id = $product['productID'];
                     $quantity = $product['quantity'];
 
                     $productSales->product_id = $product['productID'];
@@ -294,11 +300,12 @@ class salesController extends Controller
                     $productSales->total = $product['total'];
 
                     //substract from stock
-                    Stock::where('product_id', $productID)
+                    Stock::where('product_id', $product_id)
                         ->decrement('stock', $quantity);
 
-
                     $productSales->save();
+
+                    Reservation::complete($sales_order_no, $sale->id, $product_id,$customer_id);
 
                 }
 
@@ -342,10 +349,12 @@ class salesController extends Controller
 
             $salesID = $request->get('salesID');
             //get business details
-            $systemDetail = SystemDetail::find(1);
-            $companyName = $systemDetail->company_name;
-            $companyAddress = $systemDetail->company_address;
-            $companyPhone = $systemDetail->company_phone;
+            $company_name = SystemDetail::where('key','company_name')->select('value')->first();
+            $company_address = SystemDetail::where('key','company_address')->select('value')->first();
+            $company_phone = SystemDetail::where('key','company_phone')->select('value')->first();
+            $companyName = $company_name->value;
+            $companyAddress = $company_address->value;
+            $companyPhone = $company_phone->value;
 
             $customerInfo = DB::table('sales')
                 ->join('customers', 'sales.customer_id', '=', 'customers.id')
@@ -437,6 +446,75 @@ class salesController extends Controller
         }
     }
 
+
+    public function getNewSalesOrderNo()
+    {
+        $sysCode = new SystemCode();
+        return response()->json($sysCode->getNewSalesOrderNo());
+    }
+
+
+    public function makeReservation(Request $request)
+    {
+
+        $sales_order_no = $request->sales_order_no;
+        $product_id = $request->product_id;
+        $count = $request->count;
+        $customer_id = $request->customer_id;
+
+        try {
+
+            Reservation::reserve($sales_order_no, $product_id, $count, $customer_id);
+
+        } catch (QueryException $e) {
+            $errorMessage = $e->errorInfo[2];
+
+            return response()->json(self::getJSONResponse(
+                false,
+                'header',
+                $errorMessage,
+                ''
+            ));
+
+
+        }
+
+        return response()->json(self::getJSONResponse(
+            true,
+            'toast',
+            '',
+            ''
+
+        ));
+
+
+    }
+
+    public function cancelReservation(Request $request)
+    {
+//        product_id,customer_id
+
+        $product_id = $request->product_id;
+        $customer_id = $request->customer_id;
+
+        if (Reservation::cancel($product_id, $customer_id)) {
+            return response()->json(self::getJSONResponse(
+                true,
+                'header',
+                '',
+                ''
+            ));
+        } else {
+            return response()->json(self::getJSONResponse(
+                false,
+                'header',
+                '',
+                ''
+            ));
+        }
+
+
+    }
 
 }
 
