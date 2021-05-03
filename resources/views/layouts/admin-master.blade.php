@@ -14,20 +14,21 @@
 {{--    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"--}}
 {{--          integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">--}}
 
-    <!-- CSS Libraries -->
-    <link rel="stylesheet"  type="text/css" href="{{asset('assets/vendors/izitoast/dist/css/iziToast.min.css')}}">
-{{--    <link rel="stylesheet" href="{{asset('assets/vendors/sweetalert2/dist/sweetalert2.css')}}">--}}
-{{--    <link rel="stylesheet" href="{{asset('assets/vendors/sweetalert2-themes/dark/dark.scss')}}">--}}
+<!-- CSS Libraries -->
+    <link rel="stylesheet" type="text/css" href="{{asset('assets/vendors/izitoast/dist/css/iziToast.min.css')}}">
+    {{--    <link rel="stylesheet" href="{{asset('assets/vendors/sweetalert2/dist/sweetalert2.css')}}">--}}
+    {{--    <link rel="stylesheet" href="{{asset('assets/vendors/sweetalert2-themes/dark/dark.scss')}}">--}}
     <link rel="stylesheet" type="text/css" href="{{asset('css/app.css')}}">
-{{--    <link rel="stylesheet" type="text/css" href="{{asset('assets/vendors/DataTables-1.10.20/datatables.min.css')}}">--}}
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/vendors/DataTables/DataTables-1.10.20/css/dataTables.bootstrap4.min.css')}}">
-{{--    <link rel="stylesheet" type="text/css" href="{{asset('assets/vendors/DataTables-1.10.20/Buttons-1.6.1/css/buttons.bootstrap4.css')}}">--}}
-{{--    <link rel="stylesheet" type="text/css" href="{{asset('assets/vendors/Responsive-2.2.3/css/responsive.bootstrap4.min.css')}}">--}}
+    {{--    <link rel="stylesheet" type="text/css" href="{{asset('assets/vendors/DataTables-1.10.20/datatables.min.css')}}">--}}
+    <link rel="stylesheet" type="text/css"
+          href="{{asset('assets/vendors/DataTables/DataTables-1.10.20/css/dataTables.bootstrap4.min.css')}}">
+    {{--    <link rel="stylesheet" type="text/css" href="{{asset('assets/vendors/DataTables-1.10.20/Buttons-1.6.1/css/buttons.bootstrap4.css')}}">--}}
+    {{--    <link rel="stylesheet" type="text/css" href="{{asset('assets/vendors/Responsive-2.2.3/css/responsive.bootstrap4.min.css')}}">--}}
 
-    <!--Dynamic css inject-->
+<!--Dynamic css inject-->
     @yield('css_vendors')
 
-    <!--End Dynamic css inject-->
+<!--End Dynamic css inject-->
 
     <!-- Template CSS -->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/style.css') }}">
@@ -53,7 +54,7 @@
         <!-- Main Content -->
         <div class="main-content">
 
-                @yield('content')
+            @yield('content')
 
 
         </div>
@@ -90,10 +91,60 @@
 @yield('js_vendors')
 
 
-
 <script src="{{ asset('assets/js/scripts.js') }}"></script>
 <script src="{{ asset('assets/js/stisla_.js') }}"></script>
 {{--<script src="{{ asset('assets/js/custom.js') }}"></script>--}}
+
+<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+
+<script>
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('c03978f5bfe75cba3c96', {
+        cluster: 'ap2'
+    });
+
+    let bell = $('#bell');
+    let notifications = $('#notifications')
+
+    var channel = pusher.subscribe('dashboard-notifications');
+    channel.bind('dashboard-notification-event', function (data) {
+
+        console.log(data.message)
+
+        let bell = $('#bell');
+        let notifications = $('#notifications')
+
+        let c = '<a href="#" class="dropdown-item dropdown-item-unread"> ' +
+            '<div class="dropdown-item-icon bg-primary text-white"> ' +
+            // '<i class="fas fa-code"></i> ' +
+            '</div> ' +
+            '<div class="dropdown-item-desc">'
+            + data.message +
+            // '<div class="time text-primary">2 Min Ago</div> ' +
+            '</div> ' +
+            '</a>';
+
+
+        notifications.append(c);
+
+        bell.addClass('beep');
+
+
+        // bell
+        // beep
+        console.log(JSON.stringify(data));
+    });
+
+
+    $(document).on('click','#markAllread',function (){
+        // let c = '<p class="text-muted p-2 text-center">No notifications found!</p>'
+
+        // notifications.empty().append(c)
+        bell.removeClass('beep');
+    })
+</script>
 
 @yield('js')
 

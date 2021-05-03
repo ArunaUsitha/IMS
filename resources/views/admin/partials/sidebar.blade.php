@@ -33,6 +33,9 @@
                     <a href="#" class="nav-link has-dropdown"><i class="fas fa-store"></i><span>Sales Management</span></a>
                     <ul class="dropdown-menu">
                         @can('create_sales_order')
+                            <li><a class="nav-link" href="{{Route('sales.salesOrdersOverview')}}">Overview</a></li>
+                        @endcan
+                        @can('create_sales_order')
                             <li><a class="nav-link" href="{{Route('sales.newSalesOrder')}}">New Sales Order</a></li>
                         @endcan
                         @can('create_sales_order')
@@ -81,7 +84,8 @@
                             <li><a class="nav-link" href="{{Route('supplier.assignItems')}}">Assign Items</a></li>
                         @endcan
                         @can('view_order_history')
-                            <li><a class="nav-link" href="{{Route('supplier.viewOrderHistory')}}">View order history</a></li>
+                            <li><a class="nav-link" href="{{Route('supplier.viewOrderHistory')}}">View order history</a>
+                            </li>
                         @endcan
                     </ul>
                 </li>
@@ -112,6 +116,7 @@
                 <li class="nav-item dropdown {{(request()->is('purchase*')) ? 'active' :''}}">
                     <a href="#" class="nav-link has-dropdown"><i class="fas fa-cart-arrow-down"></i><span>Purchase Management</span></a>
                     <ul class="dropdown-menu">
+                        <li><a class="nav-link" href="{{Route('purchase.overview')}}">Overview</a></li>
                         @can('create_purchase_order')
                             <li><a class="nav-link" href="{{Route('purchase.create')}}">New Purchase Order</a></li>
                         @endcan

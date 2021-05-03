@@ -1,4 +1,4 @@
-let dTable =   $('#tblProdcutOverview').dataTable( $.extend( true, {},{
+let dTable = $('#tblProdcutOverview').dataTable($.extend(true, {}, {
     "ajax": {
         "url": "getAllProductsNCategories",
         "type": 'get',
@@ -10,31 +10,34 @@ let dTable =   $('#tblProdcutOverview').dataTable( $.extend( true, {},{
         {data: ['code']},
         {data: ['custom_code']},
         {data: ['name']},
-        { "data": null,
+        {
+            "data": null,
             "render": function (data, type, full, meta) {
 
                 return data['product_category']['name']
 
 
-            } },
-        {"data": null,
+            }
+        },
+        {
+            "data": null,
             "render": function (data, type, full, meta) {
 
                 return data['brand']['name']
 
 
-            }},
+            }
+        },
         {data: ['model_no']},
         {
             "data": null,
             "render": function (data, type, full, meta) {
 
 
-
-                if(data['status'] === 1){
-                    return getSetStatusButton(true,'setProductStatus','setProductStatus',data['id']);
-                }else{
-                    return getSetStatusButton(false,'setProductStatus','setProductStatus',data['id']);
+                if (data['status'] === 1) {
+                    return getSetStatusButton(true, 'setProductStatus', 'setProductStatus', data['id']);
+                } else {
+                    return getSetStatusButton(false, 'setProductStatus', 'setProductStatus', data['id']);
                 }
 
 
@@ -47,24 +50,23 @@ let dTable =   $('#tblProdcutOverview').dataTable( $.extend( true, {},{
                 let c = '';
                 let productID = data['id'];
 
-                if (auth.can('read')) {
-                    c += '<button type="button" onclick="window.location= \'showpPoduct?id='+productID+' \'     "\n' +
-                        '                                                                    class="btn btn-icon text-success btn-sm"\n' +
-                        '                                                                    data-toggle="tooltip" data-placement="top" title=""\n' +
-                        '                                                                    data-original-title="Advance View"><i\n' +
-                        '                                                                    class="fas fa-search-plus"></i></button>'
-                }
+                // if (auth.can('read')) {
+                c += '<a target="_blank" href="showProductHistory?id=' + productID + '"\n' +
+                    '                                                                    class="btn btn-icon text-success btn-sm"\n' +
+                    '                                                                    data-toggle="tooltip" data-placement="top" title=""\n' +
+                    '                                                                    data-original-title="Advance View"><i\n' +
+                    '                                                                    class="fas fa-search-plus"></i></a>'
+                // }
 
-                if (auth.can('update')) {
-                    c += '<button type="button" value="' + productID + '"\n' +
-                        '                                                                    class="btn btn-icon text-info btn-sm btnQuickEdit"\n' +
-                        '                                                                    data-toggle="tooltip" data-placement="top"\n' +
-                        '                                                                    title=""\n' +
-                        '                                                                    data-original-title="Quick Edit"><i\n' +
-                        '                                                                    class="fas fa-edit"></i>\n' +
-                        '                                                        </button>'
-                }
-
+                // if (auth.can('update')) {
+                c += '<button type="button" value="' + productID + '"\n' +
+                    '                                                                    class="btn btn-icon text-info btn-sm btnQuickEdit"\n' +
+                    '                                                                    data-toggle="tooltip" data-placement="top"\n' +
+                    '                                                                    title=""\n' +
+                    '                                                                    data-original-title="Set Default Price"><i\n' +
+                    '                                                                    class="fas fa-dollar-sign"></i>\n' +
+                    '                                                        </button>'
+                // }
 
 
                 return c;
@@ -74,27 +76,26 @@ let dTable =   $('#tblProdcutOverview').dataTable( $.extend( true, {},{
         },
 
     ]
-},DtableDefaultSetting));
-
+}, DtableDefaultSetting));
 
 
 $('#dTableSearchBox').keyup(function () {
     dTable.api().search($(this).val()).draw();
 });
 
-function getSetStatusButton(isActive,id,name,value) {
+function getSetStatusButton(isActive, id, name, value) {
 
     let c = '' +
         '                                <label class="custom-switch mt-2 custom-switch-no-padding ">';
 
-    if (isActive){
-        c+= ' <input type="checkbox" value="'+value+'"  name="'+name+'" id="'+id+'" class="custom-switch-input btnSetProductStatus" checked>';
-    }else {
-        c+= ' <input type="checkbox" value="'+value+'"  name="'+name+'" id="'+id+'" class="custom-switch-input btnSetProductStatus">';
+    if (isActive) {
+        c += ' <input type="checkbox" value="' + value + '"  name="' + name + '" id="' + id + '" class="custom-switch-input btnSetProductStatus" checked>';
+    } else {
+        c += ' <input type="checkbox" value="' + value + '"  name="' + name + '" id="' + id + '" class="custom-switch-input btnSetProductStatus">';
     }
 
 
-      c +=  '                                    <span class="custom-switch-indicator"></span>\n' +
+    c += '                                    <span class="custom-switch-indicator"></span>\n' +
         '                                </label>\n';
 
     return c;
@@ -102,13 +103,13 @@ function getSetStatusButton(isActive,id,name,value) {
 }
 
 
-$(document).on('change','.btnSetProductStatus',function () {
+$(document).on('change', '.btnSetProductStatus', function () {
 
     let productID = $(this).val();
-    let checked = $(this). prop("checked");
+    let checked = $(this).prop("checked");
     let status = 0;
 
-    if(checked === true){
+    if (checked === true) {
         status = 1;
     }
 
@@ -118,7 +119,7 @@ $(document).on('change','.btnSetProductStatus',function () {
         type: 'post',
         data: {
             "id": productID,
-            "status" : status
+            "status": status
         },
 
         success: function (data, textStatus, xhr) {
@@ -134,10 +135,131 @@ $(document).on('change','.btnSetProductStatus',function () {
         },
         statusCode: { // laravel server side validations
             500: function (data, textStatus, xhr) {
-               notify.serverError();
+                notify.serverError();
             }
         }
 
     });
 
 });
+
+
+$(document).on('click', '.btnQuickEdit', function () {
+
+    let btQuickEdit = $(this);
+    let product_id = btQuickEdit.val();
+    let purchased_product_sell_prices = $('#purchased_product_sell_prices')
+    let mdProdcutId = $('#mdProdcutId')
+
+    $.ajax({
+        headers: CSRF,
+        url: "getPurchasedPricesByProductID",
+        type: 'get',
+        data: {
+            "product_id": product_id,
+        },
+
+        beforeSend: function () {
+            spinButton.start(btQuickEdit, 'bar');
+        },
+
+        success: function (data, textStatus, xhr) {
+
+            let c = '<ul>'
+
+
+            if (data && data.length > 0) {
+
+                $.each(data, function (index, value) {
+                    c += '<li>' + 'purchased on : ' + value.created_at + ' | ' + 'sell price : ' + value.sell_price + '</li>';
+                });
+
+            }
+            c += '</ul>'
+
+            mdProdcutId.val(product_id)
+            purchased_product_sell_prices.empty().append(c);
+
+
+            spinButton.stop(btQuickEdit, 'bar');
+            v.resetForm()
+            $('#mdSetPricing').modal('show');
+
+        },
+        error: function (data, textStatus, xhr) {
+            notify.serverError();
+            spinButton.stop(btQuickEdit, 'bar');
+        },
+
+    });
+
+})
+
+
+//validator plugin initialize
+
+let options = ({
+    formID: 'mdUpdateDefaultPrice',
+    animate: true,
+    validate: {
+        default_sell_price: {
+            type: 'text',
+            methods: 'required|number'
+        },
+
+    },
+});
+
+
+let v = validator(options);
+v.init();
+
+
+$('#mdUpdateDefaultPrice').submit(function (e) {
+    e.preventDefault();
+    let btSave = $('#mdBtUpdateUser');
+
+    if (v.status()) {
+
+        $.ajax({
+            headers: CSRF,
+            url: "updateProductDefaultPrice",
+            type: 'post',
+            data: $(this).serialize(),
+
+            beforeSend: function () {
+                spinButton.start(btSave);
+            },
+            success: function (data, textStatus, xhr) {
+
+
+                spinButton.stop(btSave);
+
+                if (!data['status']) {
+                    notify.error(data['message'])
+                } else {
+                    notify.success(data['message'])
+                    v.resetForm()
+                }
+
+
+
+
+            },
+            error: function (data, textStatus, xhr) {
+
+                notify.serverError();
+                spinButton.stop(btSave);
+
+            },
+
+        });
+
+    }
+});
+
+
+
+
+
+

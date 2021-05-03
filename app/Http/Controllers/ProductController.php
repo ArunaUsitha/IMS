@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Brand;
 use App\Product;
 use App\ProductCategory;
+use App\Purchase;
+use App\purchaseProducts;
 use App\Reservation;
+use App\Sale;
 use App\Stock;
 use App\SystemCode;
 use App\Warranty;
@@ -379,7 +382,9 @@ class ProductController extends Controller
                 ->where('products.id', '=', $searchTerm)
                 ->get()->toJson();
 
-            return response()->json(array('results' => $products));
+            $sell_price = Sale::getPrice($searchTerm);
+
+            return response()->json(array('results' => $products, 'sell_price' => $sell_price));
         }
         return response()->json(array('results' => ''));
     }
@@ -424,5 +429,84 @@ class ProductController extends Controller
 
             return response()->json($quantityR);
         }
+    }
+
+    public function showProductHistory(Request $request)
+    {
+
+        $product_id = $request->id;
+
+        $product_info = Product::select(DB::raw('products.*,stocks.stock as stock, brands.name as brand_name, product_categories.name as product_category_name'))
+            ->where('products.id', '=', $product_id)
+            ->join('product_categories', 'products.product_category_id', '=', 'product_categories.id')
+            ->join('brands', 'products.brand_id', '=', 'brands.id')
+            ->join('stocks', 'products.id', '=', 'stocks.product_id')
+            ->first();
+
+        $product_purchase_history = Purchase::select(DB::raw('*, purchases.created_at as stocked_on'))
+            ->join('purchase_products', 'purchases.id', '=', 'purchase_products.purchase_id')
+            ->join('suppliers', 'purchases.supplier_id', '=', 'suppliers.id')
+            ->where('purchase_products.product_id', '=', $product_id)
+            ->get();
+
+        $product_sales_history = Sale::select(DB::raw('*, sales.created_at as sold_on'))
+            ->join('customers', 'sales.customer_id', '=', 'customers.id')
+            ->join('product_sales', 'sales.id', '=', 'product_sales.sales_id')
+            ->join('products', 'product_sales.product_id', '=', 'products.id')
+            ->get();
+
+        return view('admin.products.history')->with([
+            'product_info' => $product_info,
+            'product_purchase_history' => $product_purchase_history,
+            'product_sales_history' => $product_sales_history
+        ]);
+    }
+
+
+    public function getPurchasedPricesByProductID(Request $request)
+    {
+        $productID = $request->product_id;
+
+        $sellPrices = purchaseProducts::select(['created_at', 'sell_price'])
+            ->where('product_id', $productID)
+            ->get()->toArray();
+
+        return response()->json($sellPrices);
+
+    }
+
+    public function updateProductDefaultPrice(Request $request)
+    {
+
+        try {
+
+
+            $default_sell_price = $request->default_sell_price;
+            $product_id = $request->product_id;
+
+            $product = Product::find($product_id);
+            $product->default_price = $default_sell_price;
+
+
+            $product->save();
+        } catch (Exception  $e) {
+            $message = $e->getMessage();
+            return response()->json(self::getJSONResponse(
+                false,
+                'toast',
+                $message,
+                ''
+            ));
+        }
+
+
+
+        return response()->json(self::getJSONResponse(
+            true,
+            'toast',
+            'Hooray..! Product default price was updated.!',
+            ''
+        ));
+
     }
 }

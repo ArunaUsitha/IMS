@@ -403,12 +403,15 @@ $(document).on('change', '#slctItems', function () {
             },
             success: function (data, textStatus, xhr) {
 
-                data = JSON.parse(data['results']);
+                let data2 = JSON.parse(data['results']);
+
+                console.log(data['sell_price'])
 
 
-                if (data[0] !== undefined) {
 
-                    mdAddItem.updateProductDetails(data[0]['code'], data[0]['sell_price'], data[0]['warranty_period']);
+                if (data2[0] !== undefined) {
+
+                    mdAddItem.updateProductDetails(data2[0]['code'], data['sell_price'], data2[0]['warranty_period']);
                 }
 
 

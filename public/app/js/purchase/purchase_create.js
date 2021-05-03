@@ -194,6 +194,9 @@ $(document).ready(function () {
 
                     $(wizard).smartWizard("reset");
                     resetWizard();
+                    x.resetForm()
+                    grnData.clearGrnData();
+                    v.resetForm();
                 }
 
             },
@@ -206,6 +209,23 @@ $(document).ready(function () {
             }
         });
     });
+
+
+
+    $(document).on('click', '#btnSendEmail', function () {
+        // printElem('toPrint');
+
+        $(wizard).smartWizard("reset");
+        resetWizard();
+        x.resetForm()
+        grnData.clearGrnData();
+        v.resetForm();
+
+        notify.success('Hooray!.. Email added to the queue!');
+
+
+    });
+
 
 
 });
@@ -427,9 +447,7 @@ function formSetStatus(status) {
     }
 }
 
-$(document).on('click', '#btnPrint', function () {
-    printElem('toPrint');
-});
+
 
 
 function resetWizard() {

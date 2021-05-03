@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendEmailsJob;
 use App\Purchase;
 use App\PurchaseOrder;
 use App\purchaseOrderProduct;
@@ -22,11 +23,11 @@ class PurchaseController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     *
      */
-    public function index()
+    public function overview()
     {
-        //
+        return view('admin.purchase.overview');
     }
 
     /**
@@ -36,7 +37,8 @@ class PurchaseController extends Controller
      */
     public function create()
     {
-        $suppliers = Supplier::where('status', '!=', 0)->get();
+        $suppliers = Supplier::getAllActiveSuppliers();
+
 
         return view('admin.purchase.create')->with('suppliers', $suppliers);
     }
@@ -162,6 +164,8 @@ class PurchaseController extends Controller
 
             DB::commit();
 
+            dispatch(new SendEmailsJob($purchaseOrder->id));
+
             activity()->by(Auth::id())->log('Added purchase order for supplierID:' . $supplierID);
 
             return response()->json(self::getJSONResponse(
@@ -229,7 +233,7 @@ class PurchaseController extends Controller
 //
 
                     Stock::updateOrCreate(
-                        ['product_id' => $productID],['stock' => \DB::raw('stock +' . $units)]
+                        ['product_id' => $productID], ['stock' => \DB::raw('stock +' . $units)]
                     );
 
                 }
@@ -250,6 +254,7 @@ class PurchaseController extends Controller
 
             DB::commit();
 
+
             activity()->by(Auth::id())->log('Added New GRN for supplierID:' . $supplierID);
             activity()->by(Auth::id())->log('Added New Stocks:' . $supplierID);
 
@@ -263,6 +268,34 @@ class PurchaseController extends Controller
 
 
         }
+    }
+
+
+    public function getAllPurchaseOrders()
+    {
+
+        $purchaseOrders = PurchaseOrder::join('suppliers', 'purchase_orders.supplier_id', '=', 'suppliers.id')->get();
+
+        return response()->json(['data' => $purchaseOrders]);
+
+    }
+
+
+    public function showPurchaseOrder(Request $request)
+    {
+
+        $purchase_order_id = $request->purchaseOrderID;
+
+        $order_and_supplier_info = PurchaseOrder::where('purchase_orders.id', $purchase_order_id)->join('suppliers', 'purchase_orders.supplier_id', '=', 'supplier_id')->first();
+        $purchase_order_products = purchaseOrderProduct::where('purchase_order_id', $purchase_order_id)->join('products', 'purchase_order_products.product_id', '=', 'products.id')->get();
+
+        return view('admin.purchase.advanced_view')->with(
+            [
+                'order_and_supplier_info' => $order_and_supplier_info,
+                'purchase_order_products' => $purchase_order_products
+            ]);
+
+
     }
 
 

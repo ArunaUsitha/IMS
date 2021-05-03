@@ -73,6 +73,9 @@ class ConfigCommand extends BaseCommand
                 new InputOption('list', 'l', InputOption::VALUE_NONE, 'List configuration settings'),
                 new InputOption('file', 'f', InputOption::VALUE_REQUIRED, 'If you want to choose a different composer.json or config.json'),
                 new InputOption('absolute', null, InputOption::VALUE_NONE, 'Returns absolute paths when fetching *-dir config values instead of relative'),
+                new InputOption('json', 'j', InputOption::VALUE_NONE, 'JSON decode the setting value, to be used with extra.* keys'),
+                new InputOption('merge', 'm', InputOption::VALUE_NONE, 'Merge the setting value with the current value, to be used with extra.* keys in combination with --json'),
+                new InputOption('append', null, InputOption::VALUE_NONE, 'When adding a repository, append it (lowest priority) to the existing ones instead of prepending it (highest priority)'),
                 new InputArgument('setting-key', null, 'Setting key'),
                 new InputArgument('setting-value', InputArgument::IS_ARRAY, 'Setting value'),
             ))
@@ -110,6 +113,18 @@ To disable packagist:
 
 You can alter repositories in the global config.json file by passing in the
 <info>--global</info> option.
+
+To add or edit suggested packages you can use:
+
+    <comment>%command.full_name% suggest.package reason for the suggestion</comment>
+
+To add or edit extra properties you can use:
+
+    <comment>%command.full_name% extra.property value</comment>
+
+Or to add a complex value you can use json with:
+
+    <comment>%command.full_name% extra.property --json '{"foo":true, "bar": []}'</comment>
 
 To edit the file in an external editor:
 
@@ -179,7 +194,7 @@ EOT
         }
         if ($input->getOption('global') && !$this->authConfigFile->exists()) {
             touch($this->authConfigFile->getPath());
-            $this->authConfigFile->write(array('bitbucket-oauth' => new \ArrayObject, 'github-oauth' => new \ArrayObject, 'gitlab-oauth' => new \ArrayObject, 'gitlab-token' => new \ArrayObject, 'http-basic' => new \ArrayObject));
+            $this->authConfigFile->write(array('bitbucket-oauth' => new \ArrayObject, 'github-oauth' => new \ArrayObject, 'gitlab-oauth' => new \ArrayObject, 'gitlab-token' => new \ArrayObject, 'http-basic' => new \ArrayObject, 'bearer' => new \ArrayObject));
             Silencer::call('chmod', $this->authConfigFile->getPath(), 0600);
         }
 
@@ -228,7 +243,7 @@ EOT
         }
 
         $settingKey = $input->getArgument('setting-key');
-        if (!$settingKey) {
+        if (!$settingKey || !is_string($settingKey)) {
             return 0;
         }
 
@@ -277,7 +292,7 @@ EOT
                 $value = $data;
             } elseif (isset($data['config'][$settingKey])) {
                 $value = $this->config->get($settingKey, $input->getOption('absolute') ? 0 : Config::RELATIVE_PATHS);
-            } elseif (in_array($settingKey, $properties, true) && isset($rawData[$settingKey])) {
+            } elseif (isset($rawData[$settingKey]) && in_array($settingKey, $properties, true)) {
                 $value = $rawData[$settingKey];
             } else {
                 throw new \RuntimeException($settingKey.' is not defined');
@@ -412,6 +427,19 @@ EOT
             ),
             'github-expose-hostname' => array($booleanValidator, $booleanNormalizer),
             'htaccess-protect' => array($booleanValidator, $booleanNormalizer),
+            'lock' => array($booleanValidator, $booleanNormalizer),
+            'platform-check' => array(
+                function ($val) {
+                    return in_array($val, array('php-only', 'true', 'false', '1', '0'), true);
+                },
+                function ($val) {
+                    if ('php-only' === $val) {
+                        return 'php-only';
+                    }
+
+                    return $val !== 'false' && (bool) $val;
+                },
+            ),
         );
         $multiConfigValues = array(
             'github-protocols' => array(
@@ -477,6 +505,23 @@ EOT
 
             return 0;
         }
+        // handle preferred-install per-package config
+        if (preg_match('/^preferred-install\.(.+)/', $settingKey, $matches)) {
+            if ($input->getOption('unset')) {
+                $this->configSource->removeConfigSetting($settingKey);
+
+                return 0;
+            }
+
+            list($validator) = $uniqueConfigValues['preferred-install'];
+            if (!$validator($values[0])) {
+                throw new \RuntimeException('Invalid value for '.$settingKey.'. Should be one of: auto, source, or dist');
+            }
+
+            $this->configSource->addConfigSetting($settingKey, $values[0]);
+
+            return 0;
+        }
 
         // handle properties
         $uniqueProps = array(
@@ -532,7 +577,7 @@ EOT
             ),
         );
 
-        if ($input->getOption('global') && (isset($uniqueProps[$settingKey]) || isset($multiProps[$settingKey]) || substr($settingKey, 0, 6) === 'extra.')) {
+        if ($input->getOption('global') && (isset($uniqueProps[$settingKey]) || isset($multiProps[$settingKey]) || strpos($settingKey, 'extra.') === 0)) {
             throw new \InvalidArgumentException('The '.$settingKey.' property can not be set in the global config.json file. Use `composer global config` to apply changes to the global composer.json');
         }
         if ($input->getOption('unset') && (isset($uniqueProps[$settingKey]) || isset($multiProps[$settingKey]))) {
@@ -563,7 +608,7 @@ EOT
                 $this->configSource->addRepository($matches[1], array(
                     'type' => $values[0],
                     'url' => $values[1],
-                ));
+                ), $input->getOption('append'));
 
                 return 0;
             }
@@ -572,13 +617,13 @@ EOT
                 $value = strtolower($values[0]);
                 if (true === $booleanValidator($value)) {
                     if (false === $booleanNormalizer($value)) {
-                        $this->configSource->addRepository($matches[1], false);
+                        $this->configSource->addRepository($matches[1], false, $input->getOption('append'));
 
                         return 0;
                     }
                 } else {
                     $value = JsonFile::parseJson($values[0]);
-                    $this->configSource->addRepository($matches[1], $value);
+                    $this->configSource->addRepository($matches[1], $value, $input->getOption('append'));
 
                     return 0;
                 }
@@ -595,7 +640,41 @@ EOT
                 return 0;
             }
 
-            $this->configSource->addProperty($settingKey, $values[0]);
+            $value = $values[0];
+            if ($input->getOption('json')) {
+                $value = JsonFile::parseJson($value);
+                if ($input->getOption('merge')) {
+                    $currentValue = $this->configFile->read();
+                    $bits = explode('.', $settingKey);
+                    foreach ($bits as $bit) {
+                        $currentValue = isset($currentValue[$bit]) ? $currentValue[$bit] : null;
+                    }
+                    if (is_array($currentValue)) {
+                        $value = array_merge($currentValue, $value);
+                    }
+                }
+            }
+            $this->configSource->addProperty($settingKey, $value);
+
+            return 0;
+        }
+
+        // handle suggest
+        if (preg_match('/^suggest\.(.+)/', $settingKey, $matches)) {
+            if ($input->getOption('unset')) {
+                $this->configSource->removeProperty($settingKey);
+
+                return 0;
+            }
+
+            $this->configSource->addProperty($settingKey, implode(' ', $values));
+
+            return 0;
+        }
+
+        // handle unsetting extra/suggest
+        if (in_array($settingKey, array('suggest', 'extra'), true) && $input->getOption('unset')) {
+            $this->configSource->removeProperty($settingKey);
 
             return 0;
         }
@@ -612,6 +691,8 @@ EOT
 
             return 0;
         }
+
+        // handle unsetting platform
         if ($settingKey === 'platform' && $input->getOption('unset')) {
             $this->configSource->removeConfigSetting($settingKey);
 
@@ -619,7 +700,7 @@ EOT
         }
 
         // handle auth
-        if (preg_match('/^(bitbucket-oauth|github-oauth|gitlab-oauth|gitlab-token|http-basic)\.(.+)/', $settingKey, $matches)) {
+        if (preg_match('/^(bitbucket-oauth|github-oauth|gitlab-oauth|gitlab-token|http-basic|bearer)\.(.+)/', $settingKey, $matches)) {
             if ($input->getOption('unset')) {
                 $this->authConfigSource->removeConfigSetting($matches[1].'.'.$matches[2]);
                 $this->configSource->removeConfigSetting($matches[1].'.'.$matches[2]);
@@ -633,7 +714,10 @@ EOT
                 }
                 $this->configSource->removeConfigSetting($matches[1].'.'.$matches[2]);
                 $this->authConfigSource->addConfigSetting($matches[1].'.'.$matches[2], array('consumer-key' => $values[0], 'consumer-secret' => $values[1]));
-            } elseif (in_array($matches[1], array('github-oauth', 'gitlab-oauth', 'gitlab-token'), true)) {
+            } elseif ($matches[1] === 'gitlab-token' && 2 === count($values)) {
+                $this->configSource->removeConfigSetting($matches[1].'.'.$matches[2]);
+                $this->authConfigSource->addConfigSetting($matches[1].'.'.$matches[2], array('username' => $values[0], 'token' => $values[1]));
+            } elseif (in_array($matches[1], array('github-oauth', 'gitlab-oauth', 'gitlab-token', 'bearer'), true)) {
                 if (1 !== count($values)) {
                     throw new \RuntimeException('Too many arguments, expected only one token');
                 }

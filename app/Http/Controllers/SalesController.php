@@ -305,7 +305,7 @@ class salesController extends Controller
 
                     $productSales->save();
 
-                    Reservation::complete($sales_order_no, $sale->id, $product_id,$customer_id);
+                    Reservation::complete($sales_order_no, $sale->id, $product_id, $customer_id);
 
                 }
 
@@ -349,9 +349,9 @@ class salesController extends Controller
 
             $salesID = $request->get('salesID');
             //get business details
-            $company_name = SystemDetail::where('key','company_name')->select('value')->first();
-            $company_address = SystemDetail::where('key','company_address')->select('value')->first();
-            $company_phone = SystemDetail::where('key','company_phone')->select('value')->first();
+            $company_name = SystemDetail::where('key', 'company_name')->select('value')->first();
+            $company_address = SystemDetail::where('key', 'company_address')->select('value')->first();
+            $company_phone = SystemDetail::where('key', 'company_phone')->select('value')->first();
             $companyName = $company_name->value;
             $companyAddress = $company_address->value;
             $companyPhone = $company_phone->value;
@@ -401,6 +401,7 @@ class salesController extends Controller
 //        $this->authorize('create', Sale::class);
         session(['salesQuoteData' => $request->all()]);
 
+
         $invoice_url = array('invoice_url' => Route('sales.generateSalesQuotation'));
 
         return response()->json(self::getJSONResponse(
@@ -417,17 +418,18 @@ class salesController extends Controller
     public function generateSalesQuotation()
     {
 //        $this->authorize('create', Sale::class);
-
-        if (session()->has('usersalesQuoteDatas')) {
+        if (session()->has('salesQuoteData')) {
 
 
             $request = session('salesQuoteData');
 
 
-            $systemDetail = SystemDetail::find(1);
-            $companyName = $systemDetail->company_name;
-            $companyAddress = $systemDetail->company_address;
-            $companyPhone = $systemDetail->company_phone;
+            $company_name = SystemDetail::where('key', 'company_name')->select('value')->first();
+            $company_address = SystemDetail::where('key', 'company_address')->select('value')->first();
+            $company_phone = SystemDetail::where('key', 'company_phone')->select('value')->first();
+            $companyName = $company_name->value;
+            $companyAddress = $company_address->value;
+            $companyPhone = $company_phone->value;
 
             $data = array(
                 'header_details' => array(
@@ -438,6 +440,7 @@ class salesController extends Controller
                 ),
 
                 'sales_details' => $request['productsInfo']);
+
 
             $pdf = App::make('snappy.pdf.wrapper');
             $pdf->loadHTML(view('admin.sales.quotation')->with('data', $data))->setOption('title', 'sales Quotation');
@@ -516,6 +519,87 @@ class salesController extends Controller
 
     }
 
+    public function salesOrdersOverview()
+    {
+
+
+        return view('admin.sales.overview');
+    }
+
+    public static function getSales()
+    {
+
+        try {
+
+            $sales = Sale::select('*')
+                ->join('customers', 'customers.id', '=', 'sales.customer_id')
+                ->orderBy('sales.created_at', 'DESC')
+                ->get()->toArray();
+
+            if (count($sales) > 0) {
+                return response()->json(self::getJSONResponse(
+                    true,
+                    'toast',
+                    '',
+                    $sales
+                ));
+            } else {
+                return response()->json(self::getJSONResponse(
+                    false,
+                    'toast',
+                    '',
+                    ''
+                ));
+            }
+        } catch (\Exception $e) {
+
+        }
+
+    }
+
+
+
+    public function viewInvoice(Request $request){
+
+        $invoice_no = $request->invoice_no;
+
+        $company_name = SystemDetail::where('key', 'company_name')->select('value')->first();
+        $company_address = SystemDetail::where('key', 'company_address')->select('value')->first();
+        $company_phone = SystemDetail::where('key', 'company_phone')->select('value')->first();
+        $companyName = $company_name->value;
+        $companyAddress = $company_address->value;
+        $companyPhone = $company_phone->value;
+
+        $customerInfo = DB::table('sales')
+            ->join('customers', 'sales.customer_id', '=', 'customers.id')
+            ->where('sales.invoice_no', '=', $invoice_no)
+            ->get();
+
+        $salesInfo = DB::table('sales')
+            ->join('product_sales', 'sales.id', '=', 'product_sales.sales_id')
+            ->join('customers', 'sales.customer_id', '=', 'customers.id')
+            ->join('products', 'product_sales.product_id', '=', 'products.id')
+            ->join('purchase_products', 'products.id', '=', 'purchase_products.product_id')
+            ->where('sales.invoice_no', '=', $invoice_no)
+            ->select('*', DB::raw('product_sales.price as psPrice, product_sales.quantity as psQuantity, product_sales.total as psTotal'))
+            ->get();
+
+
+
+        $data = array(
+            'header_details' => array(
+                'company_name' => $companyName,
+                'company_address' => $companyAddress,
+                'company_phone' => $companyPhone
+            ),
+            'customer_details' => $customerInfo[0],
+            'sales_details' => $salesInfo);
+
+        $pdf = App::make('snappy.pdf.wrapper');
+        $pdf->loadHTML(view('admin.sales.invoice')->with('data', $data))->setOption('title', $data['customer_details']->invoice_no);
+        return $pdf->inline();
+
+    }
 }
 
 

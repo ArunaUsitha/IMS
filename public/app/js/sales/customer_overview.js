@@ -65,7 +65,7 @@ let dTable = $('#tblCustomerOverview').dataTable($.extend(true, {}, {
                 //         '                                                                    class="fas fa-search-plus"></i></button>'
                 // }
 
-                if (auth.can('update')) {
+                // if (auth.can('update')) {
                     c += '<button type="button" onclick="window.location= \'customerShowEdit?id=' + customerID + ' \'     " \n' +
                         '                                                                    class="btn btn-icon text-info btn-sm"\n' +
                         '                                                                    data-toggle="tooltip" data-placement="top"\n' +
@@ -73,7 +73,7 @@ let dTable = $('#tblCustomerOverview').dataTable($.extend(true, {}, {
                         '                                                                    data-original-title=" Edit"><i\n' +
                         '                                                                    class="fas fa-edit"></i>\n' +
                         '                                                        </button>'
-                }
+                // }
 
 
                 return c;

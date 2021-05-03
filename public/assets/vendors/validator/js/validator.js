@@ -162,7 +162,7 @@ let validator = function (options) {
 
         number: function (element, value, spanID) {
             if (element.val() !== '') {
-                let num = /^\d*$/;
+                let num = /^[+-]?[0-9]*([\.][0-9]*)?$/;
 
                 if (!(element.val().match(num))) {
                     style.invalid(element, 'Please enter only numbers', '', spanID);

@@ -40,10 +40,10 @@
                             </div>
                             <div class="col-md" style="">
                                 <div class="card-header-action">
-                                    @can('create',Auth::user())
+{{--                                    @can('create',Auth::user())--}}
                                         <a href="{{Route('product.create')}}" class="btn btn-success float-right">Add New
                                             Product</a>
-                                    @endcan
+{{--                                    @endcan--}}
                                 </div>
                             </div>
                         </div>
@@ -84,4 +84,43 @@
             </div>
         </div>
     </section>
+
+
+    {{--    modals--}}
+    <div class="modal fade" tabindex="-1" role="dialog" id="mdSetPricing" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered " role="document">
+            <div class="modal-content">
+
+                <div class="card card-warning">
+                    <div class="card-header">
+                        <h4>Set Product Price <strong class="text-warning"><span id="mdUsername"></span> </strong></h4>
+                    </div>
+                    <form id="mdUpdateDefaultPrice">
+                        <div class="card-body">
+                            <input type="hidden" name="product_id" id="mdProdcutId">
+
+
+                            <p>Sell Prices List of last puchased orders</p>
+                            <div id="purchased_product_sell_prices">
+
+                            </div>
+
+
+                            <div class="form-group">
+                                <label>Default Sell Price</label>
+                                <input type="text" name="default_sell_price" id="default_sell_price" class="form-control form-control-sm">
+                            </div>
+
+                            <span class="float-right">
+                            <button type="submit" class="btn btn-success" id="mdBtUpdateDefaultPrice">Set/Update</button>
+
+                                </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
     @endsection
