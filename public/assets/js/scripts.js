@@ -617,6 +617,7 @@ $(function () {
 //custom
     setTimeout(function () {
         toggle_sidebar_mini(true)
+        toggleLayout()
     }, 100)
 
 
@@ -672,11 +673,11 @@ function printElem(elem)
     mywindow.document.write(document.getElementById(elem).innerHTML);
     mywindow.document.write('</body></html>');
 
-    mywindow.document.close(); // necessary for IE >= 10
-    mywindow.focus(); // necessary for IE >= 10*/
-
+    // mywindow.document.close(); // necessary for IE >= 10
+    // mywindow.focus(); // necessary for IE >= 10*/
+    //
     mywindow.print();
-    mywindow.close();
+    // mywindow.close();
 
     return true;
 }

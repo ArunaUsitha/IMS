@@ -2,6 +2,77 @@
 
 All notable changes to `spatie/laravel-activitylog` will be documented in this file
 
+## 3.17.0 - 2021-03-02
+
+- drop PHP 7.2 support - [#855](https://github.com/spatie/laravel-activitylog/pull/855)
+
+## 3.16.1 - 2020-11-03
+
+- add PHP 8.0 support - [#806](https://github.com/spatie/laravel-activitylog/pull/806)
+
+## 3.16.0 - 2020-09-16
+
+- use `nullableMorphs()` in default migration - [#707](https://github.com/spatie/laravel-activitylog/pull/707)
+- add support for snake and camel cased related model attribute logging - [#721](https://github.com/spatie/laravel-activitylog/pull/721)
+
+## 3.15.0 - 2020-09-14
+
+- Add multiple/chained relation attribute logging support - [#784](https://github.com/spatie/laravel-activitylog/pull/784)
+
+## 3.14.3 - 2020-09-09
+
+- Add support for Laravel 8
+
+## 3.14.2 - 2020-05-19
+
+- fix `retrieved` event logging
+
+## 3.14.1 - 2020-03-23
+
+- revert breaking changes in `v3.14.0`
+
+## 3.14.0 - 2020-03-23 - BC
+
+Please use `v3.14.1` instead - this release is breaking because of the new column. There is also a `v4.0.0-rc.1` release that equals to this one.
+
+- add `\Spatie\Activitylog\ActivityLogger::event()` method and column [#702](https://github.com/spatie/laravel-activitylog/pull/702)
+
+## 3.13.0 - 2020-03-13
+
+- add `\Spatie\Activitylog\ActivityLogger::withoutLogs()` method [#695](https://github.com/spatie/laravel-activitylog/pull/695)
+
+## 3.12.0 - 2020-03-13
+
+- respect custom date casts [#627](https://github.com/spatie/laravel-activitylog/pull/627)
+
+## 3.11.4 - 2020-03-11
+
+- remove `spatie/string` dependency [#690](https://github.com/spatie/laravel-activitylog/pull/690)
+
+## 3.11.3 - 2020-03-10
+
+- fix performance issue around global vs model log disabling [#682](https://github.com/spatie/laravel-activitylog/pull/682)
+
+## 3.11.2 - 2020-03-10
+
+- fix Laravel 7 array/json casted attributes [#680](https://github.com/spatie/laravel-activitylog/pull/680)
+
+## 3.11.1 - 2020-03-02
+
+- fix requirements
+
+## 3.11.0 - 2020-03-02
+
+- add support for Laravel 7
+
+## 3.10.0 - 2020-02-22
+
+- add ability to manually set created at date - [#622](https://github.com/spatie/laravel-activitylog/pull/622)
+
+## 3.9.2 - 2020-02-04
+
+- drop support for Laravel 5
+
 ## 3.9.1 - 2019-10-15
 
 - fix default database connection - [#616](https://github.com/spatie/laravel-activitylog/pull/616)

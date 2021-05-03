@@ -60,7 +60,7 @@ let salesOrder = {
     total: null,
     productsInfo: {},
 
-    setProductsInfo: function (product_id, productCode, productName, price, warranty, quantity, total) {
+    setProductsInfo: function (product_id, productCode, productName, price, warranty, quantity, total, customer_id) {
         this.productsInfo
             [product_id] = {
             productID: product_id,
@@ -73,6 +73,9 @@ let salesOrder = {
         };
 
         this.total += total
+
+
+        this.makeReservation(product_id, quantity, customer_id)
     },
 
     updateProductsInfo: function (product_id, price, warranty, quantity, total) {
@@ -82,7 +85,6 @@ let salesOrder = {
         this.productsInfo[product_id].price = parseFloat(price);
         this.productsInfo[product_id].quantity = quantity;
         this.productsInfo[product_id].total = parseFloat(total);
-
 
 
     },
@@ -119,8 +121,49 @@ let salesOrder = {
         return {
             customerID: this.customerID,
             total: this.total,
-            productsInfo: this.productsInfo
+            productsInfo: this.productsInfo,
+            sales_order_no : $('#sales_order_no').val()
         }
+    },
+    makeReservation: function (productId, count, customerId) {
+
+        let sales_order_no = $('#sales_order_no').val()
+
+        //TODO : make a reservation order and handling part/cancelling/page reload/
+        //fetch reservations manually if theres already a reservaation
+
+        $.ajax({
+            url: base_url + '/sales/makeReservation',
+            type: 'post',
+            data: {
+                'sales_order_no': sales_order_no,
+                'product_id': productId,
+                'customer_id': customerId,
+                'count': count,
+            },
+            success: function (data, textStatus, xhr) {
+
+            },
+            error: function () {
+
+            }
+        })
+    },
+    cancelReservation: function (productId, customerId) {
+        $.ajax({
+            url: base_url + '/sales/cancelReservation',
+            type: 'post',
+            data: {
+                'product_id': productId,
+                'customer_id': customerId,
+            },
+            success: function (data, textStatus, xhr) {
+
+            },
+            error: function () {
+
+            }
+        })
     }
 
 
@@ -190,7 +233,7 @@ let productInfoHandler = {
         this.tbodyProducts.append(c);
     },
 
-    update: function (productID, productCode, productName, warrantyPeriod, price, quantity, total) {
+    update: function (productID, productCode, productName, warrantyPeriod, price, quantity, total, customer_id) {
 
         let tr = 'tr-' + productID;
         let tableRow = this.tbodyProducts.find('#' + tr);
@@ -202,6 +245,8 @@ let productInfoHandler = {
 
         salesOrder.updateProductsInfo(productID, price, warrantyPeriod, quantity, total);
         salesOrder.updateTotal()
+
+        salesOrder.makeReservation(productID, quantity, customer_id)
     },
 
     clear: function () {
@@ -303,53 +348,53 @@ let mdAddItem = {
 $(document).on('change', '#customerSearch', function () {
     let customerID = $(this).val();
 
-if (customerID !== null){
+    if (customerID !== null) {
 
 
-    $.ajax({
-        url: base_url + '/sales/getCustomerInfoByID',
-        type: 'get',
-        data: {
-            'id': customerID
-        },
-        success: function (data, textStatus, xhr) {
-            if (data['status']) {
+        $.ajax({
+            url: base_url + '/sales/getCustomerInfoByID',
+            type: 'get',
+            data: {
+                'id': customerID
+            },
+            success: function (data, textStatus, xhr) {
+                if (data['status']) {
 
-                if (data['data'] !== null) {
+                    if (data['data'] !== null) {
 
 
-                    let name = data['data'][0]['first_name'];
-                    let address = data['data'][0]['address'];
-                    let mobile = data['data'][0]['mobile'];
+                        let name = data['data'][0]['first_name'];
+                        let address = data['data'][0]['address'];
+                        let mobile = data['data'][0]['mobile'];
 
-                    customer.clearInfo();
-                    customer.showInfo(name, mobile, address);
+                        customer.clearInfo();
+                        customer.showInfo(name, mobile, address);
 
-                    productInfoHandler.setButtonStatus('enable');
+                        productInfoHandler.setButtonStatus('enable');
 
-                    salesOrder.setCustomerID(customerID);
+                        salesOrder.setCustomerID(customerID);
+
+                    } else {
+                        customer.clearInfo();
+                    }
 
                 } else {
                     customer.clearInfo();
+                    notify.serverError()
                 }
-
-            } else {
-                customer.clearInfo();
+            },
+            error: function () {
                 notify.serverError()
             }
-        },
-        error: function () {
-            notify.serverError()
-        }
-    })
-}
+        })
+    }
 });
 
 //item search change event
 $(document).on('change', '#slctItems', function () {
     let productID = $(this).val();
 
-    if (productID !== null){
+    if (productID !== null) {
         $.ajax({
             url: base_url + '/product/getProductDetails',
             type: 'get',
@@ -358,12 +403,15 @@ $(document).on('change', '#slctItems', function () {
             },
             success: function (data, textStatus, xhr) {
 
-                data = JSON.parse(data['results']);
+                let data2 = JSON.parse(data['results']);
+
+                console.log(data['sell_price'])
 
 
-                if (data[0] !== undefined) {
 
-                    mdAddItem.updateProductDetails(data[0]['code'], data[0]['sell_price'], data[0]['warranty_period']);
+                if (data2[0] !== undefined) {
+
+                    mdAddItem.updateProductDetails(data2[0]['code'], data['sell_price'], data2[0]['warranty_period']);
                 }
 
 
@@ -422,7 +470,7 @@ $('#FrmMdAddProduct').submit(function (e) {
 
         let values = $(this).serializeObject();
 
-
+        let customer_id = $('#customerSearch').val();
         let productName = $("#slctItems option:selected").text();
         let productID = values['slctItems'];
         let productCode = values['mdProductCode'];
@@ -434,26 +482,30 @@ $('#FrmMdAddProduct').submit(function (e) {
         // productID, productCode, productName, warrantyPeriod, price, quantity, total
 
 
-        if (mdBtAddProducts.val() === 'update') {
+        if (quantity > 0) {
 
-            productInfoHandler.update(productID, productCode, productName, warrantyPeriod, price, quantity, total);
 
-            mdAddItem.disableSelect();
+            if (mdBtAddProducts.val() === 'update') {
 
-            salesOrder.updateTotal();
-        } else {
+                productInfoHandler.update(productID, productCode, productName, warrantyPeriod, price, quantity, total, customer_id);
 
-            if (salesOrder.productsInfo[productID]) {
-                notify.error('Item Already added to the list');
+                mdAddItem.disableSelect();
+
+                salesOrder.updateTotal();
             } else {
 
-                productInfoHandler.append(productID, productCode, productName, warrantyPeriod, price, quantity, total);
+                if (salesOrder.productsInfo[productID]) {
+                    notify.error('Item Already added to the list');
+                } else {
 
-                salesOrder.setProductsInfo(productID, productCode, productName, price, warrantyPeriod, quantity, total);
-                salesOrder.updateTotal();
-                v.resetForm();
+                    productInfoHandler.append(productID, productCode, productName, warrantyPeriod, price, quantity, total);
+
+                    salesOrder.setProductsInfo(productID, productCode, productName, price, warrantyPeriod, quantity, total, customer_id);
+                    salesOrder.updateTotal();
+                    v.resetForm();
 
 
+                }
             }
         }
     }
@@ -490,9 +542,11 @@ $(document).on('click', '.btnTblQuickEdit', function () {
 $(document).on('click', '.btnTblRemoveRow', function () {
     $(this).closest('tr').remove();
     let productID = $(this).val();
+    let customerID = $('#customerSearch').val()
 
     delete salesOrder.productsInfo[productID];
     salesOrder.updateTotal()
+    salesOrder.cancelReservation(productID, customerID)
 });
 
 
@@ -500,7 +554,7 @@ let grnNrepOptions = ({
     formID: 'salesCustomer',
     animate: true,
     validate: {
-        customerSearch : {
+        customerSearch: {
             type: 'text',
             methods: 'required'
         }
@@ -552,9 +606,9 @@ $(document).on('click', '#btCheckout', function () {
                                 customer.clearInfo();
 
 
-                                let a= document.createElement('a');
-                                a.target= '_blank';
-                                a.href= data['data']['invoice_url'];
+                                let a = document.createElement('a');
+                                a.target = '_blank';
+                                a.href = data['data']['invoice_url'];
                                 a.click();
                                 a.remove();
 
@@ -575,7 +629,7 @@ $(document).on('click', '#btCheckout', function () {
 });
 
 
-$(document).on('click','#btClear',function () {
+$(document).on('click', '#btClear', function () {
     x.resetForm();
     salesOrder.clear();
     mdAddItem.clear();
@@ -584,7 +638,7 @@ $(document).on('click','#btClear',function () {
 });
 
 
-$(document).on('click','#btPrintQuote',function () {
+$(document).on('click', '#btPrintQuote', function () {
 
     if (x.status()) {
         if (Object.keys(salesOrder.productsInfo).length < 1) {
@@ -598,10 +652,9 @@ $(document).on('click','#btPrintQuote',function () {
                 success: function (data, textStatus, xhr) {
 
 
-
-                    let a= document.createElement('a');
-                    a.target= '_blank';
-                    a.href= data['data']['invoice_url'];
+                    let a = document.createElement('a');
+                    a.target = '_blank';
+                    a.href = data['data']['invoice_url'];
                     a.click();
                     a.remove();
 
@@ -621,33 +674,46 @@ $(document).on('click','#btPrintQuote',function () {
 });
 
 
-$(document).on('keyup','#mdQuantity',function () {
+$(document).on('keyup', '#mdQuantity', function () {
     let itemid = $('#slctItems').val();
-    let mdQuantity  = $('#mdQuantity');
-    let mdQuantitySpan  = $('#mdQuantitySpan');
+    let mdQuantity = $('#mdQuantity');
+    let mdQuantitySpan = $('#mdQuantitySpan');
     let quantity = $(this).val();
 
     let btnAdd = $('#mdBtAddProducts');
+
+    console.log(itemid)
+
+    if (itemid == null) {
+        return;
+    }
+
     $.ajax({
-        url: base_url +'/product/checkStock',
+        url: base_url + '/product/checkStock',
         type: 'get',
         data: {
-            item_id : itemid
+            item_id: itemid
         }
         ,
         success: function (data, textStatus, xhr) {
 
-            if (data[0]['stock'] > quantity){
-                btnAdd.attr('disabled',false)
+
+            if (data > quantity) {
+                btnAdd.attr('disabled', false)
 
                 mdQuantitySpan.html('')
 
-            }else if(data[0]['stock'] == quantity){
-                btnAdd.attr('disabled',false)
+            } else if (data == quantity) {
+                btnAdd.attr('disabled', false)
 
                 mdQuantitySpan.html('')
-            }else {
-                btnAdd.attr('disabled',false);
+            } else if (data == 0) {
+
+                btnAdd.attr('disabled', true);
+                mdQuantitySpan.html('Currently out of stock');
+
+            } else {
+                btnAdd.attr('disabled', false);
                 mdQuantitySpan.html('Selected Quantity is more than in stock')
             }
 

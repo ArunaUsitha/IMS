@@ -10,9 +10,12 @@
 
 
 @section('content')
+
+    <input type="hidden" value="{{$sales_order_no}}" id="sales_order_no">
     <section class="section">
         <div class="section-body">
             <div class="section-header">
+                <h1>Sales Management</h1>
                 <h1>Sales Management</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Sales</a></div>
@@ -45,11 +48,11 @@
                     </div>
                     <div class="card-body">
                         <div class="row mx-auto">
-                            <div class="col-10 offset-1">
+                                <div class="col-md-10 offset-md-1 col-sm-12">
                                 <fieldset class="border p-3">
                                     <legend class="w-auto h4 p-2">Customer Info</legend>
                                     <div class="row">
-                                        <div class="col-12">
+                                        <div class="col-sm-12">
                                             <a href="{{Route('sales.customerCreate')}}" target="_blank"
                                                class="btn btn-success btn-sm">Register New Customer</a>
                                             <hr>
@@ -57,7 +60,7 @@
 
                                     </div>
                                     <div class="row" id="salesCustomer">
-                                        <div class="col-3">
+                                        <div class="col-md-3 col-sm-12">
                                             <div class="form-group">
                                                 <label for="customerSearch">Search Customer</label>
                                                 <select class="customerSearch form-control form-control-sm"
@@ -74,14 +77,14 @@
                                     <div class="row">
 
 
-                                        <div class="col-4">
+                                        <div class="col-md-4 col-sm-12">
                                             <hr>
 
                                             <p><strong>Customer Name :</strong> <span id="supCustomerName"></span></p>
                                             <p><strong>Mobile :</strong> <span id="supCustomerMobile"></span></p>
 
                                         </div>
-                                        <div class="col-4">
+                                        <div class="col-md-4 col-sm-12">
                                             <hr>
                                             <p><strong>Address :</strong> <span id="supCustomerAddress"></span></p>
                                         </div>
@@ -92,7 +95,7 @@
 
                             </div>
 
-                            <div class="col-10 offset-1">
+                            <div class="col-md-10 offset-md-1 col-sm-12">
                                 <fieldset class="border p-3 mt-2">
                                     <legend class="w-auto h4 p-2">Products Info</legend>
                                     <div class="row">

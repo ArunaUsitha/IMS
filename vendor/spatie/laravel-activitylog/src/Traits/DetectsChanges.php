@@ -2,10 +2,9 @@
 
 namespace Spatie\Activitylog\Traits;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use Illuminate\Database\Eloquent\Model;
-use Spatie\Activitylog\Exceptions\CouldNotLogChanges;
 
 trait DetectsChanges
 {
@@ -18,7 +17,13 @@ trait DetectsChanges
 
                 //temporary hold the original attributes on the model
                 //as we'll need these in the updating event
-                $oldValues = (new static)->setRawAttributes($model->getOriginal());
+                if (method_exists(Model::class, 'getRawOriginal')) {
+                    // Laravel >7.0
+                    $oldValues = (new static)->setRawAttributes($model->getRawOriginal());
+                } else {
+                    // Laravel <7.0
+                    $oldValues = (new static)->setRawAttributes($model->getOriginal());
+                }
 
                 $model->oldAttributes = static::logChanges($oldValues);
             });
@@ -85,9 +90,13 @@ trait DetectsChanges
         }
 
         $properties['attributes'] = static::logChanges(
-            $this->exists
-                ? $this->fresh() ?? $this
-                : $this
+            $processingEvent == 'retrieved'
+                ? $this
+                : (
+                    $this->exists
+                        ? $this->fresh() ?? $this
+                        : $this
+                )
         );
 
         if (static::eventsToBeRecorded()->contains('updated') && $processingEvent == 'updated') {
@@ -126,22 +135,37 @@ trait DetectsChanges
         foreach ($attributes as $attribute) {
             if (Str::contains($attribute, '.')) {
                 $changes += self::getRelatedModelAttributeValue($model, $attribute);
-            } elseif (Str::contains($attribute, '->')) {
+
+                continue;
+            }
+
+            if (Str::contains($attribute, '->')) {
                 Arr::set(
                     $changes,
                     str_replace('->', '.', $attribute),
                     static::getModelAttributeJsonValue($model, $attribute)
                 );
-            } else {
-                $changes[$attribute] = $model->getAttribute($attribute);
 
-                if (
-                    in_array($attribute, $model->getDates())
-                    && ! is_null($changes[$attribute])
-                ) {
-                    $changes[$attribute] = $model->serializeDate(
-                        $model->asDateTime($changes[$attribute])
-                    );
+                continue;
+            }
+
+            $changes[$attribute] = $model->getAttribute($attribute);
+
+            if (is_null($changes[$attribute])) {
+                continue;
+            }
+
+            if ($model->isDateAttribute($attribute)) {
+                $changes[$attribute] = $model->serializeDate(
+                    $model->asDateTime($changes[$attribute])
+                );
+            }
+
+            if ($model->hasCast($attribute)) {
+                $cast = $model->getCasts()[$attribute];
+
+                if ($model->isCustomDateTimeCast($cast)) {
+                    $changes[$attribute] = $model->asDateTime($changes[$attribute])->format(explode(':', $cast, 2)[1]);
                 }
             }
         }
@@ -151,17 +175,32 @@ trait DetectsChanges
 
     protected static function getRelatedModelAttributeValue(Model $model, string $attribute): array
     {
-        if (substr_count($attribute, '.') > 1) {
-            throw CouldNotLogChanges::invalidAttribute($attribute);
-        }
+        $relatedModelNames = explode('.', $attribute);
+        $relatedAttribute = array_pop($relatedModelNames);
 
-        [$relatedModelName, $relatedAttribute] = explode('.', $attribute);
+        $attributeName = [];
+        $relatedModel = $model;
 
-        $relatedModelName = Str::camel($relatedModelName);
+        do {
+            $attributeName[] = $relatedModelName = static::getRelatedModelRelationName($relatedModel, array_shift($relatedModelNames));
 
-        $relatedModel = $model->$relatedModelName ?? $model->$relatedModelName();
+            $relatedModel = $relatedModel->$relatedModelName ?? $relatedModel->$relatedModelName();
+        } while (! empty($relatedModelNames));
 
-        return ["{$relatedModelName}.{$relatedAttribute}" => $relatedModel->$relatedAttribute ?? null];
+        $attributeName[] = $relatedAttribute;
+
+        return [implode('.', $attributeName) => $relatedModel->$relatedAttribute ?? null];
+    }
+
+    protected static function getRelatedModelRelationName(Model $model, string $relation): string
+    {
+        return Arr::first([
+            $relation,
+            Str::snake($relation),
+            Str::camel($relation),
+        ], function (string $method) use ($model): bool {
+            return method_exists($model, $method);
+        }, $relation);
     }
 
     protected static function getModelAttributeJsonValue(Model $model, string $attribute)

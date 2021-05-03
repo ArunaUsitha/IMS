@@ -69,7 +69,7 @@ Route::name('product.')->prefix('product')->middleware('auth')->group(function (
     Route::post('storeProduct', 'ProductController@storeProduct')->name('storeProduct');
     Route::post('storeBrand', 'ProductController@storeBrand')->name('storeBrand');
     Route::post('storeCategory', 'ProductController@storeCategory')->name('storeCategory');
-
+    Route::get('showProductHistory','ProductController@showProductHistory')->name('showProductHistory');
     //Ajax routes
     Route::get('getAllBrands', 'ProductController@getAllBrands')->name('getAllBrands');
     Route::get('getAllPoductCategories', 'ProductController@getAllPoductCategories')->name('getAllPoductCategories');
@@ -83,6 +83,9 @@ Route::name('product.')->prefix('product')->middleware('auth')->group(function (
     Route::get('searchProductsForSale', 'ProductController@searchProductsForSale')->name('searchProductsForSale');
     Route::get('getProductDetails', 'ProductController@getProductDetails')->name('getProductDetails');
     Route::get('checkStock', 'ProductController@checkStock')->name('checkStock');
+    Route::get('getPurchasedPricesByProductID', 'ProductController@getPurchasedPricesByProductID')->name('getPurchasedPricesByProductID');
+    Route::post('updateProductDefaultPrice', 'ProductController@updateProductDefaultPrice')->name('updateProductDefaultPrice');
+
 });
 
 
@@ -94,6 +97,8 @@ Route::name('purchase.')->prefix('purchase')->middleware('auth')->group(function
     Route::get('getNewPurchaseOrderCode', 'PurchaseController@getNewPurchaseOrderCode')->name('getNewPurchaseOrderCode');
     Route::post('savePurchaseOrder', 'PurchaseController@savePurchaseOrder')->name('savePurchaseOrder');
     Route::post('saveGRN', 'PurchaseController@saveGRN')->name('saveGRN');
+    Route::get('getAllPurchaseOrders', 'PurchaseController@getAllPurchaseOrders')->name('getAllPurchaseOrders');
+    Route::get('showPurchaseOrder', 'PurchaseController@showPurchaseOrder')->name('showPurchaseOrder');
 });
 
 
@@ -127,7 +132,14 @@ Route::name('sales.')->prefix('sales')->middleware('auth')->group(function () {
     Route::get('createNewSalesQuotation', 'SalesController@createNewSalesQuotation')->name('createNewSalesQuotation');
     Route::post('triggerSalesQuotation', 'SalesController@triggerSalesQuotation')->name('triggerSalesQuotation');
     Route::get('generateSalesQuotation', 'SalesController@generateSalesQuotation')->name('generateSalesQuotation');
+    Route::get('salesOrdersOverview','SalesController@salesOrdersOverview')->name('salesOrdersOverview');
+    Route::get('getSales','SalesController@getSales')->name('getSales');
+    Route::get('viewInvoice','SalesController@viewInvoice')->name('viewInvoice');
 
+
+    //reservations
+    Route::post('makeReservation', 'SalesController@makeReservation')->name('makeReservation');
+    Route::post('cancelReservation', 'SalesController@cancelReservation')->name('cancelReservation');
 
 });
 
@@ -166,7 +178,17 @@ Route::name('settings.')->prefix('settings')->middleware('auth')->group(function
 });
 
 
+
 Route::middleware('auth')->get('logout', function () {
     Auth::logout();
     return redirect(route('login'))->withInfo('You have successfully logged out!');
 })->name('logout');
+
+
+
+Route::get('test', function () {
+
+    Log::info('notification event test');
+    event(new \App\Events\SendLowStockNotification('test message'));
+    return "Event has been sent!";
+});

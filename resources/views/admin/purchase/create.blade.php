@@ -58,7 +58,7 @@
                                                     you wish to make the purchase order</small></a></li>
                                         <li><a href="#step-2">Select Items<br/><small>Select Items that want to add to
                                                     the purchase order</small></a></li>
-                                        <li><a href="#step-3">Email, Save or Print<br/><small>Email, Print or save
+                                        <li><a href="#step-3">Email, Save or Print<br/><small>Email, Save
                                                     pruchase order</small></a></li>
                                     </ul>
 
@@ -166,8 +166,8 @@
                                             <div class="row">
                                                 <div class="col-2 offset-9">
                                                     <div class="float-right">
-                                                        <button class="btn btn-warning" id="btnPrint">Print</button>
-                                                        <button class="btn btn-success" id="btSavePurchaseOrder">Save</button>
+{{--                                                        <button class="btn btn-warning" id="btnSendEmail">Email</button>--}}
+                                                        <button class="btn btn-success" id="btSavePurchaseOrder">Email/Save</button>
                                                     </div>
                                                 </div>
                                             </div>

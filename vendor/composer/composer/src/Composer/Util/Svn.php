@@ -139,7 +139,7 @@ class Svn
             if ($type !== 'out') {
                 return;
             }
-            if ('Redirecting to URL ' === substr($buffer, 0, 19)) {
+            if (strpos($buffer, 'Redirecting to URL ') === 0) {
                 return;
             }
             $output .= $buffer;
@@ -207,7 +207,7 @@ class Svn
         $this->credentials['username'] = $this->io->ask("Username: ");
         $this->credentials['password'] = $this->io->askAndHideAnswer("Password: ");
 
-        $this->cacheCredentials = $this->io->askConfirmation("Should Subversion cache these credentials? (yes/no) ", true);
+        $this->cacheCredentials = $this->io->askConfirmation("Should Subversion cache these credentials? (yes/no) ");
 
         return $this;
     }
@@ -224,7 +224,7 @@ class Svn
     protected function getCommand($cmd, $url, $path = null)
     {
         $cmd = sprintf(
-            '%s %s%s %s',
+            '%s %s%s -- %s',
             $cmd,
             '--non-interactive ',
             $this->getCredentialString(),
@@ -304,7 +304,7 @@ class Svn
             $this->createAuthFromUrl();
         }
 
-        return $this->hasAuth;
+        return (bool) $this->hasAuth;
     }
 
     /**
