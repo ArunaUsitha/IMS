@@ -63,8 +63,9 @@
                                         <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>Purchase ID</th>
-                                            <th>Product ID</th>
+{{--                                            <th>Purchase ID</th>--}}
+                                            <th>Supplier</th>
+                                            <th>Product Code</th>
                                             <th>Quantity</th>
                                             <th>Buy Price</th>
                                             <th>Sell Price</th>

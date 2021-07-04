@@ -39,15 +39,15 @@
                     let c = '';
                     let userID = data['id'];
 
-                    // if (auth.can('read')) {
+                    if (auth.can('view_users')) {
                         c += '<button type="button" onclick="window.location= \'showUser?id='+userID+' \'     "\n' +
                             '                                                                    class="btn btn-icon text-success btn-sm"\n' +
                             '                                                                    data-toggle="tooltip" data-placement="top" title=""\n' +
                             '                                                                    data-original-title="Advance View"><i\n' +
                             '                                                                    class="fas fa-search-plus"></i></button>'
-                    // }
+                    }
 
-                    // if (auth.can('update')) {
+                    if (auth.can('modify_user')) {
                         c += '<button type="button" value="' + userID + '"\n' +
                             '                                                                    class="btn btn-icon text-info btn-sm btnQuickEdit"\n' +
                             '                                                                    data-toggle="tooltip" data-placement="top"\n' +
@@ -55,7 +55,7 @@
                             '                                                                    data-original-title="Quick Edit"><i\n' +
                             '                                                                    class="fas fa-edit"></i>\n' +
                             '                                                        </button>'
-                    // }
+                    }
 
 
                     return c;
@@ -100,20 +100,23 @@ $(document).on('click', '.btnQuickEdit', (function () {
 
         success: function (data, textStatus, xhr) {
 
+
+            let userdata = data.data.userdata;
+
             if (Object.keys(data).length > 0) {
                 //status
                 if (data['status'] === true) {
-                    if (data.data.status === 1) {
+                    if (userdata.status === 1) {
                         MdChkUserStatus.prop('checked', true).change()
-                    } else if (data.data.status === 0) {
+                    } else if (userdata.status === 0) {
                         MdChkUserStatus.prop('checked', false).change()
                     }
 
                     //role id
-                    MdSlctUserType.val(data.data.role_id).change();
+                    MdSlctUserType.val(data.data.role).change();
                     $('#mdUserEdit').modal('show');
 
-                    mdUsername.html(data.data.first_name)
+                    mdUsername.html(userdata.first_name)
                 } else {
                     notify.unauthorized();
                 }

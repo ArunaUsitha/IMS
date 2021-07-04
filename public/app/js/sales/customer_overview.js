@@ -41,11 +41,15 @@ let dTable = $('#tblCustomerOverview').dataTable($.extend(true, {}, {
             "render": function (data, type, full, meta) {
 
 
-                if (data['status'] === 1) {
-                    return getSetStatusButton(true, 'setProductStatus-'+data['id'], 'setProductStatus', data['id']);
-                } else {
-                    return getSetStatusButton(false, 'setProductStatus-'+data['id'], 'setProductStatus', data['id']);
-                }
+                // if (auth.can('modify_customer')) {
+                    if (data['status'] === 1) {
+                        return getSetStatusButton(true, 'setProductStatus-' + data['id'], 'setProductStatus', data['id'],auth.can('modify_customer'));
+                    } else {
+                        return getSetStatusButton(false, 'setProductStatus-' + data['id'], 'setProductStatus', data['id'],auth.can('modify_customer'));
+                    }
+
+
+
 
 
             }
@@ -65,7 +69,7 @@ let dTable = $('#tblCustomerOverview').dataTable($.extend(true, {}, {
                 //         '                                                                    class="fas fa-search-plus"></i></button>'
                 // }
 
-                // if (auth.can('update')) {
+                if (auth.can('modify_customer')) {
                     c += '<button type="button" onclick="window.location= \'customerShowEdit?id=' + customerID + ' \'     " \n' +
                         '                                                                    class="btn btn-icon text-info btn-sm"\n' +
                         '                                                                    data-toggle="tooltip" data-placement="top"\n' +
@@ -73,7 +77,7 @@ let dTable = $('#tblCustomerOverview').dataTable($.extend(true, {}, {
                         '                                                                    data-original-title=" Edit"><i\n' +
                         '                                                                    class="fas fa-edit"></i>\n' +
                         '                                                        </button>'
-                // }
+                }
 
 
                 return c;
@@ -92,15 +96,17 @@ $('#dTableSearchBox').keyup(function () {
 
 
 
-function getSetStatusButton(isActive, id, name, value) {
+function getSetStatusButton(isActive, id, name, value, disabled = false) {
+
+    let isdisabled = disabled ?  '' : 'disabled';
 
     let c = '' +
         '                                <label class="custom-switch mt-2 custom-switch-no-padding ">';
 
     if (isActive) {
-        c += ' <input type="checkbox" value="' + value + '"  name="' + name + '" id="' + id + '" class="custom-switch-input btnSetCustomerStatus" checked>';
+        c += ` <input ${isdisabled}  type="checkbox" value="${value}"  name="${name}" id="${id}" class="custom-switch-input btnSetCustomerStatus" checked>`;
     } else {
-        c += ' <input type="checkbox" value="' + value + '"  name="' + name + '" id="' + id + '" class="custom-switch-input btnSetCustomerStatus">';
+        c += `<input ${isdisabled} type="checkbox" value="${value}"  name="${name}" id="${id}" class="custom-switch-input btnSetCustomerStatus">`;
     }
 
 

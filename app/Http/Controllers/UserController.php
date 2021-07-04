@@ -198,7 +198,11 @@ class UserController extends Controller
 
         try {
 //            //  $this->authorize('read', Auth::user());
-            $userData = User::find($request->id, ['status', 'first_name']);
+//            $userData = User::find($request->id, ['status', 'first_name'])->with('role')->get();
+
+            $user = User::find($request->id);
+            $role = $user->getRoleNames()->first();
+
 
         } catch (Exception $e) {
 
@@ -214,7 +218,7 @@ class UserController extends Controller
             true,
             '',
             '',
-            $userData
+            ['userdata' => $user,'role' => $role]
         ));
 
     }
@@ -230,7 +234,7 @@ class UserController extends Controller
         $userID = $request->get('id');
 
         $userInfo = User::find($userID);
-        $role = $userInfo->role;
+        $role = $userInfo->roles()->pluck('name')->first();
 
         $logs = Activity::where('causer_id',$userID)->get();
 
@@ -553,21 +557,13 @@ class UserController extends Controller
      */
     public function getAuthData(){
 
-        $authData = array();
+
+        $user = Auth::user();
+
+       $permissions  =  $user->getAllPermissions()->pluck('name');
 
 
-        $permissions = array(
-            [
-//                'create' => ($this->authorize('create', Auth::user()) ? true : false),
-//                'read' => ($this->authorize('read', Auth::user()) ? true : false),
-//                'update' => ($this->authorize('update', Auth::user()) ? true : false),
-//                'delete' => ($this->authorize('delete', Auth::user()) ? true : false),
-            ],
-        );
-
-        $authData['permissions'] = $permissions;
-
-        return \response()->json($authData);
+        return \response()->json($permissions);
 
     }
 

@@ -19,7 +19,7 @@ class CreateProductSalesTable extends Migration
             $table->bigInteger('product_id');
             $table->decimal('price',10,2);
             $table->integer('quantity');
-            $table->integer('total');
+            $table->decimal('total',10,2);
             $table->timestamps();
         });
     }

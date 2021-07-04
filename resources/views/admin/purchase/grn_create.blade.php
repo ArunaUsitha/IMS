@@ -216,18 +216,6 @@
                                        name="mdBuyPrice">
                             </div>
 
-                            <div class="form-group" style="display: none" id="sellPriceDiv">
-                                <label for="mdSellPrice">Sell Price</label>
-                                <input type="text" value="0" class="form-control form-control-sm" id="mdSellPrice"
-                                       name="mdSellPrice">
-                            </div>
-
-                            <div class="form-group" id="profitPercentageDiv">
-                                <label for="mdProfitPercentage">profit percentage</label>
-                                <input type="text" value="0" class="form-control form-control-sm" id="mdProfitPercentage"
-                                       name="mdProfitPercentage">
-                            </div>
-
                             <div class="form-group">
                                 <label for="mdSelectProfitType">Set Profit Type</label>
                                 <select type="text" class="form-control form-control-sm" id="mdSelectProfitType"
@@ -236,6 +224,21 @@
                                     <option value="fixed"> fixed</option>
                                 </select>
                             </div>
+
+
+                            <div class="form-group" id="profitPercentageDiv">
+                                <label for="mdProfitPercentage">profit percentage</label>
+                                <input type="text" value="0" class="form-control form-control-sm" id="mdProfitPercentage"
+                                       name="mdProfitPercentage">
+                            </div>
+
+                            <div class="form-group" style="display: none" id="sellPriceDiv">
+                                <label for="mdSellPrice">Sell Price</label>
+                                <input type="text" value="0" class="form-control form-control-sm" id="mdSellPrice"
+                                       name="mdSellPrice">
+                            </div>
+
+
 
                             <div class="form-group">
                                 <label for="mdWarranty">Warranty</label>

@@ -22,17 +22,13 @@ let dTable =   $('#tblPurchaseOrdersOverview').dataTable( $.extend( true, {},{
                 let c = '';
                 let purchaseOrderId = data['id'];
 
-                // if (auth.can('read')) {
+                if (auth.can('view_purchase_order')) {
                 c += '<button type="button" onclick="window.location= \'showPurchaseOrder?purchaseOrderID='+purchaseOrderId+' \'     "\n' +
                     '                                                                    class="btn btn-icon text-success btn-sm"\n' +
                     '                                                                    data-toggle="tooltip" data-placement="top" title=""\n' +
                     '                                                                    data-original-title="Detailed View"><i\n' +
                     '                                                                    class="fas fa-search-plus"></i></button>'
-                // }
-
-                // if (auth.can('update')) {
-
-                // }
+                }
 
 
                 return c;

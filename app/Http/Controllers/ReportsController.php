@@ -21,10 +21,13 @@ class ReportsController extends Controller
 
     function __construct()
     {
-        $systemDetail = SystemDetail::find(1);
-        $this->companyName = $systemDetail->company_name;
-        $this->companyAddress = $systemDetail->company_address;
-        $this->companyPhone = $systemDetail->company_phone;
+        $company_name = SystemDetail::where('key', 'company_name')->select('value')->first();
+        $company_address = SystemDetail::where('key', 'company_address')->select('value')->first();
+        $company_phone = SystemDetail::where('key', 'company_phone')->select('value')->first();
+
+        $this->companyName = $company_name->value;
+        $this->companyAddress = $company_address->value;
+        $this->companyPhone = $company_phone->value;
     }
 
     public function overview()
@@ -99,8 +102,8 @@ class ReportsController extends Controller
             $sales_data = DB::table('product_sales as ps')
                 ->join('products as p', 'ps.product_id', '=', 'p.id')
                 ->whereBetween(DB::raw('Date(ps.created_at)'), [$fromDate, $toDate])
-                ->groupBy('ps.product_id', 'sold_date')
-                ->select(DB::raw('p.code, p.name, Date(ps.created_at) as sold_date, sum(ps.quantity) as quantity'))
+                ->groupBy('ps.product_id', 'sold_date','ps.total')
+                ->select(DB::raw('p.code, p.name, Date(ps.created_at) as sold_date, sum(ps.quantity) as quantity, ps.total as product_total'))
                 ->get();
 
             $data = array(
@@ -136,7 +139,8 @@ class ReportsController extends Controller
             $supplier_raw_data = DB::table('purchases as p')
                 ->join('purchase_products as pp', 'p.id', '=', 'pp.purchase_id')
                 ->join('products as pd', 'pp.product_id', '=', 'pd.id')
-                ->select(DB::raw('pd.name,pd.code,p.invoice_no,p.sales_rep_name,date(p.created_at) AS Date,pp.product_id,pp.quantity,pp.buy_price,pp.sell_price,pp.warranty_period,pp.total '))
+                ->select(DB::raw("pd.name,pd.code,p.invoice_no,p.sales_rep_name,date(p.created_at) AS Date,pp.product_id,pp.quantity,pp.buy_price,pp.sell_price,pp.warranty_period, SUM( pp.buy_price * pp.quantity) as total "))
+                ->groupBy(['pd.name','pd.code','p.invoice_no','p.sales_rep_name','p.created_at','pp.quantity','pp.buy_price','pp.sell_price','pp.warranty_period'])
                 ->where('p.supplier_id', '=', $supplier_id)
                 ->get();
 

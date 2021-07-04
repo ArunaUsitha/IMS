@@ -27,7 +27,7 @@ $(document).on('click', '#btnCrateNewRole', (function () {
             type: 'post',
             data: {
                 'role_name': $('#role_name').val(),
-                'permissions': $('#frmUpdateRolePermissions').serialize(),
+                'permissions': $('#frmCreateRolePermissions').serialize(),
             },
 
             beforeSend: function () {

@@ -558,6 +558,7 @@ let validator = function (options) {
 
     let resetForm = function () {
 
+        // $(':input', '#' + options.formID).not(':button, :submit, :reset, :hidden').val('').prop('checked', false).prop('selected', false);
         $(':input', '#' + options.formID).not(':button, :submit, :reset, :hidden, :radio').val('').prop('checked', false).prop('selected', false);
 
         check.formStatus = false;

@@ -4,7 +4,6 @@
     Advanced User Overview - {{ $user->first_name }}
 @endsection
 
-
 @section('content')
     <section class="section">
         <div class="section-header">
@@ -59,7 +58,7 @@
                                         <div class="profile-widget-item">
 
                                             <div class="profile-widget-item-label">User Role</div>
-                                            <span class="badge badge-info">{{$role['name']}}</span>
+                                            <span class="badge badge-info">{{$role}}</span>
                                             <div class="profile-widget-item-value"></div>
                                         </div>
 

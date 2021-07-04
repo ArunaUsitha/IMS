@@ -185,7 +185,7 @@
                                            class="custom-switch-input">
 
                                     <span class="custom-switch-indicator"></span>
-                                    <span class="custom-switch-description">Activate/Deactivate User</span>
+                                    <span class="custom-switch-description">Activate/Deactivate Supplier</span>
                                 </label>
                             </div>
 

@@ -8,8 +8,8 @@ let dTable =   $('#tblSupplierHistory').dataTable( $.extend( true, {},{
     },
     columns: [
         {data: ['id']},
-        {data: ['purchase_id']},
-        {data: ['product_id']},
+        {data: ['name']},
+        {data: ['code']},
         {data: ['quantity']},
         {data: ['buy_price']},
         {data: ['sell_price']},

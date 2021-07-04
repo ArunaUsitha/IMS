@@ -1,4 +1,4 @@
-let dTable =   $('#tblSalesOverview').dataTable( $.extend( true, {},{
+let dTable = $('#tblSalesOverview').dataTable($.extend(true, {}, {
     "ajax": {
         "url": "getSales",
         "type": 'get',
@@ -18,12 +18,13 @@ let dTable =   $('#tblSalesOverview').dataTable( $.extend( true, {},{
                 let c = '';
                 let invoice_no = data['invoice_no'];
 
-                // if (auth.can('read')) {
-                c += '<a type="button" target="_blank"  href="viewInvoice?invoice_no=' + invoice_no + '"\n' +
-                    '                                                                    class="btn btn-icon text-success btn-sm"\n' +
-                    '                                                                    data-toggle="tooltip" data-placement="top" title=""\n' +
-                    '                                                                    data-original-title="View invoice"><i\n' +
-                    '                                                                    class="fas fa-search-plus"></i></a>'
+                if (auth.can('sales_overview')) {
+                    c += '<a type="button" target="_blank"  href="viewInvoice?invoice_no=' + invoice_no + '"\n' +
+                        '                                                                    class="btn btn-icon text-success btn-sm"\n' +
+                        '                                                                    data-toggle="tooltip" data-placement="top" title=""\n' +
+                        '                                                                    data-original-title="View invoice"><i\n' +
+                        '                                                                    class="fas fa-search-plus"></i></a>'
+                }
                 return c;
 
 
@@ -31,8 +32,7 @@ let dTable =   $('#tblSalesOverview').dataTable( $.extend( true, {},{
         },
 
     ]
-},DtableDefaultSetting));
-
+}, DtableDefaultSetting));
 
 
 $('#dTableSearchBox').keyup(function () {

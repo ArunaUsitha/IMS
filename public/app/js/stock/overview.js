@@ -8,7 +8,18 @@ let dTable =   $('#tblStocksOverview').dataTable( $.extend( true, {},{
     },
     columns: [
         {data: ['product_id']},
-        {data: ['code']},
+        // {data: ['code']},
+
+        {
+            "data": null,
+            "render": function (data, type, full, meta) {
+
+
+
+                    return '<a href="/product/showProductHistory?id='+  data['id'] +'">' + data['code'] +'</a>';
+
+            }
+        },
         {data: ['custom_code']},
         {data: ['category_name']},
         {data: ['model_no']},
@@ -21,7 +32,6 @@ let dTable =   $('#tblStocksOverview').dataTable( $.extend( true, {},{
                 let stock = data['stock'];
                 let r_quantity = data['reorder_quantity'];
 
-                console.log(stock)
 
                 if (stock < r_quantity) {
                     return '<label class="badge badge-danger">'+stock+'</label>';

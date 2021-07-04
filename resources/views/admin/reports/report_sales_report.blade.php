@@ -28,6 +28,7 @@
                 <th class="text-center">Prodcut Name</th>
                 <th class="text-center">Quantity</th>
                 <th class="text-center">Sold Date</th>
+                <th class="text-center">Total</th>
             </tr>
             @if(count($data['sales_data'])>0)
                 @foreach($data['sales_data'] as $log)
@@ -36,6 +37,7 @@
                         <td class="text-center">{{$log->name}}</td>
                         <td class="text-center">{{$log->quantity}}</td>
                         <td class="text-center">{{$log->sold_date}}</td>
+                        <td class="text-center">{{$log->product_total}}</td>
 
                     </tr>
                 @endforeach

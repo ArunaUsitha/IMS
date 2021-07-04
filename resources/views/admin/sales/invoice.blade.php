@@ -50,7 +50,7 @@
             <tr>
                 <th class="text-center">Product Code</th>
                 <th class="text-center">Product Name</th>
-                <th class="text-center">Warranty</th>
+{{--                <th class="text-center">Warranty</th>--}}
                 <th class="text-center">Price</th>
                 <th class="text-center">Quantity</th>
                 <th class="text-right">Total</th>
@@ -59,7 +59,7 @@
                 <tr>
                     <td class="text-center">{{$sale->code}}</td>
                     <td class="text-left">{{$sale->name}}</td>
-                    <td class="text-center">{{$sale->warranty_period}}</td>
+{{--                    <td class="text-center">{{$sale->warranty_period}}</td>--}}
                     <td>{{$sale->psPrice}}</td>
                     <td class="text-center">{{$sale->psQuantity}}</td>
                     <td>{{$sale->psTotal}}</td>

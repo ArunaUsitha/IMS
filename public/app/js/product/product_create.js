@@ -69,6 +69,7 @@ $('#frmCreateProduct').submit(function (e) {
                 } else {
                     notify.success(data['message']);
                     v.resetForm();
+                    $('#MdChkProdcutStatus').val(1)
                 }
             },
 

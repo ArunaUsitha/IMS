@@ -35,9 +35,9 @@ let dTable = $('#tblProdcutOverview').dataTable($.extend(true, {}, {
 
 
                 if (data['status'] === 1) {
-                    return getSetStatusButton(true, 'setProductStatus', 'setProductStatus', data['id']);
+                    return getSetStatusButton(true, 'setProductStatus', 'setProductStatus', data['id'],auth.can('modify_product'));
                 } else {
-                    return getSetStatusButton(false, 'setProductStatus', 'setProductStatus', data['id']);
+                    return getSetStatusButton(false, 'setProductStatus', 'setProductStatus', data['id'],auth.can('modify_product'));
                 }
 
 
@@ -50,15 +50,15 @@ let dTable = $('#tblProdcutOverview').dataTable($.extend(true, {}, {
                 let c = '';
                 let productID = data['id'];
 
-                // if (auth.can('read')) {
+                if (auth.can('view_products')) {
                 c += '<a target="_blank" href="showProductHistory?id=' + productID + '"\n' +
                     '                                                                    class="btn btn-icon text-success btn-sm"\n' +
                     '                                                                    data-toggle="tooltip" data-placement="top" title=""\n' +
                     '                                                                    data-original-title="Advance View"><i\n' +
                     '                                                                    class="fas fa-search-plus"></i></a>'
-                // }
+                }
 
-                // if (auth.can('update')) {
+                if (auth.can('modify_product')) {
                 c += '<button type="button" value="' + productID + '"\n' +
                     '                                                                    class="btn btn-icon text-info btn-sm btnQuickEdit"\n' +
                     '                                                                    data-toggle="tooltip" data-placement="top"\n' +
@@ -66,7 +66,7 @@ let dTable = $('#tblProdcutOverview').dataTable($.extend(true, {}, {
                     '                                                                    data-original-title="Set Default Price"><i\n' +
                     '                                                                    class="fas fa-dollar-sign"></i>\n' +
                     '                                                        </button>'
-                // }
+                }
 
 
                 return c;
@@ -83,15 +83,17 @@ $('#dTableSearchBox').keyup(function () {
     dTable.api().search($(this).val()).draw();
 });
 
-function getSetStatusButton(isActive, id, name, value) {
+function getSetStatusButton(isActive, id, name, value,disabled = false) {
+
+    let isdisabled = disabled ?  '' : 'disabled';
 
     let c = '' +
         '                                <label class="custom-switch mt-2 custom-switch-no-padding ">';
 
     if (isActive) {
-        c += ' <input type="checkbox" value="' + value + '"  name="' + name + '" id="' + id + '" class="custom-switch-input btnSetProductStatus" checked>';
+        c += ` <input ${isdisabled} type="checkbox" value="${value}"  name="${name}" id="${id}" class="custom-switch-input btnSetProductStatus" checked>`;
     } else {
-        c += ' <input type="checkbox" value="' + value + '"  name="' + name + '" id="' + id + '" class="custom-switch-input btnSetProductStatus">';
+        c += ` <input ${isdisabled} type="checkbox" value="${value}"  name="${name}" id="${id}" class="custom-switch-input btnSetProductStatus">`;
     }
 
 

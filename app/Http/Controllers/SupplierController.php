@@ -265,8 +265,11 @@ class SupplierController extends Controller
 
 
             $suppliers = Supplier::where('name', 'LIKE', '%'.$searchTerm.'%')
-                ->orWhere('id','=','%'.$searchTerm)
-                ->orWhere('company_name','LIKE','%'.$searchTerm.'%')
+                ->where(function ($query)  use ($searchTerm){
+                    $query->where('id','=','%'.$searchTerm)
+                    ->orWhere('company_name','LIKE','%'.$searchTerm.'%');
+                })
+
                 ->where('status', '=', 1)
                 ->where('is_approved', '=', 1)
                 ->get(['id', 'name'])->toJson();
@@ -287,7 +290,13 @@ class SupplierController extends Controller
 
     public function getAllOrderHistories(Request $request){
 
-       $purchaseProducts =  purchaseProducts::all();
+//       $purchaseProducts =  purchaseProducts::all();
+
+        $purchaseProducts = purchaseProducts::select('*')
+           ->join('products','purchase_products.product_id','=','products.id')
+           ->join('purchases','purchase_products.purchase_id','=','purchases.id')
+           ->join('suppliers','purchases.supplier_id','=','suppliers.id')
+           ->get();
 
         activity()->by(Auth::id())->log('Viewed the supplier order history');
         return response()->json(self::getJSONResponse(

@@ -59,6 +59,8 @@ class RolePermissionSeeder extends Seeder
             'modify_customer',
             'manage_warranties',
             'role_management',
+            'sales_overview',
+            'create_sales_quotation',
         ];
 
 

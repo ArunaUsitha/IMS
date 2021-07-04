@@ -365,11 +365,14 @@ class salesController extends Controller
                 ->join('product_sales', 'sales.id', '=', 'product_sales.sales_id')
                 ->join('customers', 'sales.customer_id', '=', 'customers.id')
                 ->join('products', 'product_sales.product_id', '=', 'products.id')
-                ->join('purchase_products', 'products.id', '=', 'purchase_products.product_id')
+//                ->join('purchase_products', 'products.id', '=', 'purchase_products.product_id')
                 ->where('sales.id', '=', $salesID)
-                ->select('*', DB::raw('product_sales.price as psPrice, product_sales.quantity as psQuantity, product_sales.total as psTotal'))
+                ->select( DB::raw('products.code,  products.name, product_sales.price as psPrice, product_sales.quantity as psQuantity, product_sales.total as psTotal'))
+//                ->groupBy('products.code')
                 ->get();
 
+
+//            dd($salesInfo);
 
             $data = array(
                 'header_details' => array(
@@ -579,7 +582,7 @@ class salesController extends Controller
             ->join('product_sales', 'sales.id', '=', 'product_sales.sales_id')
             ->join('customers', 'sales.customer_id', '=', 'customers.id')
             ->join('products', 'product_sales.product_id', '=', 'products.id')
-            ->join('purchase_products', 'products.id', '=', 'purchase_products.product_id')
+//            ->join('purchase_products', 'products.id', '=', 'purchase_products.product_id')
             ->where('sales.invoice_no', '=', $invoice_no)
             ->select('*', DB::raw('product_sales.price as psPrice, product_sales.quantity as psQuantity, product_sales.total as psTotal'))
             ->get();

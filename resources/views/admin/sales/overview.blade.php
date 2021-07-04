@@ -1,7 +1,7 @@
 @extends('layouts.admin-master')
 
 @section('title')
-    Customer Overview
+    Sales Overview
 @endsection
 {{--load js--}}
 @section('js')

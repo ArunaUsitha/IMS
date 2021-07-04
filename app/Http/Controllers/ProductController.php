@@ -343,13 +343,15 @@ class ProductController extends Controller
                 ->join('stocks', 'products.id', '=', 'stocks.product_id')
                 ->join('product_categories', 'products.product_category_id', '=', 'product_categories.id')
                 ->where('products.status', '=', 1)
-                ->where(function ($query) use ($searchTerm) {
-                    $query->where('stocks.stock', '>', 0)
-//                        ->orWhere('products.code', '=', $searchTerm)
-//                        ->orWhere('products.custom_code', '=', $searchTerm)
-//                        ->orWhere('products.name', 'LIKE', '%' . $searchTerm)
-                        ->orWhere('product_categories.name', 'LIKE', '%' . $searchTerm);
-                })->get(['products.id', 'products.name'])->toJson();
+                ->Where('product_categories.name', 'LIKE', '%' . $searchTerm.'%')
+//                ->where(function ($query) use ($searchTerm) {
+//                    $query->where('stocks.stock', '>', 0)
+////                        ->orWhere('products.code', '=', $searchTerm)
+////                        ->orWhere('products.custom_code', '=', $searchTerm)
+////                        ->orWhere('products.name', 'LIKE', '%' . $searchTerm)
+//                        ->orWhere('product_categories.name', 'LIKE', '%' . $searchTerm);
+//                })
+                ->get(['products.id', 'products.name'])->toJson();
 
             return response()->json(array('results' => $products));
         }
@@ -440,8 +442,10 @@ class ProductController extends Controller
             ->where('products.id', '=', $product_id)
             ->join('product_categories', 'products.product_category_id', '=', 'product_categories.id')
             ->join('brands', 'products.brand_id', '=', 'brands.id')
-            ->join('stocks', 'products.id', '=', 'stocks.product_id')
+            ->Leftjoin('stocks', 'products.id', '=', 'stocks.product_id')
             ->first();
+
+//        dd($product_info);
 
         $product_purchase_history = Purchase::select(DB::raw('*, purchases.created_at as stocked_on'))
             ->join('purchase_products', 'purchases.id', '=', 'purchase_products.purchase_id')

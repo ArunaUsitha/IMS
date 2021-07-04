@@ -81,7 +81,7 @@
                             <li><a class="nav-link" href="{{Route('supplier.create')}}">New Supplier</a></li>
                         @endcan
                         @can('stock_assignment')
-                            <li><a class="nav-link" href="{{Route('supplier.assignItems')}}">Assign Items</a></li>
+{{--                            <li><a class="nav-link" href="{{Route('supplier.assignItems')}}">Assign Items</a></li>--}}
                         @endcan
                         @can('view_order_history')
                             <li><a class="nav-link" href="{{Route('supplier.viewOrderHistory')}}">View order history</a>
@@ -103,11 +103,11 @@
                         @can('add_product')
                             <li><a class="nav-link" href="{{Route('product.create')}}">Add New Product</a></li>
                         @endcan
-                        @canany('manage_warranties')
-                            <li><a class="nav-link" href="{{Route('product.warrantyManagementOverview')}}">Manage
-                                    Warranties</a>
-                            </li>
-                        @endcan
+{{--                        @canany('manage_warranties')--}}
+{{--                            <li><a class="nav-link" href="{{Route('product.warrantyManagementOverview')}}">Manage--}}
+{{--                                    Warranties</a>--}}
+{{--                            </li>--}}
+{{--                        @endcan--}}
                     </ul>
                 </li>
             @endcanany

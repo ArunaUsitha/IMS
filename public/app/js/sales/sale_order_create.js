@@ -115,7 +115,14 @@ let salesOrder = {
         $.each(this.productsInfo, function (k, v) {
             salesOrder.total += parseFloat(v.total);
         });
-        $('#fullTotal').val(salesOrder.total);
+
+        let salesOrderTotal = salesOrder.total;
+        // let totalPercentage = (salesOrderTotal / 100) * 30
+
+        // console.log(salesOrderTotal)
+
+        // console.log(totalPercentage)
+        $('#fullTotal').val(salesOrderTotal);
     },
     getAllData: function () {
         return {
@@ -252,6 +259,7 @@ let productInfoHandler = {
     clear: function () {
         this.tbodyProducts.empty();
         $('#fullTotal').val(0)
+
     },
 
     setButtonStatus: function (option) {

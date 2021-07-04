@@ -98,6 +98,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+{{--                                                @isset($product_purchase_history)--}}
                                                     @foreach($product_purchase_history as $purchase)
 {{--                                                        {{dd($purchase)}}--}}
                                                     <tr>
@@ -111,6 +112,7 @@
                                                         <td>{{$purchase->warranty_period}}</td>
                                                     </tr>
                                                     @endforeach
+{{--                                                @endisset--}}
                                                 </tbody>
                                             </table>
                                         </div>
@@ -133,17 +135,17 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                @foreach($product_sales_history as $purchase)
-                                                    {{--                                                        {{dd($purchase)}}--}}
-                                                    <tr>
-                                                        <td>{{$purchase->invoice_no}}</td>
-                                                        <td>{{$purchase->initials .' '. $purchase->first_name .' ' . $purchase->last_name}}</td>
-                                                        <td>{{$purchase->amount}}</td>
-                                                        <td>{{$purchase->sold_on}}</td>
-                                                        <td>{{$purchase->quantity}}</td>
-                                                        <td>{{$purchase->price}}</td>
-                                                    </tr>
-                                                @endforeach
+{{--                                                @foreach($product_sales_history as $purchase)--}}
+{{--                                                    --}}{{--                                                        {{dd($purchase)}}--}}
+{{--                                                    <tr>--}}
+{{--                                                        <td>{{$purchase->invoice_no}}</td>--}}
+{{--                                                        <td>{{$purchase->initials .' '. $purchase->first_name .' ' . $purchase->last_name}}</td>--}}
+{{--                                                        <td>{{$purchase->amount}}</td>--}}
+{{--                                                        <td>{{$purchase->sold_on}}</td>--}}
+{{--                                                        <td>{{$purchase->quantity}}</td>--}}
+{{--                                                        <td>{{$purchase->price}}</td>--}}
+{{--                                                    </tr>--}}
+{{--                                                @endforeach--}}
                                                 </tbody>
                                             </table>
                                         </div>
